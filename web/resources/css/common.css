@@ -48,6 +48,13 @@
         justify-content: center;
         background-color: #fff;
     }
+    .contentWrap {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        background-color:transparent;
+        padding:58px 70px;
+    }
     .innerWrap{
         width: 940px;
         background-color: #fff;
