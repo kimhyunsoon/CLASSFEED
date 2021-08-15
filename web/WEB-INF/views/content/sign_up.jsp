@@ -25,7 +25,7 @@
 
             <img src="../img/classfeedLogo.png" class="logo">
         </div>
-        <form action="sign_up.do" method="post" class="signUpForm">
+        <form class="signUpForm" onSubmit="return false;">
             <div class="stepWrap stepWrap1" style="margin-top:15px;">
                 <p>회원종류를 선택해주세요.</p>
                 <div class="memCheckWrap">
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="inpWrap">
-                    <input type="text" class="inp formData" name="school" placeholder="기관명(학교 및 학원 등)" id="schoolInp">
+                    <input type="text" class="inp formData" name="agency" placeholder="기관명(학교 및 학원 등)" id="schoolInp">
                     <div class="inpBar"></div>
                 </div>
 
@@ -93,7 +93,7 @@
                 <div class="br"></div>
 
                 <div class="inpWrap">
-                    <input type="password" class="inp formData" name="password" id="passwordInp" placeholder="비밀번호">
+                    <input type="password" class="inp formData" name="pwd" id="passwordInp" placeholder="비밀번호">
                     <div class="inpBar"></div>
                 </div>
                 <div class="inpWrap">
@@ -102,7 +102,7 @@
                 </div>
                 <p class="passwordMsg signMsg">비밀번호가 일치하지 않습니다.</p>
 
-                <button type="submit" value="student" class="actionBtn" id="completeBtn">가입완료</button>
+                <button class="actionBtn" id="completeBtn">가입완료</button>
                 <p class="otherBtn prevBtn">이전</p>
             </div>
         </form>

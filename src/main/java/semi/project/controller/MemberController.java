@@ -81,8 +81,9 @@ public class MemberController {
         return msg;
     }
 
-    @RequestMapping("signUp")
-    public void signUp(
+    @RequestMapping(value = "signUp", method = RequestMethod.POST)
+    @ResponseBody
+    public String signUp(
             @RequestParam("type") String type,
             @RequestParam("name") String name,
             @RequestParam("agency") String agency,
@@ -95,6 +96,7 @@ public class MemberController {
         if(type.equals("teacher")){
             log.info("teacher ok");
         }
+        return "OK";
     }
 
 
