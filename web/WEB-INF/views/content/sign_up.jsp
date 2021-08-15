@@ -163,18 +163,20 @@ $(document).on('keyup', '#idInp', function(){
 //아이디중복검사
 $(document).on('click','.idCheckSend', function(){
     var thisId = $('#idInp').val();
+    console.log(thisId)
     $.ajax({ 
-		url: "../member/checkEmail",
-		dataType: "json", 
-		type: "post", 
-		async: false, 
+		url: "../member/checkId",
+		type: "post",
+        data: {id:thisId},
+		async: false,
 		success: function(data) {
-            if(data=""){
+		    console.log(data);
+            if(data=="noId"){
                 alert("사용가능한 아이디입니다.")
                 $('#idInp').prop('readonly', true)
                 $('.idCheckSend').removeClass('on')
                 $('#idCheck').val('1')
-            }else {
+            }else if(data=="yesId"){
                 alert("중복된 아이디입니다.")
                 $('#idInp').val('')
                 $('#idInp').prop('readonly', false)
@@ -224,12 +226,13 @@ $(document).on('click', '.emailNumSend', function(){
 		async: false,
         data: {email:$('#emailInp').val()},
 		success: function(data) {
-            if(data="noEmail"){
+		    console.log(data);
+            if(data=="noEmail"){
                 alert('CLASSFEED는 포트폴리오 샘플사이트로서, \n외부 메일링 서비스에 가입되지 않았습니다.\n\n기능 체험을 원하시면 인증번호 1234를 입력해주세요.');
                 $('.emailNumSend').removeClass('on')
                 $('#emailInp').prop('readonly',true)
                 $('.checkNumWrap').slideDown();
-            }else {
+            }else if(data=="yesEmail"){
                 alert("중복된 이메일입니다.")
                 $('#emailInp').val('')
                 $('.emailNumSend').removeClass('on')
@@ -347,6 +350,7 @@ $(document).on('click', '#completeBtn', function(){
     for(i=0; i<$('.formData').length; i++){
         data[$('.formData').eq(i).attr('name')] = $('.formData').eq(i).val()
     }
+    alert('완료')
 
     return false;
 })

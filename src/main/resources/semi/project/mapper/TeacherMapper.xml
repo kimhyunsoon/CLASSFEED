@@ -12,8 +12,8 @@
 		select tid from teacher where tid = #{tid}
 	</select>
 
-	<select id="temail" resultType="String" parameterType="String">
-		select temail from teacher where tid = #{temail}
+	<select id="temailck" resultType="String" parameterType="String">
+		select temail from teacher where temail = #{temail}
 	</select>
 	
 	<insert id="tinsert" parameterType="TeacherVo">

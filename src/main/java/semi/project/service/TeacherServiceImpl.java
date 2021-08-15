@@ -36,7 +36,9 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public String temailckS(String temail) {
+		log.info("여기까진 오니???");
 		String tEmail = teacherMapper.temailck(temail);
+		log.info(tEmail);
 		if(tEmail==null){
 			return "noEmail";
 		}else{
@@ -44,6 +46,16 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 	}
 
+	@Override
+	public String tidckS2(String tid) {
+		String tId = teacherMapper.tidck(tid);
+		log.info(tId);
+		if(tId==null){
+			return "noId";
+		}else{
+			return "yesId";
+		}
+	}
 
 
 }

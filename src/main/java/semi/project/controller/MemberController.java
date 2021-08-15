@@ -21,9 +21,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("member")
 @AllArgsConstructor
 public class MemberController {
-    TeacherService teacherService;
-    StudentService studentService;
-    SubjectService subjectService;
+    private TeacherService teacherService;
+    private StudentService studentService;
+    private SubjectService subjectService;
 
 
     @PostMapping("login.do")
@@ -58,14 +58,35 @@ public class MemberController {
     @RequestMapping(value = "checkEmail", method = RequestMethod.POST)
     @ResponseBody
     public String checkEmail(String email){
-        log.info(email);
+        log.info("email is"+email);
 
         String msg = teacherService.temailckS(email);
-        if(msg.equals("noEmail")){
-            return msg;
-        }
-        return null;
+        log.info("msg: "+msg);
+        return msg;
     }
+
+    @RequestMapping(value = "checkId", method = RequestMethod.POST)
+    @ResponseBody
+    public String checkId(String id){
+        log.info("id is"+id);
+
+        String msg = teacherService.tidckS2(id);
+        log.info("msg: "+msg);
+        return msg;
+    }
+
+    @RequestMapping("signUp")
+    public void signUp(
+            @RequestParam("nameInp") String nameInp,
+            @RequestParam("schoolInp") String schoolInp,
+            @RequestParam("idInp") String idInp,
+            @RequestParam("emailInp") String emailInp,
+            @RequestParam("passwordInp") String passwordInp,
+            @RequestParam("phoneCheck") String phoneCheck
+    ){
+        log.info("nameInp"+nameInp);
+    }
+
 
 
     @PostMapping("sign_up.do")
