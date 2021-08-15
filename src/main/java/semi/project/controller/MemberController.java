@@ -16,6 +16,10 @@ import semi.project.service.TeacherService;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+/**
+ * 회원가입 & 로그인 컨트롤러
+ * */
 @Log4j
 @Controller
 @RequestMapping("member")
@@ -117,8 +121,4 @@ public class MemberController {
         }
         return "OK";
     }
-
-
-
-
 }

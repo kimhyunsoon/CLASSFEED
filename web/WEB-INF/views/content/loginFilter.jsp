@@ -5,7 +5,7 @@
     var msg = "${msg}";
     if(msg== "success"){
         alert("로그인되었습니다.")
-        location.href="list.do";
+        location.href="../main/list.do";
     }else {
         alert("아이디 또는 비밀번호가 일치하지 않습니다. 다시 확인하신 후 입력해주세요.");
         history.back();
