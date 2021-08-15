@@ -67,24 +67,34 @@ public class MemberController {
 
     @RequestMapping(value = "checkId", method = RequestMethod.POST)
     @ResponseBody
-    public String checkId(String id){
+    public String checkId(
+                @RequestParam("id") String id,
+                @RequestParam("type") String type
+    ){
         log.info("id is"+id);
-
-        String msg = teacherService.tidckS2(id);
-        log.info("msg: "+msg);
+        String msg=null;
+        if(type.equals("teacher")){
+            msg = teacherService.tidckS2(id);
+        }else if(type.equals("student")){
+            msg = studentService.sidckS2(id);
+        }
         return msg;
     }
 
     @RequestMapping("signUp")
     public void signUp(
-            @RequestParam("nameInp") String nameInp,
-            @RequestParam("schoolInp") String schoolInp,
-            @RequestParam("idInp") String idInp,
-            @RequestParam("emailInp") String emailInp,
-            @RequestParam("passwordInp") String passwordInp,
-            @RequestParam("phoneCheck") String phoneCheck
+            @RequestParam("type") String type,
+            @RequestParam("name") String name,
+            @RequestParam("agency") String agency,
+            @RequestParam("id") String id,
+            @RequestParam("email") String email,
+            @RequestParam("pwd") String pwd,
+            @RequestParam("phone") String phone
     ){
-        log.info("nameInp"+nameInp);
+        log.info("name is"+name);
+        if(type.equals("teacher")){
+            log.info("teacher ok");
+        }
     }
 
 
