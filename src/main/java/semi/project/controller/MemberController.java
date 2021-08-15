@@ -57,11 +57,16 @@ public class MemberController {
 
     @RequestMapping(value = "checkEmail", method = RequestMethod.POST)
     @ResponseBody
-    public String checkEmail(String email){
+    public String checkEmail(
+            @RequestParam("email") String email,
+            @RequestParam("type") String type){
         log.info("email is"+email);
-
-        String msg = teacherService.temailckS(email);
-        log.info("msg: "+msg);
+        String msg = null;
+        if(type.equals("teacher")){
+            msg = teacherService.temailckS(email);
+        }else if(type.equals("student")){
+            msg = studentService.semailckS(email);
+        }
         return msg;
     }
 
@@ -97,6 +102,9 @@ public class MemberController {
             TeacherVo teacherVo = new TeacherVo(id, pwd, name, phone, email, agency, null);
             teacherService.tinsertS(teacherVo);
 
+        }else if(type.equals("student")){
+            StudentVo studentVo = new StudentVo(id,name,phone,pwd,email,0,null);
+            studentService.sinsertS(studentVo);
         }
         return "OK";
     }

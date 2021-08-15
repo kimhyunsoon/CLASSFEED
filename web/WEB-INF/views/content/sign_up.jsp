@@ -115,9 +115,9 @@
 //회원종류 선택
 $(document).on('click', '.memCheck' ,function(){
     if($(this).data('val') == 'student'){
-        $('#schoolInp').hide();
+        $('#schoolInp').closest('.inpWrap').hide();
     }else {
-        $('#schoolInp').show();
+        $('#schoolInp').closest('.inpWrap').show();
 
     }
     $('.memCheck').removeClass('on')
@@ -372,7 +372,7 @@ $(document).on('click', '#completeBtn', function(){
 		success: function(data) {
 		    if(data == 'OK'){
                 alert('회원가입이 완료되었습니다. \n가입하신 정보로 로그인해주세요.')
-                location.href('/')
+                location.href= '/';
             }
 		}
     })
