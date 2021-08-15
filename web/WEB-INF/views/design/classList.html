@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLASSFEED | 클래스</title>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
@@ -55,16 +55,6 @@
         </a>
 
         <a href="" class="sideNavLink toolTipWrap">
-            <i class="fas fa-edit" style="margin-right: -4px;"></i>
-            <p class="toolTipBot">과제</p>
-        </a>
-
-        <a href="" class="sideNavLink toolTipWrap">
-            <i class="fas fa-folder-open"></i>
-            <p class="toolTipBot">자료보관함</p>
-        </a>
-
-        <a href="" class="sideNavLink toolTipWrap">
             <i class="fas fa-archive"></i>
             <p class="toolTipBot">수업보관함</p>
         </a>
@@ -77,14 +67,6 @@
         <a href="" class="mainLink on">
             <i class="fas fa-chalkboard-teacher"></i>
             <p>클래스</p>
-        </a>
-        <a href="" class="mainLink">
-            <i class="fas fa-edit"></i>
-            <p>과제</p>
-        </a>
-        <a href="" class="mainLink">
-            <i class="fas fa-folder-open"></i>
-            <p>자료보관함</p>
         </a>
         <a href="" class="mainLink">
             <i class="fas fa-archive"></i>
@@ -286,8 +268,59 @@
         </div>
     </div>
 
+
+    <div class="contentWrap">
+        <div class="contentInnerWrap">
+            <div class="classCardWrap">
+                <div class="classCard">
+                    <div class="cardTop">
+                        <div class="titleWrap">
+                            <a href="" class="title">1학년 1반 1학년 1반 1학년 1반</a>
+                            <button class="moreBtn">
+                                <i class="fas fa-ellipsis-v"></i>
+                                
+                            </button>
+                            <div class="moreWrap">
+                                <a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
+                                <a href="javascript:void(0)" class="editClass" data-class="">수정</a>
+                                <a href="javascript:void(0)" class="deleteClass" data-class="">삭제</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="teacherTag">김현순 선생님</div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
+    //클래스카드 모어버튼
+    $(document).on('click', '.cardTop .moreBtn', function(){
+        $(this).siblings('.moreWrap').toggleClass('on')
+    })
+
+    // 색상랜더무요....
+    function randomNum(min, max){ 
+        var randNum = Math.floor(Math.random()*(max-min+1)) + min; return randNum;
+    }
+
+    var colors = ['#F23830','#E51056','#9114A3','#5B2AA8','#3843A9','#2088ED', '#0C9DEF', '#07B3CD','#038C7D', '#43A84D','#80BE4B','#FF8E1F','#FF4B23','#6E4B40','#56717F'];
+
+
+    //색상랜덤... 삭제예정.....
+    $(function(){
+        for(i=0; i<$('.classCard').length; i++){
+            var thisColor = colors[randomNum(0, colors.length-1)];
+            
+            $('.classCard').eq(i).find('.cardTop').css({
+                'background-color':thisColor
+            })
+        }
+    })
     
 </script>
 </html>
