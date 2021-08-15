@@ -27,7 +27,7 @@
 
 			<img src="img/classfeedLogo.png" class="logo">
 		</div>
-		<form action="member/login.do" method="post" class="loginForm">
+		<form action="class/list.do" method="post" class="loginForm">
 			<div class="inpWrap">
 				<input type="text" name = "id" class="inp" placeholder="이메일">
 				<div class="inpBar"></div>
