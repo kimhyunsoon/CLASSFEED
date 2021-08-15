@@ -13,11 +13,12 @@ import semi.project.service.StudentService;
 import semi.project.service.SubjectService;
 import semi.project.service.TeacherService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Log4j
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping("member")
 @AllArgsConstructor
 public class MemberController {
     TeacherService teacherService;
@@ -25,7 +26,7 @@ public class MemberController {
     SubjectService subjectService;
 
 
-    @PostMapping("/login.do")
+    @PostMapping("login.do")
     public ModelAndView logins(String id, String pwd, HttpSession session) {
         TeacherVo tinformation = teacherService.tloginS(id, pwd);
         StudentVo sinformation = studentService.sloginS(id, pwd);
@@ -48,16 +49,18 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/sign_up.do")
+    @GetMapping("sign_up.do")
     public String login() {
         return "content/sign_up";
     }
 
+
+    @RequestMapping(value = "checkEmail", method = RequestMethod.POST)
     @ResponseBody
-    @PostMapping(value = "chartData", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
     public String checkEmail(String email){
+        log.info(email);
+
         String msg = teacherService.temailckS(email);
-        log.info(msg);
         if(msg.equals("noEmail")){
             return msg;
         }
@@ -65,7 +68,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/sign_up.do")
+    @PostMapping("sign_up.do")
     public String sign_up(StudentVo studentVo, TeacherVo teacherVo, @RequestParam("jobck") String job) {
         System.out.println("ㅎㅇ "+job);
         if(job.equals("teacher")) {

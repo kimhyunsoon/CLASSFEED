@@ -164,7 +164,7 @@ $(document).on('keyup', '#idInp', function(){
 $(document).on('click','.idCheckSend', function(){
     var thisId = $('#idInp').val();
     $.ajax({ 
-		url: "",
+		url: "../member/checkEmail",
 		dataType: "json", 
 		type: "post", 
 		async: false, 
@@ -219,12 +219,12 @@ $(document).on('keyup', '#emailInp' ,function(){
 //이메일 인증번호 발송 클릭
 $(document).on('click', '.emailNumSend', function(){
     $.ajax({ 
-		url: "",
-		dataType: "json", 
-		type: "post", 
-		async: false, 
+		url: "../member/checkEmail",
+		type: "post",
+		async: false,
+        data: {email:$('#emailInp').val()},
 		success: function(data) {
-            if(data=""){
+            if(data="noEmail"){
                 alert('CLASSFEED는 포트폴리오 샘플사이트로서, \n외부 메일링 서비스에 가입되지 않았습니다.\n\n기능 체험을 원하시면 인증번호 1234를 입력해주세요.');
                 $('.emailNumSend').removeClass('on')
                 $('#emailInp').prop('readonly',true)
