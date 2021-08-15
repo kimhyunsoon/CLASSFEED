@@ -18,9 +18,25 @@ public class StudentServiceImpl implements StudentService {
 	private StudentMapper studentMapper;
 	
 	@Override
-	public StudentVo sloginS(String sid, String spwd) {
+	public String sloginS(String sid, String spwd) {
+		log.info("#servicesid"+sid);
+		log.info("#servicespwd"+spwd); //클라이언트에서 받아온 정보
 		StudentVo studentVo = studentMapper.slogin(sid, spwd);
-		return studentVo;
+		if(studentVo!= null){
+			String checkSid = studentVo.getSid();
+			String checkSpwd = studentVo.getSpwd(); //select를 해서 받아온 정보
+			log.info("#checksId"+checkSid);
+			log.info("#checksPwd"+checkSpwd);
+			if(sid.equals(checkSid) && spwd.equals(checkSpwd)){
+				return "success";
+			}else{
+				return "fail";
+			}
+		}else {
+			return "fail";
+
+		}
+
 	}
 
 	@Override

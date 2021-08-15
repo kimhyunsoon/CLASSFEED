@@ -18,9 +18,26 @@ public class TeacherServiceImpl implements TeacherService {
 	private TeacherMapper teacherMapper;
 	
 	@Override
-	public TeacherVo tloginS(String tid, String tpwd) {
+	public String tloginS(String tid, String tpwd) {
+		log.info("#servicetid"+tid);
+		log.info("#servicepwd"+tpwd); //클라이언트에서 받아온 정보
 		TeacherVo teacherVo = teacherMapper.tlogin(tid, tpwd);
-		return teacherVo;
+		if(teacherVo!=null){
+			String checkId = teacherVo.getTid();
+			String checkPwd = teacherVo.getTpwd(); //select를 해서 받아온 정보
+			log.info("#checkId"+checkId);
+			log.info("#checkPwd"+checkPwd);
+			log.info(checkId);
+			if(tid.equals(checkId) && tpwd.equals(checkPwd)){
+				return "success";
+			}else{
+				return "fail";
+			}
+		}else {
+			return "fail";
+
+		}
+
 	}
 
 	@Override

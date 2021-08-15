@@ -28,24 +28,33 @@ public class MemberController {
 
     @PostMapping("login.do")
     public ModelAndView logins(String id, String pwd, HttpSession session) {
-        TeacherVo tinformation = teacherService.tloginS(id, pwd);
-        StudentVo sinformation = studentService.sloginS(id, pwd);
+        String msg = null;
 
-        if (tinformation != null) { // 선생 정보 있음
-            System.out.println("tinformation:"+tinformation);
-            ModelAndView modelAndView = new ModelAndView("test/main","tinformation",tinformation);
+        //선생님 검사
+        msg = teacherService.tloginS(id, pwd);
+        log.info("선생 : "+msg);
+
+        if(msg.equals("success")){
+            String tid = teacherService.tidckS(id);
+            log.info("#tid"+tid);
             //session.invalidate();
-            session.setAttribute("tid", id);
+            session.setAttribute("tid", tid);
+            ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
             return modelAndView;
-        }else if(sinformation != null) { // 학생 정보 잇음
-            ModelAndView modelAndView = new ModelAndView("test/main","sinformation",sinformation);
-            //session.invalidate();
-            session.setAttribute("sid", id);
-            return modelAndView;
-        }else {
-            System.out.println("둘다 없음");
-            ModelAndView modelAndView = new ModelAndView("/");
-            return modelAndView;
+        }else{
+            msg = studentService.sloginS(id, pwd);
+            log.info("학생 : "+msg);
+            if(msg.equals("success")){
+                String sid = studentService.sidckS(id);
+                log.info("#sid"+sid);
+                //session.invalidate();
+                session.setAttribute("sid", sid);
+                ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
+                return modelAndView;
+            }else{
+                ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
+                return modelAndView;
+            }
         }
     }
 
@@ -109,20 +118,6 @@ public class MemberController {
         return "OK";
     }
 
-
-
-    @PostMapping("sign_up.do")
-    public String sign_up(StudentVo studentVo, TeacherVo teacherVo, @RequestParam("jobck") String job) {
-        System.out.println("ㅎㅇ "+job);
-        if(job.equals("teacher")) {
-            teacherService.tinsertS(teacherVo);
-            return "redirect:/";
-        }else if(job.equals("student")) {
-            studentService.sinsertS(studentVo);
-            return "redirect:/";
-        }
-        return "redirect:/";
-    }
 
 
 
