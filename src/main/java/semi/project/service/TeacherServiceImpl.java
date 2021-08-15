@@ -31,6 +31,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public void tinsertS(TeacherVo teacherVo) {
+		log.info("check this");
 		teacherMapper.tinsert(teacherVo);
 	}
 
