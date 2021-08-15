@@ -11,9 +11,15 @@
 	<select id="tidck" resultType="String" parameterType="String">
 		select tid from teacher where tid = #{tid}
 	</select>
+
+	<select id="temail" resultType="String" parameterType="String">
+		select temail from teacher where tid = #{temail}
+	</select>
 	
 	<insert id="tinsert" parameterType="TeacherVo">
 		insert into teacher values(#{tid}, #{tpwd}, #{tname}, #{tphonenumber},#{temail}, #{tagency}, SYSDATE)
 	</insert>
+
+
 	
 </mapper>

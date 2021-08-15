@@ -2,6 +2,8 @@ package semi.project.service;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,10 @@ import semi.project.domain.TeacherVo;
 import semi.project.mapper.TeacherMapper;
 
 @Service
+@Log4j
+@AllArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
-	@Autowired
+
 	private TeacherMapper teacherMapper;
 	
 	@Override
@@ -29,5 +33,17 @@ public class TeacherServiceImpl implements TeacherService {
 	public void tinsertS(TeacherVo teacherVo) {
 		teacherMapper.tinsert(teacherVo);
 	}
+
+	@Override
+	public String temailckS(String temail) {
+		String tEmail = teacherMapper.temailck(temail);
+		if(tEmail==null){
+			return "noEmail";
+		}else{
+			return "yesEmail";
+		}
+	}
+
+
 
 }

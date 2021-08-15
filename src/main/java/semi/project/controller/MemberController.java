@@ -3,11 +3,9 @@ package semi.project.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import semi.project.domain.StudentVo;
 import semi.project.domain.TeacherVo;
@@ -54,6 +52,18 @@ public class MemberController {
     public String login() {
         return "content/sign_up";
     }
+
+    @ResponseBody
+    @PostMapping(value = "chartData", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public String checkEmail(String email){
+        String msg = teacherService.temailckS(email);
+        log.info(msg);
+        if(msg.equals("noEmail")){
+            return msg;
+        }
+        return null;
+    }
+
 
     @PostMapping("/sign_up.do")
     public String sign_up(StudentVo studentVo, TeacherVo teacherVo, @RequestParam("jobck") String job) {
