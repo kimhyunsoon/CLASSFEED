@@ -15,7 +15,6 @@
 	<link rel="stylesheet" href="css/common.css">
 	<link rel="stylesheet" href="css/sign.css">
 	<script src="js/common.js"></script>
-	<script src="js/sign.js"></script>
 </head>
 <style>
 
