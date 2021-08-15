@@ -29,7 +29,7 @@
             <div class="stepWrap stepWrap1" style="margin-top:15px;">
                 <p>회원종류를 선택해주세요.</p>
                 <div class="memCheckWrap">
-                    <input type="hidden" class="formData" name="type">
+                    <input type="hidden" class="formData" name="type" id="memberType">
                     <label class="memCheck" data-val="teacher">
                         <i class="fas fa-chalkboard-teacher"></i>
                         <p><i class="fas fa-check"></i>선생님</p>
@@ -114,6 +114,12 @@
 
 //회원종류 선택
 $(document).on('click', '.memCheck' ,function(){
+    if($(this).data('val') == 'student'){
+        $('#schoolInp').hide();
+    }else {
+        $('#schoolInp').show();
+
+    }
     $('.memCheck').removeClass('on')
     $(this).addClass('on')
     $('.nextBtn').removeClass('off')
@@ -167,7 +173,10 @@ $(document).on('click','.idCheckSend', function(){
     $.ajax({ 
 		url: "../member/checkId",
 		type: "post",
-        data: {id:thisId},
+        data: {
+            id:thisId,
+            type:$('#memberType').val()
+        },
 		async: false,
 		success: function(data) {
 		    console.log(data);
@@ -224,7 +233,10 @@ $(document).on('click', '.emailNumSend', function(){
 		url: "../member/checkEmail",
 		type: "post",
 		async: false,
-        data: {email:$('#emailInp').val()},
+        data: {
+            email:$('#emailInp').val(),
+            type:$('#memberType').val(),
+        },
 		success: function(data) {
 		    console.log(data);
             if(data=="noEmail"){
@@ -249,6 +261,7 @@ $(document).on('keyup', '#numCheckInp' ,function(){
         $('.emailNumCheck').addClass('on')
     }
 })
+
 //이메일 인증번호 확인 클릭
 $(document).on('click', '.emailNumCheck', function(){
     if($('#numCheckInp').val() == '1234'){
@@ -307,13 +320,13 @@ $(document).on('click', '#completeBtn', function(){
         $('#nameInp').focus();
         return false;
     }
-
-    if(!$('#schoolInp').val()){
-        alert('기관명을 입력해주세요.')
-        $('#schoolInp').focus();
-        return false;
+    if($('.formData[name="type"]').val() == 'teacher'){
+        if(!$('#schoolInp').val()){
+            alert('기관명을 입력해주세요.')
+            $('#schoolInp').focus();
+            return false;
+        }
     }
-
     if(!$('#idInp').val()){
         alert('아이디를 입력해주세요.')
         $('#idInp').focus();
@@ -346,13 +359,20 @@ $(document).on('click', '#completeBtn', function(){
         return false;
     }
     
-    var data = {};
+    var memberData = {};
     for(i=0; i<$('.formData').length; i++){
-        data[$('.formData').eq(i).attr('name')] = $('.formData').eq(i).val()
+        memberData[$('.formData').eq(i).attr('name')] = $('.formData').eq(i).val()
     }
-    alert('완료')
 
-    return false;
+    $.ajax({ 
+		url: "../member/signUp",
+		type: "post",
+        data: memberData,
+		async: false,
+		success: function(data) {
+		    alert(data);
+		}
+    })
 })
 
 </script>
