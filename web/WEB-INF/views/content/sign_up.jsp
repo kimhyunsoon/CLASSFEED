@@ -370,7 +370,10 @@ $(document).on('click', '#completeBtn', function(){
         data: memberData,
 		async: false,
 		success: function(data) {
-		    alert(data);
+		    if(data == 'OK'){
+                alert('회원가입이 완료되었습니다. \n가입하신 정보로 로그인해주세요.')
+                location.href('/')
+            }
 		}
     })
 })

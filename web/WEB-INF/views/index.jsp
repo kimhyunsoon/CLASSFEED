@@ -29,7 +29,7 @@
 		</div>
 		<form action="class/list.do" method="post" class="loginForm">
 			<div class="inpWrap">
-				<input type="text" name = "id" class="inp" placeholder="이메일">
+				<input type="text" name = "id" class="inp" placeholder="아이디">
 				<div class="inpBar"></div>
 			</div>
 			<div class="inpWrap">
