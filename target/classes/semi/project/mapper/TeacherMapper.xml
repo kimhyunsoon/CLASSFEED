@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="semi.project.mapper.TeacherMapper">
+
+	<select id="tlogin" resultType="TeacherVo" parameterType="String">
+		select * from teacher where tid = #{arg0} and tpwd = #{arg1} 
+	</select>
+	
+	<select id="tidck" resultType="String" parameterType="String">
+		select tid from teacher where tid = #{tid}
+	</select>
+	
+	<insert id="tinsert" parameterType="TeacherVo">
+		insert into teacher values(#{tid}, #{tpwd}, #{tname}, #{tphonenumber},#{temail}, #{tagency}, SYSDATE)
+	</insert>
+	
+</mapper>

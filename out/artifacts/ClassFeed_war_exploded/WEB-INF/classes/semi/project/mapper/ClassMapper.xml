@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="semi.project.mapper.ClassMapper">
+
+	<select id="selectBySucode" resultType="SubjectVo" parameterType="String">
+		select * from subject where sucode 
+		in(select sucode from class where sucode = #{sucode})
+	</select>
+	
+	<insert id="cinsert" parameterType="ClassVo">
+		insert into class values(#{sucode}, #{sid})
+	</insert>
+	
+	<select id="selectBySid" resultType="String" parameterType="String">
+		select sucode from class where sid=#{sid}
+	</select>
+	
+</mapper>

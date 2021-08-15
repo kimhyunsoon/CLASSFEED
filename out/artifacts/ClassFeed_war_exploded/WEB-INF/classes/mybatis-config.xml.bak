@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias="AssignmentVo" type="semi.project.domain.AssignmentVo"/> <!-- DTO 객체 -->
+        <typeAlias alias="BoardVo" type="semi.project.domain.BoardVo"/>
+        <typeAlias alias="ClassVo" type="semi.project.domain.ClassVo"/>
+        <typeAlias alias="CommentVo" type="semi.project.domain.CommentVo"/>
+        <typeAlias alias="StudentVo" type="semi.project.domain.StudentVo"/>
+        <typeAlias alias="ThemeVo" type="semi.project.domain.ThemeVo"/>
+        <typeAlias alias="TeacherVo" type="semi.project.domain.TeacherVo"/>
+        <typeAlias alias="SubjectVo" type="semi.project.domain.SubjectVo"/>
+        <typeAlias alias="ScommentVo" type="semi.project.domain.ScommentVo"/>
+        <typeAlias alias="NoticeVo" type="semi.project.domain.NoticeVo"/>
+    </typeAliases>
+    <mappers>
+        <mapper resource="semi/project/mapper/AssignmentMapper.xml"/>
+        <mapper resource="semi/project/mapper/BoardMapper.xml"/>
+        <mapper resource="semi/project/mapper/ClassMapper.xml"/>
+        <mapper resource="semi/project/mapper/CommentMapper.xml"/>
+        <mapper resource="semi/project/mapper/StudentMapper.xml"/>
+        <mapper resource="semi/project/mapper/ThemeMapper.xml"/>
+        <mapper resource="semi/project/mapper/TeacherMapper.xml"/>
+        <mapper resource="semi/project/mapper/SubjectMapper.xml"/>
+        <mapper resource="semi/project/mapper/ScommentMapper.xml"/>
+        <mapper resource="semi/project/mapper/NoticeMapper.xml"/>
+    </mappers>
+
+</configuration>
