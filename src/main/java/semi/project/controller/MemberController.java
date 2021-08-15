@@ -94,7 +94,9 @@ public class MemberController {
     ){
         log.info("name is"+name);
         if(type.equals("teacher")){
-            log.info("teacher ok");
+            TeacherVo teacherVo = new TeacherVo(id, pwd, name, phone, email, agency, null);
+            teacherService.tinsertS(teacherVo);
+
         }
         return "OK";
     }
