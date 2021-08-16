@@ -255,7 +255,7 @@
         top:0px;
         left: -210px;
         transition: .3s ease-in-out;
-        padding-top:75px
+        padding-top:20px
     }
     .sideMenu.on {
         left: 0px;
@@ -736,6 +736,7 @@
         justify-content: space-between;
         opacity: 1;
         transition: .3s ease-in-out;
+        align-items: center;
     }
     .classCard .classCode.on>div:first-child{
         opacity: 0;
@@ -758,6 +759,12 @@
     }
     .classCard .classCode>div>i{
         color: #fff;
+    }
+    .classCard .classCode>div>.code {
+        transform: scale(0);
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
     }
     .contentWrap>.innerWrap{
         background-color: transparent;
@@ -951,7 +958,7 @@
         padding:5px 0px;
         transform: scale(0);
         transform-origin:top left;
-        transition: .3s ease-in-out;
+        transition: .5s ease-in-out;
     }
     .streamCard .moreWrap.on{
         transform: scale(1);
@@ -983,4 +990,30 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+    }
+    .noClassWrap {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 70px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border:1px solid #ececec;
+    }
+    .noClassWrap>svg{
+        width: 300px;
+        flex-shrink: 0;
+    }
+    .noClassWrap>p{
+        text-align: center;
+        flex-shrink: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .welcomeMsg {
+        margin-right: 20px;
+        border: 1px solid #ececec;
+        padding: 10px;
+        margin-bottom: 30px;
+        border-radius: 4px;
     }
