@@ -248,25 +248,25 @@
             <span>새 클래스 만들기</span>
             <i class="fas fa-times modalClose"></i>
         </p>
-        <div>
+        <form action="" method="post">
             <p class="subTitle">제목</p>
             <div class="inpWrap">
-                <input type="text" class="inp">
+                <input type="text" class="inp" name="suname" required>
                 <div class="inpBar"></div>
             </div>
 
             <p class="subTitle">부제목</p>
             <div class="inpWrap">
-                <input type="text" class="inp">
-                <div class="inpBar"></div>
+                <input type="text" name="ssubname" class="inp">
+                <divrequired class="inpBar"></divrequired>
             </div>
 
 
             <div class="btnWrap">
-                <button type="button" class="adMissionBtn pointBtn">만들기</button>
+                <button type="submit" class="adMissionBtn pointBtn">만들기</button>
             </div>
 
-        </div>
+        </ㄹ>
     </div>
 </div>
 <c:if test="${!empty tSubList }">
@@ -278,22 +278,34 @@
                 <div class="cardTop">
                     <div class="titleWrap">
 
-                        <a href="" class="title">${subjectVo.suname }</a>
+                        <a href="" class="title">
+                            <p class="tit">${subjectVo.suname}</p>
+                            <p class="sub">${subjectVo.ssubname}</p>
+                        </a>
                         <button class="moreBtn">
                             <i class="fas fa-ellipsis-v"></i>
-
                         </button>
                         <div class="moreWrap">
                             <a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
-                            <a href="javascript:void(0)" class="editClass" data-class="">수정</a>
-                            <a href="javascript:void(0)" class="deleteClass" data-class="">삭제</a>
                         </div>
 
                     </div>
                 </div>
                 <c:forEach items="${tList}" var="teacherVo">
-                    <div class="teacherTag">${teacherVo.tname}</div
+                    <div class="teacherTag">${teacherVo.tname} 선생님</div>
                 </c:forEach>
+                <div class="classCode toolTipWrap">
+                    <div>
+                        <input type="hidden" class="code" value="${subjectVo.sucode}">
+                        <span>${subjectVo.sucode}</span>
+                        <i class="far fa-copy"></i>
+                    </div>
+                    <div>
+                        <span>복사됨</span>
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <p class="toolTipBot">초대코드 복사</p>
+                </div>
             </div>
             </c:forEach>
         </div>
@@ -301,7 +313,15 @@
 </div>
 </c:if>
 </body>
+
 <script>
+    //초대코드 복사
+    $(document).on('click', '.classCode', function(){
+        var thisData = $(this).find('.code')
+        thisData.select();
+        document.execCommand("Copy");
+
+    })
     //클래스카드 모어버튼
     $(document).on('click', '.cardTop .moreBtn', function(){
         $(this).siblings('.moreWrap').toggleClass('on')
@@ -321,6 +341,9 @@
             var thisColor = colors[randomNum(0, colors.length-1)];
 
             $('.classCard').eq(i).find('.cardTop').css({
+                'background-color':thisColor
+            })
+            $('.classCard').eq(i).find('.classCode').css({
                 'background-color':thisColor
             })
         }

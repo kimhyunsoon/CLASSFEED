@@ -21,7 +21,7 @@
 </style>
 <body>
 <div class="signBoxWrap" style="width: 350px;">
-	<div class="signBox">
+	<div class="signBox" style="height: auto;">
 		<div class="logoWrap">
 			<p class="title">로그인</p>
 
