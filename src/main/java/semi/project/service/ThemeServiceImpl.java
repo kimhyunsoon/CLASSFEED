@@ -36,4 +36,11 @@ public class ThemeServiceImpl implements ThemeService {
 		return themeMapper.selectBysucode(sucode);
 	}
 
+	@Override
+	public List<ThemeVo> selectByTidS(String tid, String sucode) {
+		// TODO Auto-generated method stub
+		List<ThemeVo> list = themeMapper.selectByTid(tid, sucode);
+		return list;
+	}
+
 }

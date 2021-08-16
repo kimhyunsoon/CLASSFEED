@@ -9,4 +9,6 @@ public interface ThemeService {
 	List<ThemeVo> selectAllS(String thcode);
 	void thinsertS(ThemeVo themeVo);
 	List<ThemeVo> selectBysucodeS(String sucode);
+
+	List<ThemeVo> selectByTidS(String tid, String sucode);
 }
