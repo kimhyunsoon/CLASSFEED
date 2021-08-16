@@ -76,7 +76,7 @@
             </c:when>
             <c:when test="${!empty sList}">
                 <c:forEach items="${sList}" var="studentVo">
-                    <p>${studentVo.tname} 님, 반갑습니다!</p>
+                    <p>${studentVo.sname} 님, 반갑습니다!</p>
                 </c:forEach>
             </c:when>
         </c:choose>
@@ -235,13 +235,13 @@
                     <span>클래스 참여</span>
                     <i class="fas fa-times modalClose"></i>
                 </p>
-                <form action="" method="post">
+                <form action="../subject/class.do" method="post">
                     <c:forEach items="${sList}" var="studentVo">
                         <input type="hidden" name="sid" value="${studentVo.sid}">
                     </c:forEach>
                     <p class="subTitle">인증코드 입력</p>
                     <div class="inpWrap">
-                        <input type="text" class="inp" required>
+                        <input type="text" name="sucode" class="inp" required>
                         <div class="inpBar"></div>
                     </div>
                     <p class="msg">* 인증코드는 영문 혹은 숫자 조합이며, 대소문자를 구분합니다.</p>
