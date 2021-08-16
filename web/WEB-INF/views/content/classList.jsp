@@ -18,11 +18,7 @@
     <script src="../js/common.js"></script>
 </head>
 <body>
-<script>
-    if(location.href.indexOf('/subject.do') != -1){
-        location.href = '../main/list.do'
-    }
-</script>
+
 <header id="header" class="outerWrap">
 
     <button type="button" class="sideMenuBtn clickAniBtn toolTipWrap">
@@ -84,10 +80,7 @@
                 </c:forEach>
             </c:when>
         </c:choose>
-        
-        <c:forEach items="${tList}" var="teacherVo">
-            <p>${teacherVo.tname} 선생님, 반갑습니다!</p>
-        </c:forEach>
+    
     </div>
     <a href="" class="mainLink on">
         <i class="fas fa-chalkboard-teacher"></i>
@@ -271,7 +264,7 @@
             <c:when test="${!empty tSubList}">
                 <div class="classCardWrap">
                     <c:forEach items="${tSubList }" var="subjectVo">
-                    <div class="classCard">
+                    <div class="classCard" data-sucode="${subjectVo.sucode}">
                         <div class="cardTop">
                             <div class="titleWrap">
 
@@ -301,7 +294,7 @@
                                 <span>복사됨</span>
                                 <i class="fas fa-check"></i>
                             </div>
-                            <p class="toolTipBot">초대코드 복사</p>
+                            <p class="toolTipBot">초대코드 복사하기</p>
                         </div>
                     </div>
                     </c:forEach>
@@ -416,7 +409,7 @@
             <c:when test="${!empty sSubList}">
                 <div class="classCardWrap">
                     <c:forEach items="${sSubList }" var="subjectVo">
-                    <div class="classCard">
+                    <div class="classCard" data-sucode="${subjectVo.sucode}">
                         <div class="cardTop">
                             <div class="titleWrap">
 
@@ -568,18 +561,29 @@
         $(this).siblings('.moreWrap').toggleClass('on')
     })
 
-    // 색상랜더무요....
-    function randomNum(min, max){
-        var randNum = Math.floor(Math.random()*(max-min+1)) + min; return randNum;
-    }
-
-    var colors = ['#F23830','#E51056','#9114A3','#5B2AA8','#3843A9','#2088ED', '#0C9DEF', '#07B3CD','#038C7D', '#43A84D','#80BE4B','#FF8E1F','#FF4B23','#6E4B40','#56717F'];
-
+    var colors = [
+        '#F23831',
+        '#E51057',
+        '#9114A3',
+        '#5C2BAA',
+        '#3843A9',
+        '#2088ED',
+        '#0C9DEF',
+        '#07B3CD',
+        '#038C7D',
+        '#43A84D',
+        '#80BE4B',
+        '#FFBB29',
+        '#FF8E1F',
+        '#FF4B23',
+        '#6E4B40',
+        '#56717F',
+    ];
 
     //색상랜덤... 삭제예정.....
     $(function(){
         for(i=0; i<$('.classCard').length; i++){
-            var thisColor = colors[randomNum(0, colors.length-1)];
+            var thisColor = codeTransColor($('.classCard').eq(i).data('sucode'));
 
             $('.classCard').eq(i).find('.cardTop').css({
                 'background-color':thisColor
@@ -589,6 +593,47 @@
             })
         }
     })
+
+    function codeTransColor(val){
+        var num1 = Number(numTrans(val)[0]);
+        var num2 = Number(numTrans(val)[1]);
+        var num3 = Number(numTrans(val)[2]);
+
+        var st = 0;
+        var ed = 0;
+        var index = 0;
+        if(num2 % 2 == 0){
+            st = 0;
+            ed = 3;
+        } else {
+            st = 4;
+            ed = 7;
+        }
+        if(num3 % 2 == 0){
+            st = st;
+            ed = ed-2;
+        } else {
+            st = st+2;
+            ed = ed;
+        }
+        if(num1 % 2 == 0){
+            index = st;
+        } else {
+            index = ed;
+        }
+        return colors[index];
+    }
+
+
+    function numTrans(val) {
+        var val = val.toUpperCase()
+        var base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', i, j, result = 0;
+        for (i = 0, j = val.length - 1; i < val.length; i += 1, j -= 1) {
+            result += Math.pow(base.length, j) * (base.indexOf(val[i]) + 1);
+        }
+        var sliceRe = String(result).replace(/0/gi,'').slice(-3,result.length)
+        return sliceRe;
+    };
 
 
 </script>
