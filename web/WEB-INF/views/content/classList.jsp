@@ -269,11 +269,11 @@
         </div>
     </div>
 </div>
-<c:if test="${!empty tlist }">
+<c:if test="${!empty tSubList }">
 <div class="contentWrap">
     <div class="contentInnerWrap">
         <div class="classCardWrap">
-            <c:forEach items="${tlist }" var="subjectVo">
+            <c:forEach items="${tSubList }" var="subjectVo">
             <div class="classCard">
                 <div class="cardTop">
                     <div class="titleWrap">
@@ -291,12 +291,9 @@
 
                     </div>
                 </div>
-                <c:if test="${!empty tName}" var="TeacherVo">
-
-                <div class="teacherTag">${TeacherVo.tname }</div>
-                </c:if>
-
-
+                <c:forEach items="${tList}" var="teacherVo">
+                    <div class="teacherTag">${teacherVo.tname}</div
+                </c:forEach>
             </div>
             </c:forEach>
         </div>

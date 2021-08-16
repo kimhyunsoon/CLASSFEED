@@ -76,7 +76,7 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public String tNameCkS(String tid) {
+	public List<TeacherVo> tNameCkS(String tid) {
 		return teacherMapper.tNameCk(tid);
 	}
 

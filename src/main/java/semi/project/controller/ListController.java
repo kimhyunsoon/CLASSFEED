@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import semi.project.domain.ClassVo;
 import semi.project.domain.SubjectVo;
+import semi.project.domain.TeacherVo;
 import semi.project.service.ClassService;
 import semi.project.service.SubjectService;
 import semi.project.service.TeacherService;
@@ -40,16 +41,18 @@ public class ListController {
 		String sid = (String)id;
 
 		System.out.println("#listtid: "+tid);
-		String tname = teacherService.tNameCkS(tid);
+
 		System.out.println("#listsid: "+sid);
 		if(tid != null) {
+			List<TeacherVo> tlist = teacherService.tNameCkS(tid);
 			List<SubjectVo> list = subjectService.selectBytid(tid);
 			System.out.println("#list"+list);
+			log.info("#tlist"+tlist);
 			ModelAndView mv = new ModelAndView();
 			//ModelAndView mv = new ModelAndView("content/classList","tlist",list);
 			mv.setViewName("content/classList");
-			mv.addObject("tlist",list);
-			mv.addObject("tName", tname);
+			mv.addObject("tSubList",list);
+			mv.addObject("tList", tlist);
 			return mv;
 		}else if(sid !=null) {
 			List<String> sucode = classService.selectBySidS(sid);

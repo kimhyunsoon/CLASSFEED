@@ -16,7 +16,7 @@
 		select temail from teacher where temail = #{temail}
 	</select>
 
-	<select id="tNameCk" resultType="String" parameterType="String">
+	<select id="tNameCk" resultType="TeacherVo" parameterType="String">
 		select * from teacher where tid = #{tid}
 	</select>
 	
