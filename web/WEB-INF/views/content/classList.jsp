@@ -14,10 +14,15 @@
     <script src="https://kit.fontawesome.com/5a210d3256.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/sign.css">
-    <script src="../js/sign.js"></script>
+
     <script src="../js/common.js"></script>
 </head>
 <body>
+<script>
+    if(location.href.indexOf('/subject.do') != -1){
+        location.href = '../main/list.do'
+    }
+</script>
 <header id="header" class="outerWrap">
 
     <button type="button" class="sideMenuBtn clickAniBtn toolTipWrap">
@@ -208,8 +213,8 @@
 
             <p class="subTitle">부제목</p>
             <div class="inpWrap">
-                <input type="text" name="ssubname" class="inp">
-                <divrequired class="inpBar"></divrequired>
+                <input type="text" name="ssubname" class="inp" required>
+                <div class="inpBar"></div>
             </div>
 
 
@@ -409,6 +414,7 @@
             })
         }
     })
+
 
 </script>
 </html>

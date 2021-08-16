@@ -38,40 +38,44 @@ public class SubjectController {
     ClassService classService;
 
     @PostMapping("/subject.do") // 과목 추가
-    public ModelAndView addSubject(HttpSession session, SubjectVo subjectVo) {
+    public ModelAndView addSubject(String tid, HttpSession session, SubjectVo subjectVo) {
         // jsp 에서 suname, ssubname 값 을 가져온다.
-
-        StudentRandom random = new StudentRandom();
-        char[] num = random.ran(); // 랜덤 과목코드 생성
 
         String fail = "fail";
         String sucode=""; // 과목 코드를 담을 변수
-        Object id = session.getAttribute("tid"); // 과목 추가는 선생님만 가능 하므로 session 에서 tid 값 불러온다
-        log.info("#Subject id"+id);
-        String tid = (String)id; // Object -> String 형변환
         log.info("#Subject tid"+tid);
-
         TeacherVo tinfo = teacherService.tlnfoS(tid);
 
-        if(num == null) {
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("test/main");
-            mv.addObject("fail",fail);
-            mv.addObject("tinfo",tinfo);
-            return mv;
-        }else {
-            log.info("#num"+num);
-            for(int i =0;i<num.length;i++) {
-                sucode += Character.toString(num[i]);
+        for(int j=0; j<1;) {
+            log.info("#numCnt : "+ j);
+
+            StudentRandom random = new StudentRandom();
+            char[] num = random.ran(); // 랜덤 과목코드 생성
+            if (num == null) {
+                log.info("#failed num");
+                j = 0;
+            } else {
+                for (int i = 0; i < num.length; i++) {
+                    sucode += Character.toString(num[i]);
+                }
+                sucode = sucode.trim(); // 공백 제거
+                log.info("#sucode" + sucode);
+
+                boolean flag = subjectService.chkSucode(sucode);
+                if (flag == true) {
+                    log.info("#success num");
+                    subjectVo.setTid(tid); // tid 값 셋팅
+                    subjectVo.setSucode(sucode); // sucode 값 셋팅
+                    subjectService.suinsertS(subjectVo); // 과목  insert
+                    j = 1;
+                } else {
+                    log.info("#retry num");
+                    j = 0;
+                }
             }
-            sucode = sucode.trim(); // 공백 제거
-            log.info("#sucode"+sucode);
-            subjectVo.setTid(tid); // tid 값 셋팅
-            subjectVo.setSucode(sucode); // sucode 값 셋팅
-            subjectService.suinsertS(subjectVo); // 과목  insert
-            ModelAndView mv = new ModelAndView("content/classList","tinfo",tinfo);
-            return mv;
         }
+        ModelAndView mv = new ModelAndView("content/classList", "tinfo", tinfo);
+        return mv;
     }
 
     @PostMapping("/class.do")

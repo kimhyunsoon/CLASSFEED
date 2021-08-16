@@ -55,4 +55,16 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectMapper.selectBytid(tid);
 	}
 
+	@Override
+	public Boolean chkSucode(String sucode) {
+		String code= subjectMapper.selectBySucode(sucode);
+		log.info("#code"+code);
+		if(code==null){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
 }

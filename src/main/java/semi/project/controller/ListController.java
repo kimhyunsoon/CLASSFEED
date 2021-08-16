@@ -39,6 +39,7 @@ public class ListController {
 		Object id2 = session.getAttribute("loginOkTid");
 		String tid = (String)id2;
 		String sid = (String)id;
+		log.info("#loginOksid: "+sid);
 
 		System.out.println("#listtid: "+tid);
 
