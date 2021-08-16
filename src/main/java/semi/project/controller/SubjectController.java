@@ -38,12 +38,13 @@ public class SubjectController {
     ClassService classService;
 
     @PostMapping("/subject.do") // 과목 추가
-    public ModelAndView addSubject(String tid, HttpSession session, SubjectVo subjectVo) {
+    public String addSubject(HttpSession session, SubjectVo subjectVo) {
         // jsp 에서 suname, ssubname 값 을 가져온다.
-
-        String fail = "fail";
         String sucode=""; // 과목 코드를 담을 변수
-        log.info("#Subject tid"+tid);
+
+		Object s = session.getAttribute("loginOkTid");
+		String tid = (String)s;
+		log.info("login ok teacher"+tid);
         TeacherVo tinfo = teacherService.tlnfoS(tid);
 
         for(int j=0; j<1;) {
@@ -74,18 +75,17 @@ public class SubjectController {
                 }
             }
         }
-        ModelAndView mv = new ModelAndView("content/classList", "tinfo", tinfo);
-        return mv;
+        return "redirect:../main/list.do";
     }
 
     @PostMapping("/class.do")
-    public ModelAndView classIn(HttpSession session, ClassVo classVo,
+    public String addClass(HttpSession session, ClassVo classVo,
                                 @RequestParam("sucode")String sucode) {
-        Object id = session.getAttribute("sid"); // 수업 참여는 학생만 하므로 sid값 만 존재
-
+        Object id = session.getAttribute("loginOksid"); // 수업 참여는 학생만 하므로 sid값 만 존재
         String sid = (String)id;
-        String re = subjectService.selectBySucodeS(sucode); // Subject Table에 입력한 수업 코드 가 있는지 확인하기위해
-        if(re==null) {
+        log.info("login ok student"+sid);
+        String gainCode = subjectService.selectBySucodeS(sucode); // Subject Table에 입력한 수업 코드 가 있는지 확인하기위해
+        if(gainCode==null) {
             System.out.println("잘못된 수업코드 입니다"); // 추후에 수업코드가 없다고 메세지 표출 해야함
             return null;
         }else {
@@ -104,8 +104,7 @@ public class SubjectController {
                     t.add(list.get(j));
                 }
             }
-            ModelAndView mv = new ModelAndView("test/list","slist",t);
-            return mv;
+            return "redirect:../main/list.do";
         }
     }
     // 추후에 과목코드의 중복을 확인해서 insert 할 예정!
