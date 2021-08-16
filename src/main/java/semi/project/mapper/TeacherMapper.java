@@ -11,6 +11,7 @@ public interface TeacherMapper {
 	TeacherVo tlogin(String arg0, String arg1);
 	String tidck(String tid); // 선생 or 학생 구분
 	void tinsert(TeacherVo teacherVo);
+	TeacherVo tlnfo(String tid);
 	//추가
 	String temailck(String temail);
 	List<TeacherVo> tNameCk(String tid);

@@ -1,5 +1,8 @@
 package semi.project.service;
 
-public interface BoardService {
+import semi.project.domain.BoardVo;
 
+public interface BoardService {
+    void insertNotFileS(BoardVo boardVo);
+    void insertBoardNotFileS(BoardVo boardVo);
 }

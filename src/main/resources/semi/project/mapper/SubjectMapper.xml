@@ -7,19 +7,19 @@
 	<select id="selectBySucode" resultType="String" parameterType="String">
 		select sucode from subject where sucode = #{sucode}
 	</select>
-	
+
 	<select id="selectBySkeep" resultType="String" parameterType="String">
 		select skeep from subject where sucode = #{sucode}
 	</select>
-	
+
 	<select id="selectAll" resultType="SubjectVo" parameterType="String">
 		select * from subject where sucode = #{sucode}
 	</select>
-	
+
 	<insert id="suinsert" parameterType="SubjectVo">
 		insert into subject values(#{sucode},#{tid},#{suname},#{ssubname},default)
 	</insert>
-	
+
 	<select id="testAll" resultType="SubjectVo" parameterType="String">
 		select * from subject where sucode = #{sucode}
 	</select>

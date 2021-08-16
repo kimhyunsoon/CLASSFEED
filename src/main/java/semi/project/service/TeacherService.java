@@ -8,6 +8,9 @@ public interface TeacherService {
 	String tloginS(String tid, String tpwd);
 	String tidckS(String tid); // 선생 or 학생 구분
 	void tinsertS(TeacherVo teacherVo);
+	TeacherVo tlnfoS(String tid);
+
+	//추가
 	String temailckS(String temail);
 	String tidckS2(String tid);
 	List<TeacherVo> tNameCkS(String tid);

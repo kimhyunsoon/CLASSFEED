@@ -46,11 +46,20 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherMapper.tidck(tid);
 	}
 
+
 	@Override
 	public void tinsertS(TeacherVo teacherVo) {
 		log.info("check this");
 		teacherMapper.tinsert(teacherVo);
 	}
+
+	@Override
+	public TeacherVo tlnfoS(String tid) {
+		// TODO Auto-generated method stub
+		TeacherVo teacherVo = teacherMapper.tlnfo(tid);
+		return teacherVo;
+	}
+
 
 	@Override
 	public String temailckS(String temail) {

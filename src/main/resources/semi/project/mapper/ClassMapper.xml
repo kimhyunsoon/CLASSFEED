@@ -5,14 +5,14 @@
 <mapper namespace="semi.project.mapper.ClassMapper">
 
 	<select id="selectBySucode" resultType="SubjectVo" parameterType="String">
-		select * from subject where sucode 
-		in(select sucode from class where sucode = #{sucode})
+		select * from subject where sucode
+										in(select sucode from class where sucode = #{sucode})
 	</select>
-	
+
 	<insert id="cinsert" parameterType="ClassVo">
 		insert into class values(#{sucode}, #{sid})
 	</insert>
-	
+
 	<select id="selectBySid" resultType="String" parameterType="String">
 		select sucode from class where sid=#{sid}
 	</select>
