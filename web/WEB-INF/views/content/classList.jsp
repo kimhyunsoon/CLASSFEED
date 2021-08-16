@@ -195,7 +195,11 @@
             <span>새 클래스 만들기</span>
             <i class="fas fa-times modalClose"></i>
         </p>
-        <form action="" method="post">
+        <form action="../subject/subject.do" method="post">
+            <c:forEach items="${tList}" var="teacherVo">
+                <input type="hidden" name="tid" value="${teacherVo.tid}">
+            </c:forEach>
+            
             <p class="subTitle">제목</p>
             <div class="inpWrap">
                 <input type="text" class="inp" name="suname" required>
