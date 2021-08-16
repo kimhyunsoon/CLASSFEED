@@ -41,32 +41,31 @@ public class ListController {
 		String sid = (String)id;
 		log.info("#loginOksid: "+sid);
 
-		System.out.println("#listtid: "+tid);
-
-		System.out.println("#listsid: "+sid);
 		if(tid != null) {
 			List<TeacherVo> tlist = teacherService.tNameCkS(tid);
 			List<SubjectVo> list = subjectService.selectBytid(tid);
-			System.out.println("#list"+list);
 			log.info("#tlist"+tlist);
 			ModelAndView mv = new ModelAndView();
-			//ModelAndView mv = new ModelAndView("content/classList","tlist",list);
 			mv.setViewName("content/classList");
 			mv.addObject("tSubList",list);
 			mv.addObject("tList", tlist);
 			return mv;
 		}else if(sid !=null) {
 			List<String> sucode = classService.selectBySidS(sid);
-			ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
-
+			ArrayList<SubjectVo> subjectVos = new ArrayList<SubjectVo>();
+			List<SubjectVo> slist = null;
 			for(int i = 0;i<sucode.size();i++) {
-				List<SubjectVo> list = subjectService.selectAllS(sucode.get(i));
-				for(int j=0;j<list.size();j++) {
-					System.out.println("#list["+i+"]: "+list.get(j));
-					t.add(list.get(j));
+				slist = subjectService.selectAllS(sucode.get(i));
+				for(int j=0;j<slist.size();j++) {
+					System.out.println("#list["+i+"]: "+slist.get(j));
+					subjectVos.add(slist.get(j));
 				}
 			}
-			ModelAndView mv = new ModelAndView("content/classList","slist",t);
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("content/classList");
+			mv.addObject("sList",slist);
+			mv.addObject("sSubList", subjectVos);
+			//ModelAndView mv = new ModelAndView("content/classList","slist",t);
 			return mv;
 		}
 

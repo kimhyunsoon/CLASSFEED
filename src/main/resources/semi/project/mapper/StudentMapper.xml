@@ -16,6 +16,9 @@
 		select semail from STUDENT where semail = #{semail}
 	</select>
 
+	<select id="sNameCk" resultType="StudentVo" parameterType="String">
+		select * from STUDENT where sid = #{sid}
+	</select>
 
 	<insert id="sinsert" parameterType="StudentVo">
 		insert into student values(#{sid}, #{sname}, #{sphonenumber}, 

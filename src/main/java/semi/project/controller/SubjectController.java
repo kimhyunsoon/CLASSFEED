@@ -82,6 +82,7 @@ public class SubjectController {
     public ModelAndView classIn(HttpSession session, ClassVo classVo,
                                 @RequestParam("sucode")String sucode) {
         Object id = session.getAttribute("sid"); // 수업 참여는 학생만 하므로 sid값 만 존재
+
         String sid = (String)id;
         String re = subjectService.selectBySucodeS(sucode); // Subject Table에 입력한 수업 코드 가 있는지 확인하기위해
         if(re==null) {

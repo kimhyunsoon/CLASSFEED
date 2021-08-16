@@ -23,6 +23,8 @@
 	<select id="testAll" resultType="SubjectVo" parameterType="String">
 		select * from subject where sucode = #{sucode}
 	</select>
+
+
 	<select id="selectBytid" resultType="SubjectVo" parameterType="String">
 		select * from subject where tid = #{tid}
 	</select>

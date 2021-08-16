@@ -74,4 +74,9 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 
+	@Override
+	public List<StudentVo> sNameCkS(String sid) {
+		return studentMapper.sNameCk(sid);
+	}
+
 }

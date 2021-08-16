@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import semi.project.domain.StudentVo;
+import semi.project.domain.TeacherVo;
 
 @Repository
 public interface StudentMapper {
@@ -12,4 +13,5 @@ public interface StudentMapper {
 	void sinsert(StudentVo studentVo); // 회원가입
 	//추가
 	String semailck(String semail);
+	List<StudentVo> sNameCk(String sid);
 }
