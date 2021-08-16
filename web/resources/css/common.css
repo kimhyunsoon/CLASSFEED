@@ -726,10 +726,10 @@
         padding-top:3px;
         cursor: pointer;
         height: 28px;
-        width: 84px;
+        width: 100%;
     }
     .classCard .classCode>div {
-        width: 64px;
+        width: 80px;
         position: absolute;
         top:4px;
         display: flex;

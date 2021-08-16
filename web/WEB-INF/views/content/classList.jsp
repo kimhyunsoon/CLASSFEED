@@ -72,6 +72,19 @@
 
 <nav class="sideMenu">
     <div class="welcomeMsg">
+        <c:choose>
+            <c:when test="${!empty tList}">
+                <c:forEach items="${tList}" var="teacherVo">
+                    <p>${teacherVo.tname} 선생님, 반갑습니다!</p>
+                </c:forEach>
+            </c:when>
+            <c:when test="${!empty sList}">
+                <c:forEach items="${sList}" var="studentVo">
+                    <p>${studentVo.tname} 님, 반갑습니다!</p>
+                </c:forEach>
+            </c:when>
+        </c:choose>
+        
         <c:forEach items="${tList}" var="teacherVo">
             <p>${teacherVo.tname} 선생님, 반갑습니다!</p>
         </c:forEach>

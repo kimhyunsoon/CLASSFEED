@@ -363,6 +363,7 @@ $(document).on('click', '#completeBtn', function(){
     for(i=0; i<$('.formData').length; i++){
         memberData[$('.formData').eq(i).attr('name')] = $('.formData').eq(i).val()
     }
+    memberData['phone'] = memberData['phone'].substring(0,3) + '-' + memberData['phone'].substring(3,7) + '-' + memberData['phone'].substring(7,11)
 
     $.ajax({ 
 		url: "../member/signUp",
