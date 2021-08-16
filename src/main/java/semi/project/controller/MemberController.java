@@ -42,7 +42,7 @@ public class MemberController {
             String tid = teacherService.tidckS(id);
             log.info("#tid"+tid);
             //session.invalidate();
-            session.setAttribute("tid", tid);
+            session.setAttribute("loginOkTid", tid);
             ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
             return modelAndView;
         }else{
@@ -52,7 +52,7 @@ public class MemberController {
                 String sid = studentService.sidckS(id);
                 log.info("#sid"+sid);
                 //session.invalidate();
-                session.setAttribute("sid", sid);
+                session.setAttribute("loginOksid", sid);
                 ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
                 return modelAndView;
             }else{

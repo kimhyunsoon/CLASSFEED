@@ -269,14 +269,16 @@
         </div>
     </div>
 </div>
-
+<c:if test="${!empty tlist }">
 <div class="contentWrap">
     <div class="contentInnerWrap">
         <div class="classCardWrap">
+            <c:forEach items="${tlist }" var="subjectVo">
             <div class="classCard">
                 <div class="cardTop">
                     <div class="titleWrap">
-                        <a href="" class="title">1학년 1반 1학년 1반 1학년 1반</a>
+
+                        <a href="" class="title">${subjectVo.suname }</a>
                         <button class="moreBtn">
                             <i class="fas fa-ellipsis-v"></i>
 
@@ -289,14 +291,18 @@
 
                     </div>
                 </div>
-                <div class="teacherTag">김현순 선생님</div>
+                <c:if test="${!empty tName}" var="TeacherVo">
+
+                <div class="teacherTag">${TeacherVo.tname }</div>
+                </c:if>
+
+
             </div>
-
-
+            </c:forEach>
         </div>
     </div>
 </div>
-
+</c:if>
 </body>
 <script>
     //클래스카드 모어버튼

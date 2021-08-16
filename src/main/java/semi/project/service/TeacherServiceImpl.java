@@ -75,5 +75,10 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 	}
 
+	@Override
+	public String tNameCkS(String tid) {
+		return teacherMapper.tNameCk(tid);
+	}
+
 
 }

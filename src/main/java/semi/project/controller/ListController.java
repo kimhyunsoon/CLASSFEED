@@ -10,6 +10,7 @@ import semi.project.domain.ClassVo;
 import semi.project.domain.SubjectVo;
 import semi.project.service.ClassService;
 import semi.project.service.SubjectService;
+import semi.project.service.TeacherService;
 import semi.project.service.ThemeService;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ public class ListController {
 
     private SubjectService subjectService;
     private ClassService classService;
+    private TeacherService teacherService;
     private ThemeService themeService;
 
     @GetMapping("/list.do")
@@ -32,17 +34,22 @@ public class ListController {
 
 
 
-		Object id = session.getAttribute("sid");
-		Object id2 = session.getAttribute("tid");
+		Object id = session.getAttribute("loginOksid");
+		Object id2 = session.getAttribute("loginOkTid");
 		String tid = (String)id2;
 		String sid = (String)id;
 
-		System.out.println("#tid: "+tid);
-		System.out.println("#sid: "+sid);
+		System.out.println("#listtid: "+tid);
+		String tname = teacherService.tNameCkS(tid);
+		System.out.println("#listsid: "+sid);
 		if(tid != null) {
 			List<SubjectVo> list = subjectService.selectBytid(tid);
-			System.out.println(list);
-			ModelAndView mv = new ModelAndView("content/classList","tlist",list);
+			System.out.println("#list"+list);
+			ModelAndView mv = new ModelAndView();
+			//ModelAndView mv = new ModelAndView("content/classList","tlist",list);
+			mv.setViewName("content/classList");
+			mv.addObject("tlist",list);
+			mv.addObject("tName", tname);
 			return mv;
 		}else if(sid !=null) {
 			List<String> sucode = classService.selectBySidS(sid);

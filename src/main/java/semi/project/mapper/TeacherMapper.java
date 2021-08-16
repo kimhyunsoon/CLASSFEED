@@ -13,4 +13,5 @@ public interface TeacherMapper {
 	void tinsert(TeacherVo teacherVo);
 	//추가
 	String temailck(String temail);
+	String tNameCk(String tid);
 }

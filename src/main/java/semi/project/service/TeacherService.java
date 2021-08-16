@@ -10,5 +10,6 @@ public interface TeacherService {
 	void tinsertS(TeacherVo teacherVo);
 	String temailckS(String temail);
 	String tidckS2(String tid);
+	String tNameCkS(String tid);
 
 }

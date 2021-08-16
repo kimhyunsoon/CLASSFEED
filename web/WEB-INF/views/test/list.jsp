@@ -17,7 +17,12 @@
 			a { text-decoration:none }
 		</style>
 	</head>
-<c:if test="${!empty tlist }">
+<%--	<c:if test="${!empty loginOkTid}">--%>
+<%--		[${loginOkTid.tid}]님 환영합니다!<br/><br/>--%>
+<%--	</c:if>--%>
+
+	<c:if test="${!empty tlist }">
+
 선생님 리스트
 <body style="text-align:center">
 		<center>
@@ -47,6 +52,8 @@
 				<td>${subjectVo.ssubname }</td>
 				<td align='center'><a href='mysubject.do?sucode=${subjectVo.sucode }'>이동</a></td>
 				</tr>
+			<br>
+				[${subjectVo.tid}]님 환영합니다!<br/><br/>
 			</c:forEach>
 			<a href="logout.do">로그아웃</a>
 			</table>

@@ -15,6 +15,10 @@
 	<select id="temailck" resultType="String" parameterType="String">
 		select temail from teacher where temail = #{temail}
 	</select>
+
+	<select id="tNameCk" resultType="String" parameterType="String">
+		select * from teacher where tid = #{tid}
+	</select>
 	
 	<insert id="tinsert" parameterType="TeacherVo">
 		insert into teacher values(#{tid}, #{tpwd}, #{tname}, #{tphonenumber},#{temail}, #{tagency}, SYSDATE)
