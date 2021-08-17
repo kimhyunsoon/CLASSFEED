@@ -20,7 +20,7 @@
 
                         <p class="title">${subjectVo.suname}</p>
                         <p class="school">${subjectVo.ssubname}</p>
-                        <p class="teacher">${subjectVo.tid}</p>
+                        <p class="teacher">${subjectVo.tname} 선생님</p>
                     </c:forEach>
                 </c:when>
             </c:choose>
@@ -55,7 +55,30 @@
                     </script>
 
                 </div>
+                <c:choose>
+                    <c:when test="${!empty noticeList}">
+                        <c:forEach items="${noticeList}" var="noticeVo">
+                            <div class="streamCard">
+                                <div class="iconCircle codeTransColor_back">
+                                    <i class="fas fa-chalkboard"></i>
+                                </div>
+                                <a href="javascript:void(0)" class="text">
+                                    <p class="title">${noticeVo.sid} </p>
+                                    <p class="title">${noticeVo.tid} </p>
+                                    <p class="date">${noticeVo.nrdate}</p>
+                                    <p class="content">    ${noticeVo.ncontent}</p>
 
+                                </a>
+                                <div class="moreBtn">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                                <div class="moreWrap">
+                                    <a href="javascript:void(0)" class="deleteClass" data-class="">삭제</a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                </c:choose>
                 <c:choose>
                     <c:when test="${!empty boardList}">
                         <c:forEach items="${boardList}" var="boardVo">

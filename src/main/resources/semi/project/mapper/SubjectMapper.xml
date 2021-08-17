@@ -21,7 +21,7 @@
 	</select>
 
 	<insert id="suinsert" parameterType="SubjectVo">
-		insert into subject values(#{sucode},#{tid},#{suname},#{ssubname},default)
+		insert into subject values(#{sucode},#{tid},#{tname},#{suname},#{ssubname},default)
 	</insert>
 
 

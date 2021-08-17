@@ -12,7 +12,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CLASSFEED | ${param}</title>
+	<title>CLASSFEED | ${param.title}</title>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -32,7 +32,7 @@
 		<p class="toolTipBot">사이드메뉴</p>
 
 	</button>
-	<a href="" class="homeLink">
+	<a href="/" class="homeLink">
 		<img src="../img/classfeedLogo.png">
 	</a>
 
@@ -125,10 +125,8 @@
 							<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<p>${subjectVo.suname}</p>
 
-								<p>
-								<c:forEach items="${tName}" var="TeacherVo">
-									${TeacherVo.tname} 선생님
-								</c:forEach></p>
+								<p>${subjectVo.tname} 선생님
+</p>
 
 							</a>
 						</c:forEach>
@@ -149,78 +147,6 @@
 
 
 
-<c:choose>
-	<c:when test="${!empty tList}">
-		<!--우하단 + 버튼, 선생님-->
-		<nav class="classAddBtn toolTipWrap clickAniBtn modalBtn teaSample" data-modal="addClass">
-			<i class="fas fa-plus"></i>
-			<p class="toolTipTop">새 클래스 만들기</p>
-		</nav>
-
-		<!--우하단 + 버튼시 모달 선생님-->
-		<div class="modalWrap" data-modal="addClass">
-			<div class="modalCon">
-				<p class="modalTitle">
-					<span>새 클래스 만들기</span>
-					<i class="fas fa-times modalClose"></i>
-				</p>
-				<form action="../subject/subject.do" method="post">
-					<c:forEach items="${tList}" var="teacherVo">
-						<input type="hidden" name="tid" value="${teacherVo.tid}">
-					</c:forEach>
-
-					<p class="subTitle">제목</p>
-					<div class="inpWrap">
-						<input type="text" class="inp" name="suname" required>
-						<div class="inpBar"></div>
-					</div>
-
-					<p class="subTitle">부제목</p>
-					<div class="inpWrap">
-						<input type="text" name="ssubname" class="inp" required>
-						<div class="inpBar"></div>
-					</div>
-					<div class="btnWrap">
-						<button type="submit" class="adMissionBtn pointBtn">만들기</button>
-					</div>
-
-				</form>
-			</div>
-		</div>
-	</c:when>
-	<c:when test="${!empty sList}">
-		<!--우하단 + 버튼, 학생-->
-		<nav class="classAddBtn toolTipWrap clickAniBtn modalBtn stuSample" data-modal="adMission">
-			<i class="fas fa-plus"></i>
-			<p class="toolTipTop">클래스 참여</p>
-		</nav>
-		<!--우하단 + 버튼시 모달, 학생-->
-		<div class="modalWrap" data-modal="adMission">
-			<div class="modalCon">
-				<p class="modalTitle">
-					<span>클래스 참여</span>
-					<i class="fas fa-times modalClose"></i>
-				</p>
-				<form action="../subject/class.do" method="post">
-					<c:forEach items="${sList}" var="studentVo">
-						<input type="hidden" name="sid" value="${studentVo.sid}">
-					</c:forEach>
-					<p class="subTitle">인증코드 입력</p>
-					<div class="inpWrap">
-						<input type="text" name="sucode" class="inp" required>
-						<div class="inpBar"></div>
-					</div>
-					<p class="msg">* 인증코드는 영문 혹은 숫자 조합이며, 대소문자를 구분합니다.</p>
-
-					<div class="btnWrap">
-						<button type="submit" class="adMissionBtn pointBtn">참여하기</button>
-					</div>
-
-				</form>
-			</div>
-		</div>
-	</c:when>
-</c:choose>
 
 <script>
     function codeTransColor(val){

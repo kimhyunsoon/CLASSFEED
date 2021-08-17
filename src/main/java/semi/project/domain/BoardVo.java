@@ -16,7 +16,7 @@ public class BoardVo { // 자료
 	private String btitle; // 제목
 	private String bcontent; // 내용
 	private Date brdate; // 작성 날짜
-	private Date breadline;
+	private Date bdeadline;
 	
 	private String bfname; // 기본 파일 이름
 	private String bofname; // 변경된 파일 이름

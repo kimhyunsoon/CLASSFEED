@@ -18,14 +18,10 @@ import java.util.List;
 
 
 /**
- * 상단 정보, 사이드메뉴 컨트롤
- * XXX.do 접속
- * -> XXX.do 컨트롤러로감
- * -> XXX.jsp 를 보여주려는데
- * -> XXX.jsp 상단에 header.jsp 있음
- * -> header.jsp 접속
- * -> header.do 컨트롤러로감
- * -> 다 조합해서 보여줌
+ * 공통모듈인 헤더입니다.
+ * main, stream, class탭에서 뿌려주는 정보를 가지고 사이드바 메뉴를 구현합니다
+ * 로그아웃을 구현합니다
+ * 알림도 이쪽에서 구현할 예정입니다
  */
 
 @Log4j

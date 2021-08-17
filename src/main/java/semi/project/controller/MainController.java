@@ -49,6 +49,7 @@ public class MainController {
 			log.info("#tlist"+tlist);
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index");
+
 			mv.addObject("tSubList",list);
 			mv.addObject("tList", tlist);
 			return mv;
@@ -57,37 +58,19 @@ public class MainController {
 			List<String> sucode = classService.selectBySidS(sid);
 
 			ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
-			ArrayList<TeacherVo> tname = new ArrayList<TeacherVo>();
+
 			for(int i = 0;i<sucode.size();i++) {
 				List<SubjectVo> list = subjectService.selectAllS(sucode.get(i));
-				List<TeacherVo> tlist = subjectService.selectTnameS(sucode.get(i));
 				for(int j=0;j<list.size();j++) {
 					t.add(list.get(j));
-					tname.add(tlist.get(j));
 				}
 			}
 			ModelAndView mv = new ModelAndView();
-			log.info("tname 확인"+tname);
 			mv.setViewName("index");
 			mv.addObject("sSubList",t);
 			mv.addObject("sList", slist);
-			mv.addObject("tName", tname);
 			return mv;
 		}
-
 		return null;
-		/*
-		List<String> sucode = classService.selectBySidS(sid);
-		ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
-
-		for(int i = 0;i<sucode.size();i++) {
-			List<SubjectVo> list = subjectService.selectAllS(sucode.get(i));
-			for(int j=0;j<list.size();j++) {
-				System.out.println("#list["+i+"]: "+list.get(j));
-				t.add(list.get(j));
-			}
-		}
-		ModelAndView mv = new ModelAndView("test/list","list",t);
-		return mv;*/
 	}
 }
