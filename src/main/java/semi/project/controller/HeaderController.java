@@ -7,8 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import semi.project.domain.ClassVo;
+import semi.project.domain.StudentVo;
+import semi.project.domain.SubjectVo;
+import semi.project.domain.TeacherVo;
+import semi.project.service.*;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 상단 정보, 사이드메뉴 컨트롤
@@ -25,23 +32,18 @@ import javax.servlet.http.HttpSession;
 @Controller
 
 public class HeaderController {
+    private SubjectService subjectService;
+    private ClassService classService;
+    private TeacherService teacherService;
+	private StudentService studentService;
+    private ThemeService themeService;
 
     @RequestMapping(value = "header.do", method = RequestMethod.GET)
     public ModelAndView header(HttpSession session){
-        Object teacher = session.getAttribute("loginOkTid");
-        String tid = (String) teacher;
-        Object student = session.getAttribute("loginOksid");
-        String sid = (String) student;
-        log.info("login ok teacher"+tid);
-        log.info("login ok student"+sid);
-        if(tid !=null){
-            ModelAndView mv = new ModelAndView("header","sessionT",tid);
-            return mv;
-        }else if(sid !=null){
-            ModelAndView mv = new ModelAndView("header","sessionS",sid);
-            return mv;
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("content/header");
 
-        }
-        return null;
+
+        return mv;
     }
 }
