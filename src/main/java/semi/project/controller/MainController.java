@@ -45,7 +45,7 @@ public class MainController {
 			List<SubjectVo> list = subjectService.selectBytid(tid);
 			log.info("#tlist"+tlist);
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("content/classList");
+			mv.setViewName("index");
 			mv.addObject("tSubList",list);
 			mv.addObject("tList", tlist);
 			return mv;

@@ -24,7 +24,7 @@ public class IndexController {
 		if(tid ==null && sid ==null){
 			return "content/login";
 		}
-		return "index";
+		return "redirect:main/list.do";
 	}
 	
 }
