@@ -36,22 +36,15 @@ public class MemberController {
 
         //선생님 검사
         msg = teacherService.tloginS(id, pwd);
-        log.info("선생 : "+msg);
-
         if(msg.equals("success")){
             String tid = teacherService.tidckS(id);
-            log.info("#tid"+tid);
-            //session.invalidate();
             session.setAttribute("loginOkTid", tid);
             ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
             return modelAndView;
         }else{
             msg = studentService.sloginS(id, pwd);
-            log.info("학생 : "+msg);
             if(msg.equals("success")){
                 String sid = studentService.sidckS(id);
-                log.info("#sid"+sid);
-                //session.invalidate();
                 session.setAttribute("loginOksid", sid);
                 ModelAndView modelAndView = new ModelAndView("content/loginFilter", "msg", msg);
                 return modelAndView;

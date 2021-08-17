@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("main")
 @AllArgsConstructor
-public class ListController {
+public class MainController {
 
     private SubjectService subjectService;
     private ClassService classService;
@@ -62,7 +62,7 @@ public class ListController {
 				}
 			}
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("content/classList");
+			mv.setViewName("index");
 			mv.addObject("sSubList",t);
 			mv.addObject("sList", slist);
 			//ModelAndView mv = new ModelAndView("test/list","sSubList",t);
