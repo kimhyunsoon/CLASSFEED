@@ -1,0 +1,205 @@
+body{
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.signBoxWrap {
+    width: 400px;
+    height: auto;
+    padding-top:50px;
+    
+}
+.signBoxWrap .copy {
+    font-size: 11px;
+    margin-top:10px;
+    color:#555;
+    text-align: center;
+}
+.signBox {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    margin-top:50px;
+    border:1px solid #ededed;
+    padding:20px;
+    padding-bottom:30px;
+    border-radius:10px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+}
+.signBox .logo {
+    width: 140px;
+}
+.loginForm .inpWrap + .inpWrap {
+    margin-top:10px;
+}
+.signUpForm .inpWrap + .inpWrap {
+    margin-top:10px;
+}
+.logoWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom:25px;
+    padding-bottom:20px;
+    border-bottom:1px solid #ededed;
+}
+.logoWrap .title {
+    font-size: 18px;
+    font-weight: 500;
+}
+.loginForm .actionBtn {
+    margin-top:20px;
+    border-radius: 4px;
+    background-color: #FC2822;
+    width: 100%;
+    color:#fff;
+    padding:6px 0px;
+    cursor: pointer;
+    text-align: center;
+    transition: .3s ease-in-out;
+
+}
+.loginForm .actionBtn.off {
+    background-color: #ccc;
+}
+.loginForm .otherBtn {
+    margin-top:10px;
+    border-radius: 4px;
+    background-color: #fff;
+    border:1px solid #dcdcdc;
+    width: 100%;
+    color:#333;
+    padding:6px 0px;
+    font-weight: 400;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+.signUpForm .actionBtn {
+    margin-top:20px;
+    border-radius: 4px;
+    background-color: #FC2822;
+    width: 100%;
+    color:#fff;
+    padding:6px 0px;
+    cursor: pointer;
+    text-align: center;
+    transition: .3s ease-in-out;
+
+}
+.signUpForm .actionBtn.off {
+    background-color: #ccc;
+}
+.signUpForm .otherBtn {
+    margin-top:10px;
+    border-radius: 4px;
+    background-color: #fff;
+    border:1px solid #dcdcdc;
+    width: 100%;
+    color:#333;
+    padding:6px 0px;
+    font-weight: 400;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+.inpInnerBtn {
+    background-color: #fff;
+    border:1px solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    position: absolute;
+    top:-14px;
+    margin-top:-12px;
+    right: 6px;
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+    color:#555;
+    font-size: 12px;
+    text-align: center;
+    line-height: 22px;
+    padding:0px 6px;
+    transition: .5s ease-in-out;
+}
+.inpInnerBtn.on {
+    right: 6px;
+    top:50%;
+    opacity: 1;
+}
+.signUpForm {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.signUpForm .signMsg {
+    margin-bottom:10px;
+    font-size: 12px;
+    text-align: right;
+    padding:3px 5px;
+    display: none;
+    color:#FC2822
+}
+.br {
+    height: 20px;
+}
+.checkNumWrap  {
+    display: none;
+}
+.stepWrap {
+    flex-shrink: 0;
+    width: 100%;
+    transition: .5s ease-in-out;
+}
+.memCheckWrap {
+    display: flex;
+    margin-top:20px;
+}
+.memCheckWrap .memCheck {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100px;
+    border-radius: 10px;;
+    cursor: pointer;
+    align-content: center;
+    border:1px solid #fafafa;
+    background-color: #fafafa;
+    opacity: .8;
+    transition: .3s ease-in-out;
+}
+.memCheckWrap .memCheck + .memCheck {
+    margin-left: 10px;;
+}
+.memCheckWrap .memCheck input {
+    display: none;
+}
+.memCheckWrap .memCheck>p {
+    width: 100%;
+    margin-top:10px;
+    text-align: center;
+}
+.memCheckWrap .memCheck>p>i {
+    font-size: 12px;
+    margin-bottom:2px;
+    display: inline-block;
+    margin-right: 4px;
+    color: #FFA039;
+    display: none;
+    margin-left: -14px;
+}
+.memCheckWrap .memCheck>i {
+    font-size: 24px;
+    color:#555
+}
+.memCheckWrap .memCheck.on {
+    opacity: 1;
+    border:1px solid #FFA039;
+    background-color: #fff;
+}
+.memCheckWrap .memCheck.on>p>i {
+    display: inline-block;
+}

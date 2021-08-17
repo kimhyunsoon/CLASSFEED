@@ -9,4 +9,5 @@ public interface ClassService {
 	List<SubjectVo> selectBySucodeS(String sucode);
 	List<String> selectBySidS(String sid);
 	void insertS(ClassVo classVo);
+//	String selectTname(String sucode);
 }

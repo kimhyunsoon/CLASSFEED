@@ -16,9 +16,14 @@
 		select * from subject where sucode = #{sucode}
 	</select>
 
+	<select id = "selectTname" resultType="TeacherVo" parameterType="String">
+		select tname from teacher where tid in(select tid from subject where sucode=#{sucode})
+	</select>
+
 	<insert id="suinsert" parameterType="SubjectVo">
 		insert into subject values(#{sucode},#{tid},#{suname},#{ssubname},default)
 	</insert>
+
 
 	<select id="testAll" resultType="SubjectVo" parameterType="String">
 		select * from subject where sucode = #{sucode}

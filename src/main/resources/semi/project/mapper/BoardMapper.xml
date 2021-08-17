@@ -16,4 +16,10 @@
         insert into board values(BOARD_BSEQ.nextval,#{tid},#{thcode},#{btitle},
                                  #{bcontent},SYSDATE,null,null,null)
     </insert>
+
+    <select id="selectBySucode" resultType="BoardVo" parameterType="String">
+        select * from board where thcode in(select thcode from THEME where sucode=#{sucode})
+    </select>
+
+
 </mapper>

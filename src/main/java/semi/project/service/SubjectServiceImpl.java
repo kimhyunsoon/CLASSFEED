@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import semi.project.domain.SubjectVo;
+import semi.project.domain.TeacherVo;
 import semi.project.mapper.SubjectMapper;
 
 @Service
@@ -34,7 +35,13 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public List<SubjectVo> selectAllS(String sucode) {
 		// TODO Auto-generated method stub
+		log.info("kkkkkkkkkkk");
 		return subjectMapper.selectAll(sucode);
+	}
+
+	@Override
+	public List<TeacherVo> selectTnameS(String sucode) {
+		return subjectMapper.selectTname(sucode);
 	}
 
 	@Override

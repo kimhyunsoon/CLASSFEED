@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
     private TeacherService teacherService;
     private StudentService studentService;
-    private SubjectService subjectService;
+
 
 
     @PostMapping("login.do")
@@ -55,6 +55,13 @@ public class MemberController {
         }
     }
 
+    @GetMapping("logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+
+
     @GetMapping("sign_up.do")
     public String login() {
         return "content/sign_up";
@@ -69,9 +76,9 @@ public class MemberController {
         log.info("email is"+email);
         String msg = null;
         if(type.equals("teacher")){
-            msg = teacherService.temailckS(email);
+            msg = teacherService.temailckS(email); //DB에 클라이언트가 입력한 email이 있으면 "yesEmail", 없으면 "noEmail"
         }else if(type.equals("student")){
-            msg = studentService.semailckS(email);
+            msg = studentService.semailckS(email); //DB에 클라이언트가 입력한 email이 있으면 "yesEmail", 없으면 "noEmail"
         }
         return msg;
     }
@@ -85,9 +92,9 @@ public class MemberController {
         log.info("id is"+id);
         String msg=null;
         if(type.equals("teacher")){
-            msg = teacherService.tidckS2(id);
+            msg = teacherService.tidckS2(id); //DB에 클라이언트가 입력한 ID가 있으면 "yesId", 없으면 "noId"
         }else if(type.equals("student")){
-            msg = studentService.sidckS2(id);
+            msg = studentService.sidckS2(id); //DB에 클라이언트가 입력한 ID가 있으면 "yesId", 없으면 "noId"
         }
         return msg;
     }
@@ -103,7 +110,6 @@ public class MemberController {
             @RequestParam("pwd") String pwd,
             @RequestParam("phone") String phone
     ){
-        log.info("name is"+name);
         if(type.equals("teacher")){
             TeacherVo teacherVo = new TeacherVo(id, pwd, name, phone, email, agency, null);
             teacherService.tinsertS(teacherVo);

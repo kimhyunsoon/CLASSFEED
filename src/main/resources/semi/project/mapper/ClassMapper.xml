@@ -16,5 +16,15 @@
 	<select id="selectBySid" resultType="String" parameterType="String">
 		select sucode from class where sid=#{sid}
 	</select>
-	
+
+	<select id = "selectTname" resultType="String" parameterType="String">
+		select tname from teacher where tid=(select tid from subject where sucode=#{sucode});
+	</select>
+
+
+
+
+
+
+
 </mapper>

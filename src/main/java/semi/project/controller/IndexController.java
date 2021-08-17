@@ -22,9 +22,9 @@ public class IndexController {
 		log.info("login ok teacher"+tid);
 		log.info("login ok student"+sid);
 		if(tid ==null && sid ==null){
-			return "content/login";
+			return "content/login"; //login.jsp 호출
 		}
-		return "redirect:main/list.do";
+		return "redirect:main/list.do"; //MainController로 연결
 	}
 	
 }

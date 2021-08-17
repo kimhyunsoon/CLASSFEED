@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import semi.project.domain.SubjectVo;
+import semi.project.domain.TeacherVo;
 
 
 @Repository
@@ -15,6 +16,7 @@ public interface SubjectMapper {
 	//List<SubjectVo>[] selectAll(String sucode);
 	void suinsert(SubjectVo subjectVo);
 	List<SubjectVo> selectAll(String sucode);
+	List<TeacherVo> selectTname(String sucode);
 	
 	List<SubjectVo> testAll(String sucode);
 	List<SubjectVo> selectBytid(String tid);

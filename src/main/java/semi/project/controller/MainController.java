@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * 메인화면(==개설한 or 수강중인 클래스 리스트)
+ */
+
+
 @Log4j
 @Controller
 @RequestMapping("main")
@@ -30,9 +35,7 @@ public class MainController {
     private ThemeService themeService;
 
     @GetMapping("/list.do")
-	public ModelAndView list(ClassVo classVo, SubjectVo subjectVo, HttpSession session) {
-
-
+	public ModelAndView list(HttpSession session) {
 
 		Object id = session.getAttribute("loginOksid");
 		Object id2 = session.getAttribute("loginOkTid");
@@ -52,20 +55,26 @@ public class MainController {
 		}else if(sid !=null) {
 			List<StudentVo> slist = studentService.sNameCkS(sid);
 			List<String> sucode = classService.selectBySidS(sid);
+
 			ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
+			ArrayList<TeacherVo> tname = new ArrayList<TeacherVo>();
 			log.info("#slist!!!"+slist);
 			for(int i = 0;i<sucode.size();i++) {
 				List<SubjectVo> list = subjectService.selectAllS(sucode.get(i));
+				List<TeacherVo> tlist = subjectService.selectTnameS(sucode.get(i));
+				log.info("#class teacher"+tlist);
+
 				for(int j=0;j<list.size();j++) {
-					System.out.println("#list["+i+"]: "+list.get(j));
+					//System.out.println("#list["+i+"]: "+list.get(j));
 					t.add(list.get(j));
+					tname.add(tlist.get(j));
 				}
 			}
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("index");
 			mv.addObject("sSubList",t);
 			mv.addObject("sList", slist);
-			//ModelAndView mv = new ModelAndView("test/list","sSubList",t);
+			mv.addObject("tName", tname);
 			return mv;
 		}
 

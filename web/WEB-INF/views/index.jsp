@@ -40,7 +40,7 @@
 
 		</button>
 
-		<a href="#" class="mypageLink toolTipWrap">
+		<a href="../member/logout.do" class="mypageLink toolTipWrap">
 			<img src="../img/defaltProfile.png">
 			<p class="toolTipBot toolTipBot2">마이페이지</p>
 		</a>
@@ -97,7 +97,7 @@
 				<c:choose>
 					<c:when test="${!empty tSubList}">
 						<c:forEach items="${tSubList}" var="subjectVo">
-							<a href="/수업링크?code=${subjectVo.sucode}" class="classLink">
+							<a href="list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<p>${subjectVo.suname}</p>
 								<c:forEach items="${tList}" var="teacherVo">
 									<p>${teacherVo.tname} 선생님</p>
@@ -119,7 +119,10 @@
 							<a href="/수업링크?code=${subjectVo.sucode}" class="classLink">
 								<p>${subjectVo.suname}</p>
 
-								<p>여기따로 해야함</p>
+								<p>
+								<c:forEach items="${tName}" var="TeacherVo">
+									${TeacherVo.tname} 선생님
+								</c:forEach></p>
 
 							</a>
 						</c:forEach>
@@ -221,11 +224,12 @@
 					<c:when test="${!empty tSubList}">
 						<div class="classCardWrap">
 							<c:forEach items="${tSubList }" var="subjectVo">
+								<a href="list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<div class="classCard" data-sucode="${subjectVo.sucode}">
 									<div class="cardTop">
 										<div class="titleWrap">
 
-											<a href="" class="title">
+											<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="title">
 												<p class="tit">${subjectVo.suname}</p>
 												<p class="sub">${subjectVo.ssubname}</p>
 											</a>
@@ -370,7 +374,7 @@
 									<div class="cardTop">
 										<div class="titleWrap">
 
-											<a href="" class="title">
+											<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="title">
 												<p class="tit">${subjectVo.suname}</p>
 												<p class="sub">${subjectVo.ssubname}</p>
 											</a>
@@ -384,7 +388,9 @@
 										</div>
 									</div>
 
-									<div class="teacherTag">여기 따로해야함.</div>
+									<c:forEach items="${tName}" var="TeacherVo">
+										<div class="teacherTag">${TeacherVo.tname} 선생님</div>
+									</c:forEach>
 
 								</div>
 							</c:forEach>

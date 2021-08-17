@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import semi.project.domain.BoardVo;
 import semi.project.mapper.BoardMapper;
 
+import java.util.List;
+
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Autowired
@@ -21,6 +23,11 @@ public class BoardServiceImpl implements BoardService {
 	public void insertBoardNotFileS(BoardVo boardVo) {
 		// TODO Auto-generated method stub
 		boardMapper.insertBoardNotFile(boardVo);
+	}
+
+	@Override
+	public List<BoardVo> selectBySucode(String sucode) {
+		return boardMapper.selectBySucode(sucode);
 	}
 
 }
