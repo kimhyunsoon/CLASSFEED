@@ -166,13 +166,13 @@
                     <c:forEach items="${subList}" var="subjectVo">
 
                         <p class="title">${subjectVo.suname}</p>
-                        <p>${subjectVo.ssubname}</p>
+                        <p class="school">${subjectVo.ssubname}</p>
+                        <p class="teacher">${subjectVo.tid}</p>
                     </c:forEach>
                 </c:when>
             </c:choose>
 
-            <p class="school">코스모고등학교</p>
-            <p class="teacher">김현순</p>
+
 
         </div>
         <div class="streamConBox">
@@ -180,6 +180,7 @@
                 <p class="title">곧 마감되는 과제</p>
                 <p class="noWork">기한이 곧 돌아오는 과제가 없습니다.</p>
             </div>
+
             <div class="streamCardWrap">
                 <div class="streamCard noticeCard">
                     <div class="iconCircle">
@@ -195,14 +196,18 @@
                     </div>
                 </div>
 
+                <c:choose>
+                    <c:when test="${!empty boardList}">
+                        <c:forEach items="${boardList}" var="boardVo">
+
 
                 <div class="streamCard">
                     <div class="iconCircle">
                         <i class="fas fa-chalkboard"></i>
                     </div>
                     <a href="" class="text">
-                        <p class="title">김현순 님이 새 수업을 게시 : 1학기 수학 입니다.</p>
-                        <p class="date">2021.08.16.</p>
+                        <p class="title">${boardVo.tid} 님이 새 수업을 게시 : ${boardVo.btitle}</p>
+                        <p class="date">${boardVo.brdate}</p>
                     </a>
                     <div class="moreBtn">
                         <i class="fas fa-ellipsis-v"></i>
@@ -213,24 +218,9 @@
                         <a href="javascript:void(0)" class="deleteClass" data-class="">삭제</a>
                     </div>
                 </div>
-                <div class="streamCard">
-                    <div class="iconCircle">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <a href="" class="text">
-                        <p class="title">김현순 님이 새 과제를 게시 : 1학기 수학 과제입니다.</p>
-                        <p class="date">2021.08.16.</p>
-                    </a>
-                    <div class="moreBtn">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </div>
-                    <div class="moreWrap">
-                        <a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
-                        <a href="javascript:void(0)" class="editClass" data-class="">수정</a>
-                        <a href="javascript:void(0)" class="deleteClass" data-class="">삭제</a>
-                    </div>
-                </div>
-
+                        </c:forEach>
+                    </c:when>
+                </c:choose>
 
             </div>
         </div>

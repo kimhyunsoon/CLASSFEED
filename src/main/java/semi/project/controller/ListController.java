@@ -61,7 +61,7 @@ public class ListController {
 
             ModelAndView mv = new ModelAndView();
             mv.setViewName("content/stream");
-            mv.addObject("sublist",subList);
+            mv.addObject("subList",subList);
             mv.addObject("boardList", boardList);
 
 
