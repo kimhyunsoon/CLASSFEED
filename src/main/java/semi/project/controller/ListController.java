@@ -5,15 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import semi.project.domain.BoardVo;
+import semi.project.domain.NoticeVo;
 import semi.project.domain.SubjectVo;
-import semi.project.service.BoardService;
-import semi.project.service.ClassService;
-import semi.project.service.SubjectService;
-import semi.project.service.TeacherService;
+import semi.project.domain.TeacherVo;
+import semi.project.service.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -32,6 +32,7 @@ public class ListController {
     private SubjectService subjectService;
     private ClassService classService;
     private BoardService boardService;
+    private NoticeService noticeService;
 
     @GetMapping("/mystream.do") // 해당 과목의 자료, 과제 를 불러 오기 위해
     public ModelAndView mysubject(String sucode, HttpSession session) {
@@ -45,13 +46,23 @@ public class ListController {
 
 
         if(tid!=null) { // tid가 null이 아니라는건 session에 tid 값이 존재(= 선생님이 로그인중)
+            log.info("#check sucode: "+sucode);
+            List<SubjectVo> subList = subjectService.selectAllS(sucode);
+            List<BoardVo> boardList = boardService.selectBySucode(sucode);
+            log.info("#sublist: "+subList);
+            log.info("#boardList: "+boardList);
 
             session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅
-            ModelAndView mv = new ModelAndView("content/stream","tsucode",sucode);
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("content/stream");
+            mv.addObject("tLogin",tid);
+            mv.addObject("subList",subList);
+            mv.addObject("boardList", boardList);
+
             // 선생 과 학생을 구분 해야 하므로 key=tsucode 로 설정
             return mv;
         }else if(sid!=null) {
-            log.info("#check sucode: "+sucode);
+
             List<SubjectVo> subList = subjectService.selectAllS(sucode);
             List<BoardVo> boardList = boardService.selectBySucode(sucode);
 
@@ -61,6 +72,7 @@ public class ListController {
 
             ModelAndView mv = new ModelAndView();
             mv.setViewName("content/stream");
+            mv.addObject("sLogin",sid);
             mv.addObject("subList",subList);
             mv.addObject("boardList", boardList);
 
@@ -69,6 +81,36 @@ public class ListController {
             return mv;
         }
         return null;
+    }
+
+    @PostMapping("/notice.do")
+    public String addNotice(HttpSession session, NoticeVo noticeVo){
+        Object teacher = session.getAttribute("loginOkTid");
+        String tid = (String) teacher;
+        Object student = session.getAttribute("loginOksid");
+        String sid = (String) student;
+        Object code = session.getAttribute("sucode");
+        String sucode = (String) code;
+        log.info("tid login"+tid+"sid"+sid+"sucode"+sucode);
+
+//        String ncontent = noticeVo.getNcontent();
+
+//        noticeVo = new NoticeVo(-1, ncontent, null, tid, sid, sucode);
+
+        if(tid !=null){
+            noticeVo.setSucode(sucode);
+            noticeVo.setTid(tid);
+            noticeService.insertNotice(noticeVo);
+        }else if(sid !=null){
+            log.info("여기까진 오냐//");
+            noticeVo.setSucode(sucode);
+            noticeVo.setSid(sid);
+            noticeService.insertNotice(noticeVo);
+
+        }
+
+
+        return "redirect:mystream.do?sucode="+sucode;
     }
 
 }

@@ -2,4 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="semi.project.mapper.NoticeMapper"></mapper>
+<mapper namespace="semi.project.mapper.NoticeMapper">
+
+    <insert id="insertNotice" parameterType="NoticeVo">
+        insert into notice values(SEQ_NOTICE.nextval,#{ncontent},SYSDATE, #{tid}, #{sid}, #{sucode});
+    </insert>
+
+
+
+
+</mapper>

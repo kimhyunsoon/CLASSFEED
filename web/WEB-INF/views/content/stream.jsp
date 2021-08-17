@@ -187,13 +187,20 @@
                         <i class="fas fa-bullhorn"></i>
                     </div>
                     <p class="title">학생들에게 공지할 내용을 입력하세요.</p>
+
                     <div class="textAreaWrap">
-                        <textarea name="" id="">안녀하세요. 이렇게 내용을 미리 써둬봅시다...</textarea>
+                        <form action="../list/notice.do" method="post">
+                        <textarea name="ncontent" >안녀하세요. 이렇게 내용을 미리 써둬봅시다...</textarea>
                         <div class="btnWrap">
                             <button class="cancleBtn">취소</button>
-                            <button class="submitBtn">등록</button>
+                            <button class="submitBtn" type="submit">등록</button>
                         </div>
+                        </form>
                     </div>
+                    <script>
+
+                    </script>
+
                 </div>
 
                 <c:choose>

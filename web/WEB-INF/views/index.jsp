@@ -31,7 +31,7 @@
 	</a>
 
 	<div class="rightBtnWrap">
-		<button class="memberSwitch">선생님모드</button>
+
 
 		<button type="button" class="feedCenter clickAniBtn toolTipWrap">
 			<b class="feedDot"></b>
@@ -97,7 +97,7 @@
 				<c:choose>
 					<c:when test="${!empty tSubList}">
 						<c:forEach items="${tSubList}" var="subjectVo">
-							<a href="list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
+							<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<p>${subjectVo.suname}</p>
 								<c:forEach items="${tList}" var="teacherVo">
 									<p>${teacherVo.tname} 선생님</p>
@@ -116,7 +116,7 @@
 				<c:choose>
 					<c:when test="${!empty sSubList}">
 						<c:forEach items="${sSubList}" var="subjectVo">
-							<a href="/수업링크?code=${subjectVo.sucode}" class="classLink">
+							<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<p>${subjectVo.suname}</p>
 
 								<p>
