@@ -58,19 +58,16 @@ public class MainController {
 
 			ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
 			ArrayList<TeacherVo> tname = new ArrayList<TeacherVo>();
-			log.info("#slist!!!"+slist);
 			for(int i = 0;i<sucode.size();i++) {
 				List<SubjectVo> list = subjectService.selectAllS(sucode.get(i));
 				List<TeacherVo> tlist = subjectService.selectTnameS(sucode.get(i));
-				log.info("#class teacher"+tlist);
-
 				for(int j=0;j<list.size();j++) {
-					//System.out.println("#list["+i+"]: "+list.get(j));
 					t.add(list.get(j));
 					tname.add(tlist.get(j));
 				}
 			}
 			ModelAndView mv = new ModelAndView();
+			log.info("tname 확인"+tname);
 			mv.setViewName("index");
 			mv.addObject("sSubList",t);
 			mv.addObject("sList", slist);

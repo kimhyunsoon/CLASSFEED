@@ -49,6 +49,7 @@ public class ListController {
             log.info("#check sucode: "+sucode);
             List<SubjectVo> subList = subjectService.selectAllS(sucode);
             List<BoardVo> boardList = boardService.selectBySucode(sucode);
+            List<NoticeVo> noticeList = noticeService.selectBySucode(sucode);
             log.info("#sublist: "+subList);
             log.info("#boardList: "+boardList);
 
@@ -58,6 +59,7 @@ public class ListController {
             mv.addObject("tLogin",tid);
             mv.addObject("subList",subList);
             mv.addObject("boardList", boardList);
+            mv.addObject("noticeList", noticeList);
 
             // 선생 과 학생을 구분 해야 하므로 key=tsucode 로 설정
             return mv;
@@ -65,9 +67,11 @@ public class ListController {
 
             List<SubjectVo> subList = subjectService.selectAllS(sucode);
             List<BoardVo> boardList = boardService.selectBySucode(sucode);
+            List<NoticeVo> noticeList = noticeService.selectBySucode(sucode);
 
             log.info("#sublist: "+subList);
             log.info("#boardList: "+boardList);
+            log.info("#noticeList: "+noticeList);
             session.setAttribute("sucode", sucode);
 
             ModelAndView mv = new ModelAndView();
@@ -75,6 +79,7 @@ public class ListController {
             mv.addObject("sLogin",sid);
             mv.addObject("subList",subList);
             mv.addObject("boardList", boardList);
+            mv.addObject("noticeList", noticeList);
 
 
             // 학생 과 선생을 구분 해야 하므로 key=ssucode 로 설정
@@ -93,23 +98,21 @@ public class ListController {
         String sucode = (String) code;
         log.info("tid login"+tid+"sid"+sid+"sucode"+sucode);
 
-//        String ncontent = noticeVo.getNcontent();
-
-//        noticeVo = new NoticeVo(-1, ncontent, null, tid, sid, sucode);
+        String ncontent = noticeVo.getNcontent();
 
         if(tid !=null){
-            noticeVo.setSucode(sucode);
             noticeVo.setTid(tid);
-            noticeService.insertNotice(noticeVo);
-        }else if(sid !=null){
-            log.info("여기까진 오냐//");
+            noticeVo.setNcontent(ncontent);
             noticeVo.setSucode(sucode);
+            noticeService.insertByTeacher(noticeVo);
+        }else if(sid !=null){
+            //noticeVo = new NoticeVo(-1, null, ncontent, null, sid, sucode);
             noticeVo.setSid(sid);
-            noticeService.insertNotice(noticeVo);
+            noticeVo.setNcontent(ncontent);
+            noticeVo.setSucode(sucode);
+            noticeService.insertByStu(noticeVo);
 
         }
-
-
         return "redirect:mystream.do?sucode="+sucode;
     }
 

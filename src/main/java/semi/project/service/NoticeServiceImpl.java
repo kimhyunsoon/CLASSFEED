@@ -17,8 +17,19 @@ public class NoticeServiceImpl implements NoticeService {
 
 
 	@Override
-	public void insertNotice(NoticeVo noticeVo) {
-		noticeMapper.insertNotice(noticeVo);
+	public void insertByStu(NoticeVo noticeVo) {
+		noticeMapper.insertByStu(noticeVo);
 
+	}
+
+	@Override
+	public void insertByTeacher(NoticeVo noticeVo) {
+		noticeMapper.insertByTeacher(noticeVo);
+
+	}
+
+	@Override
+	public List<NoticeVo> selectBySucode(String sucode) {
+		return noticeMapper.selectBySucode(sucode);
 	}
 }

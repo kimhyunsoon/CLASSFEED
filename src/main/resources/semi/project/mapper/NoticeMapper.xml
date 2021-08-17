@@ -4,9 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.NoticeMapper">
 
-    <insert id="insertNotice" parameterType="NoticeVo">
-        insert into notice values(SEQ_NOTICE.nextval,#{ncontent},SYSDATE, #{tid}, #{sid}, #{sucode});
+    <insert id="insertByStu" parameterType="NoticeVo">
+        insert into notice values(SEQ_NOTICE.nextval,SYSDATE,#{ncontent}, NULL , #{sid}, #{sucode})
     </insert>
+
+    <insert id="insertByTeacher" parameterType="NoticeVo">
+        insert into notice values(SEQ_NOTICE.nextval,SYSDATE,#{ncontent}, #{tid} , NULL, #{sucode})
+    </insert>
+
+    <select id="selectBySucode" resultType="NoticeVo" parameterType="String">
+        select * from notice where sucode = #{sucode} order by nseq desc
+    </select>
 
 
 
