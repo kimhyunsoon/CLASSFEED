@@ -281,7 +281,7 @@
         margin-top: 20px;
         padding: 12px 20px;
         justify-content: space-between;
-        transition: .1s ease-in-out;
+        transition: .2s ease-in-out;
     }
     .mainLink:hover {
         margin-right: 5px;
@@ -976,20 +976,48 @@
     }
 
 
+    .modalWrap .fileBtn2 {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid #dfdfdf;
+        width: 130px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .3s ease-in-out;
+    }
+    .modalWrap .fileBtn2:hover {
+        background-color: #f2f2f2;
+    }
+    .modalWrap .fileBtn2 >i {
+        margin-right: 4px;
+        margin-top:2px;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+    .modalWrap .fileSpace2 {
+        display: flex;
+        align-items: center;
+        background-color: #f2f2f2;
+        border-radius: 100px;
+        padding:8px 16px;
+        width: fit-content;
+        margin-top:20px;
+        display: none;
+    }
+    .modalWrap .fileSpace2>i {
+        margin-left: 10px;
+        margin-top:2px;
+        cursor: pointer;
+    }
+    .modalWrap .fileSpace2 > span{
+        display: inline-block;
+        max-width: 300px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 
 
 
@@ -1104,6 +1132,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         padding:30px 0px;
+        font-size: 15px;
     }
     
     .classSomeLink {
@@ -1112,7 +1141,7 @@
         display: flex;
         align-items: center;
         background-color: #fff;
-        transition: .3s ease-in-out;
+        transition: .2s ease-in-out;
     }
 
     .classSomeLink:hover {
@@ -1185,6 +1214,7 @@
         font-weight: bold;
         color:#262626;
         background-color: #fff;
+        transition: .2s ease-in-out;
     }
     .themeTitle>p:hover {
         background-color: rgba(255,255,255,0.95);
@@ -1204,6 +1234,7 @@
         align-items: center;
         background-color: #f8f8f8;
         /* border:1px solid #ececec; */
+        transition: .2s ease-in-out;
 
     }
     .smallTitle>p>i{
@@ -1294,4 +1325,19 @@
         border-radius: 0px 5px 5px 0px;
         margin-right: 10px;
         margin-top: 10px;
+    }
+
+    .iconCircle {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        border-radius: 100px;
+        flex-shrink: 0;
+    }
+    .iconCircle i {
+        color:#fff;
+        font-size: 20px;
     }

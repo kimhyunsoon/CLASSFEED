@@ -34,38 +34,53 @@
                 
             </div>
 
+            
             <div class="classConCardWrap ">
-                <div class="makeBtnWrap">
-                    <button class="makeSomeBtn"><i class="fas fa-plus"></i>만들기</button>
-                    <div class="makeSomeWrap">
-                        <p class="makeBtn modalBtn" data-modal="">주제</p>
-                        <p class="makeBtn modalBtn" data-modal="addSome">과제</p>
-                        <p class="makeBtn modalBtn" data-modal="addSome">자료</p>
-                    </div>
-                </div>
 
-
-
-
-                <div class="themeTitle codeTransColor_back" data-sucode="${sucode}">
-                    <p>모든주제</p>
-                </div>
-                <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
-                    <div class="classSomeLink">
-                        <div class="iconCircle">
-                            <i class="fas fa-chalkboard"></i>
+                <!-- 선생님만-->
+                <c:if test="${!empty tList}">
+                    <div class="makeBtnWrap">
+                        <button class="makeSomeBtn"><i class="fas fa-plus"></i>만들기</button>
+                        <div class="makeSomeWrap">
+                            <p class="makeBtn modalBtn" data-modal="addTheme">주제</p>
+                            <p class="makeBtn modalBtn" data-modal="addAssignment">과제</p>
+                            <p class="makeBtn modalBtn" data-modal="addStudyFile">자료</p>
                         </div>
-                        <a href="" class="title">0주차 유닉스 (수업)</a>
-                        <div class="moreBtnWrap">
-                            <button class="moreBtn">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="moreWrap">
-                                <a href="" class="moreAnchor">삭제</a>
+                    </div>
+                </c:if>
+
+                <c:forEach items="${blist}" var="boardVo">
+                    <c:if test="${empty boardVo.thcode}">
+                        <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
+                            <div class="classSomeLink">
+                                <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
+                                    <c:choose>
+                                        <c:when test="${empty boardVo.bdeadline}">
+                                            <i class="far fa-file-alt" aria-hidden="true"></i>
+                                        </c:when>
+                                        <c:when test="${!empty boardVo.bdeadline}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                                <a href="../myboard/content.do?bseq=${boardVo.bseq }" class="title">${boardVo.btitle}</a>
+                                
+                                <c:if test="${!empty tList}">
+                                    <div class="moreBtnWrap">
+                                        <button class="moreBtn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="moreWrap">
+                                            <a href="" class="moreAnchor">삭제</a>
+                                        </div>
+                                    </div>
+                                </c:if>
+
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </c:if>
+                </c:forEach>
+    
 
                 <c:forEach items="${thlist}" var="themeVo">
                 <div class="themeTitle codeTransColor_border codeTransColor_back" data-sucode="${sucode}">
@@ -73,22 +88,31 @@
                 </div>
                 <c:forEach items="${blist}" var="boardVo">
                     <c:if test="${themeVo.thcode==boardVo.thcode}">
-                <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
-                    <div class="classSomeLink">
-                        <div class="iconCircle">
-                            <i class="fas fa-chalkboard"></i>
-                        </div>
-                        <a href="../myboard/content.do?bseq=${boardVo.bseq }" class="title">${boardVo.btitle}</a>
-                        <div class="moreBtnWrap">
-                            <button class="moreBtn">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="moreWrap">
-                                <a href="" class="moreAnchor">삭제</a>
+                        <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
+                            <div class="classSomeLink">
+                                <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
+                                    <c:choose>
+                                        <c:when test="${empty boardVo.bdeadline}">
+                                            <i class="far fa-file-alt" aria-hidden="true"></i>
+                                        </c:when>
+                                        <c:when test="${!empty boardVo.bdeadline}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                                <a href="../myboard/content.do?bseq=${boardVo.bseq }" class="title">${boardVo.btitle}</a>
+                                <c:if test="${!empty tList}">
+                                    <div class="moreBtnWrap">
+                                        <button class="moreBtn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="moreWrap">
+                                            <a href="" class="moreAnchor">삭제</a>
+                                        </div>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
-                    </div>
-                </div>
                     </c:if>
                 </c:forEach>
                 </c:forEach>
@@ -98,63 +122,141 @@
         </div>
     </div>
 </div>
-<div class="modalWrap" data-modal="addSome">
-    <div class="modalCon" style="width:500px; max-height: 1000px;">
-        <p class="modalTitle">
-            <span class="codeTransColor_border" data-sucode="${sucode}">과제 제출하기</span>
-            <i class="fas fa-times modalClose"></i>
-        </p>
-        <form action="" method="post">
-            <p class="subTitle">제목</p>
-            <div class="inpWrap">
-                <input type="text" name="title" class="inp" required>
-                <div class="inpBar"></div>
-            </div>
-
-            <p class="subTitle">내용</p>
-            <div class="inpWrap" style="height: 170px;">
-                <textarea name="content" class="inp" style="resize: none; padding:8px"></textarea>
-                <div class="inpBar"></div>
-            </div>
-
-            <div class="doubleRow">
-                <p class="subTitle">기한</p>
+<c:if test="${!empty tList}">
+    <div class="modalWrap" data-modal="addAssignment">
+        <div class="modalCon" style="width:500px; max-height: 1000px;">
+            <p class="modalTitle">
+                <span class="codeTransColor_border" data-sucode="${sucode}">과제 만들기</span>
+                <i class="fas fa-times modalClose"></i>
+            </p>
+            <form action="" method="post">
+                <c:forEach items="${tList}" var="teacherVo">
+                    <input type="hidden" name="tid" value="${teacherVo.tid}">
+                </c:forEach>
+                <input type="hidden" name="sucode" value="${sucode}">
+                <p class="subTitle">제목</p>
+                <div class="inpWrap">
+                    <input type="text" name="title" class="inp" required>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <p class="subTitle">내용</p>
+                <div class="inpWrap" style="height: 170px;">
+                    <textarea name="content" class="inp" style="resize: none; padding:8px"></textarea>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <div class="doubleRow">
+                    <p class="subTitle">기한</p>
+                    <p class="subTitle">주제</p>
+                </div>
+                <div class="doubleRow">
+                    <select name="endDate" class="selectWrap">
+                        <option value="0" selected>기한 없음</option>
+                        <c:forEach var="cnt" begin="1" end="30">
+                            <option value="${cnt}">${cnt}일</option>
+                        </c:forEach>
+                    </select>
+                    <select name="subject" class="selectWrap">
+                        <option value="0" selected>주제 없음</option>
+                        <c:forEach items="${thlist}" var="themeVo">
+                            <option value="${themeVo.thcode}">${themeVo.thname}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+    
+                <div class="fileBtn">
+                    <i class="far fa-folder-open"></i>
+                    <p>파일 첨부하기</p>
+                </div>
+                <div class="fileSpace">
+                    <span></span><i class="fas fa-times"></i>
+                </div>
+                <input type="file" name="file" id="fileInp" style="display: none;">
+    
+    
+                <div class="btnWrap">
+                    <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">등록</button>
+                </div>
+    
+            </form>
+        </div>
+    </div>
+    <div class="modalWrap" data-modal="addStudyFile">
+        <div class="modalCon" style="width:500px; max-height: 1000px;">
+            <p class="modalTitle">
+                <span class="codeTransColor_border" data-sucode="${sucode}">자료 올리기</span>
+                <i class="fas fa-times modalClose"></i>
+            </p>
+            <form action="" method="post">
+                <p class="subTitle">제목</p>
+                <div class="inpWrap">
+                    <input type="text" name="title" class="inp" required>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <p class="subTitle">내용</p>
+                <div class="inpWrap" style="height: 170px;">
+                    <textarea name="content" class="inp" style="resize: none; padding:8px"></textarea>
+                    <div class="inpBar"></div>
+                </div>
+    
                 <p class="subTitle">주제</p>
-            </div>
-            <div class="doubleRow">
-                <select name="endDate" class="selectWrap">
-                    <option value="0" selected>기한 없음</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
+
                 <select name="subject" class="selectWrap">
                     <option value="0" selected>주제 없음</option>
-                    <option value="주제1">주제1</option>
-                    <option value="주제2">주제2</option>
-                    <option value="주제3">주제3</option>
+                    <c:forEach items="${thlist}" var="themeVo">
+                        <option value="${themeVo.thcode}">${themeVo.thname}</option>
+                    </c:forEach>
                 </select>
-            </div>
-
-            <div class="fileBtn">
-                <i class="far fa-folder-open"></i>
-                <p>파일 첨부하기</p>
-            </div>
-            <div class="fileSpace">
-                <span>파일명파일명 파일명.jpg</span><i class="fas fa-times"></i>
-            </div>
-            <input type="file" name="file" id="fileInp" style="display: none;">
-
-
-            <div class="btnWrap">
-                <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">등록</button>
-            </div>
-
-        </form>
+    
+                <div class="fileBtn2">
+                    <i class="far fa-folder-open"></i>
+                    <p>파일 첨부하기</p>
+                </div>
+                <div class="fileSpace2">
+                    <span></span><i class="fas fa-times"></i>
+                </div>
+                <input type="file" name="file" id="fileInp2" style="display: none;">
+    
+    
+                <div class="btnWrap">
+                    <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">등록</button>
+                </div>
+    
+            </form>
+        </div>
     </div>
-</div>
+    <div class="modalWrap" data-modal="addTheme">
+        <div class="modalCon" style="width:300px; max-height: 1000px;">
+            <p class="modalTitle">
+                <span class="codeTransColor_border" data-sucode="${sucode}">주제 만들기</span>
+                <i class="fas fa-times modalClose"></i>
+            </p>
+            <form action="" method="post">
+                <c:forEach items="${tList}" var="teacherVo">
+                    <input type="hidden" name="tid" value="${teacherVo.tid}">
+                </c:forEach>
+                <input type="hidden" name="sucode" value="${sucode}">
+                <c:forEach items="${tList}" var="teacherVo">
+                    <input type="hidden" name="tid" value="${teacherVo.tid}">
+                </c:forEach>
+                <input type="hidden" name="sucode" value="${sucode}">
+                <p class="subTitle">주제명</p>
+                <div class="inpWrap">
+                    <input type="text" name="title" class="inp" required>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <div class="btnWrap">
+                    <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">등록</button>
+                </div>
+    
+            </form>
+        </div>
+    </div>
+</c:if>
+
 
 </body>
 <script>
@@ -187,6 +289,34 @@
 
     })
 
+    //파일관련2
+    $(document).on('click','.modalWrap .fileBtn2',function(){
+        $('#fileInp2').trigger('click');
+    })
+    $(document).on('change', '#fileInp2', function(){
+        var fileName1   = $(this).val().split('\\');
+        var fileNameLeng = fileName1.length;
+        var fileName = fileName1[fileNameLeng-1];  
+
+        if($(this).val()!=null){
+            $('.modalWrap .fileBtn2').hide();
+            $('.modalWrap .fileSpace2').css({
+                display:'flex'
+            });
+            $('.modalWrap .fileSpace2>span').text(fileName)
+        }
+    })
+
+    $(document).on('click', '.modalWrap .fileSpace2>i', function(){
+        $(this).closest('.fileSpace2').hide();
+        $('.modalWrap .fileBtn2').css({
+            display:'flex'
+        });
+        $('#fileInp2').val('');
+
+    })
+
+
     //만들기 버튼
     $(document).on('click', '.makeSomeBtn', function(){
         $('.makeSomeWrap').toggleClass('on')
@@ -197,5 +327,9 @@
             $('.makeSomeWrap').removeClass('on')
         }
     })
+
+
+
+    
 
 </script>

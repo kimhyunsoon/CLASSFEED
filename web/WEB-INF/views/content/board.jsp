@@ -9,7 +9,7 @@
 <div class="contentWrap">
     <div class="innerWrap">
         <c:forEach items="${subList}" var="subjectVo">
-        <a href="" class="smallTitle codeTransColor_back" data-sucode="${sucode}">
+        <a href="../list/myclass.do?sucode=${sucode}" class="smallTitle codeTransColor_back" data-sucode="${sucode}">
             <p>${subjectVo.suname} - ${subjectVo.ssubname} <i class="codeTransColor_color fas fa-chevron-right" data-sucode="${sucode}"></i></p>
         </a>
         </c:forEach>
@@ -44,6 +44,11 @@
                 <span>파일명.jpg</span>
                 <p class="toolTipBot">다운로드</p>
             </a>
+
+            <!-- 학생_제출한게 없으면-->
+            <div class="workSubmitWrap">
+                <button class="modalBtn codeTransColor_back" data-modal="workSubmit" data-sucode="${sucode}">과제 제출하기</button>
+            </div>
 
         </div>
     </c:forEach>
@@ -85,13 +90,10 @@
         <!-- 학생_제출한게 있으면 끝-->
 
 
-        <!-- 학생_제출한게 없으면-->
-        <div class="workSubmitWrap">
-            <button class="modalBtn codeTransColor_back" data-modal="workSubmit" data-sucode="${sucode}">과제 제출하기</button>
-        </div>
+        
 
         <div class="modalWrap" data-modal="workSubmit">
-            <div class="modalCon" style="width:500px; max-height: 1000px;">
+            <div class="modalCon" style="width:300px; max-height: 1000px;">
                 <p class="modalTitle">
                     <span class="codeTransColor_border" data-sucode="${sucode}">과제 제출하기</span>
                     <i class="fas fa-times modalClose"></i>
