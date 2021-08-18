@@ -29,11 +29,19 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 
-
 	@Override
 	public List<String> selectBySidS(String sid) {
 		// TODO Auto-generated method stub
 		return classMapper.selectBySid(sid);
 	}
+
+	@Override
+	public List<String> selectSidS(String sucode) {
+		// TODO Auto-generated method stub
+		return classMapper.selectSid(sucode);
+	}
+
+
+
 
 }

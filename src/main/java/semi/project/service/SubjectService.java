@@ -17,4 +17,8 @@ public interface SubjectService {
 	List<SubjectVo> testAll(String sucode);
 	List<SubjectVo> selectBytid(String tid);
 	Boolean chkSucode(String sucode);
+
+	String selectSunameS(String sucode);
+
+	String selectTidS(String sucode);
 }

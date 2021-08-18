@@ -13,5 +13,6 @@ public interface ClassMapper {
 	List<String> selectBySid(String sid);
 
 	void cinsert(ClassVo classVo);
+	List<String> selectSid(String sucode);
 
 }

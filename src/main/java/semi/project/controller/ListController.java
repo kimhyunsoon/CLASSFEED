@@ -35,7 +35,7 @@ public class ListController {
     private StudentService studentService;
 
 
-    @GetMapping("/mystream.do") // 해당 과목의 자료, 과제 를 불러 오기 위해
+    @GetMapping("/mystream.do") // !!!!스트림 카테고리 리스트 출력
     public ModelAndView mystream(String sucode, HttpSession session) {
         // jsp에서 sucode를 물고온다.
         Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
@@ -102,7 +102,7 @@ public class ListController {
         return null;
     }
 
-    @PostMapping("/notice.do")
+    @PostMapping("/notice.do") //!!! 공지 insert
     public String addNotice(HttpSession session, NoticeVo noticeVo){
         Object teacher = session.getAttribute("loginOkTid");
         String tid = (String) teacher;

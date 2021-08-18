@@ -21,4 +21,5 @@ public class BoardVo { // 자료
 	private String bfname; // 기본 파일 이름
 	private String bofname; // 변경된 파일 이름
 	private long bfsize; // 파일 크기
+	private String sucode;
 }

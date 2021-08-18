@@ -74,4 +74,17 @@ public class SubjectServiceImpl implements SubjectService {
 
 	}
 
+	@Override
+	public String selectSunameS(String sucode) {
+		// TODO Auto-generated method stub
+		return subjectMapper.selectSuname(sucode);
+	}
+
+	@Override
+	public String selectTidS(String sucode) {
+		// TODO Auto-generated method stub
+		return subjectMapper.selectTid(sucode);
+	}
+
+
 }
