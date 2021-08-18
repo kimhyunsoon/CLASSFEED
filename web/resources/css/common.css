@@ -593,6 +593,7 @@
         padding:58px 70px;
         padding-right: 0px;
     }
+    
     .contentInnerWrap {
         width: 100%;
         background-color: transparent;
@@ -892,7 +893,7 @@
     .streamCard.noticeCard.on .textAreaWrap {
         display: block;
     }
-    .textAreaWrap>textarea{
+    .textAreaWrap textarea{
         width: 100%;
         margin-bottom:10px;
         border:0;
@@ -901,7 +902,7 @@
         resize:vertical;
         border-radius: 4px 4px 0px 0px;
     }
-    .textAreaWrap>textarea:focus-visible{
+    .textAreaWrap textarea:focus-visible{
         outline: none;
     }
     .textAreaWrap .btnWrap {

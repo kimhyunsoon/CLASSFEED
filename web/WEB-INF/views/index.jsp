@@ -15,7 +15,7 @@
 							<c:forEach items="${tSubList }" var="subjectVo">
 								<a href="list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<div class="classCard" data-sucode="${subjectVo.sucode}">
-									<div class="cardTop">
+									<div class="cardTop codeTransColor_back" data-sucode="${subjectVo.sucode}">
 										<div class="titleWrap">
 
 											<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="title">
@@ -34,7 +34,7 @@
 									<c:forEach items="${tList}" var="teacherVo">
 										<div class="teacherTag">${teacherVo.tname} 선생님</div>
 									</c:forEach>
-									<div class="classCode toolTipWrap">
+									<div class="classCode toolTipWrap codeTransColor_back" data-sucode="${subjectVo.sucode}">
 										<div>
 											<input type="text" class="code" value="${subjectVo.sucode}">
 											<span>${subjectVo.sucode}</span>
@@ -159,8 +159,8 @@
 					<c:when test="${!empty sSubList}">
 						<div class="classCardWrap">
 							<c:forEach items="${sSubList }" var="subjectVo">
-								<div class="classCard" data-sucode="${subjectVo.sucode}">
-									<div class="cardTop">
+								<div class="classCard">
+									<div class="cardTop codeTransColor_back" data-sucode="${subjectVo.sucode}">
 										<div class="titleWrap">
 
 											<a href="../list/mystream.do?sucode=${subjectVo.sucode}" class="title">
