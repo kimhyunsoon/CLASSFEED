@@ -89,6 +89,12 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 	}
 
 	@Override
+	public void insertOkFileS(BoardVo boardVo) {
+		boardMapper.insertOkFile(boardVo);
+
+	}
+
+	@Override
 	public List<BoardVo> boardSelectAllS(String tid, String sucode) {
 		// TODO Auto-generated method stub
 		List<BoardVo> list =boardMapper.boardSelectAll(tid, sucode);
@@ -107,5 +113,17 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 	public List<BoardVo> selectBySucode(String sucode) {
 		return boardMapper.selectBySucode(sucode);
 	}
+
+	@Override
+	public String boardSelectTidS(long bseq) {
+		return boardMapper.boardSelectTid(bseq);
+	}
+
+	@Override
+	public List<BoardVo> boardSelectBySeqS(long bseq) {
+		return boardMapper.boardSelectBySeq(bseq);
+	}
+
+
 
 }

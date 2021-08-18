@@ -14,5 +14,6 @@ public interface TeacherService {
 	String temailckS(String temail);
 	String tidckS2(String tid);
 	List<TeacherVo> tNameCkS(String tid);
+	String tnameS(String tid);
 
 }
