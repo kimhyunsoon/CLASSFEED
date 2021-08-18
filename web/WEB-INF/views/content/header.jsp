@@ -229,7 +229,7 @@
 			var thisColor = codeTransColor($('.codeTransColor_color').eq(i).data('sucode'));
 
 			$('.codeTransColor_color').eq(i).css({
-				'border-color':thisColor
+				'color':thisColor
 			})
 		}
 	})

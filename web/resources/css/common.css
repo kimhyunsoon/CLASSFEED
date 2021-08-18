@@ -1018,3 +1018,211 @@
         margin-bottom: 30px;
         border-radius: 4px;
     }
+
+
+    .classConBox  {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        align-items: flex-start;
+    }
+    .classConBox .classConLeft {
+        width: 180px;
+        flex-shrink: 0;
+    }
+    .classConBox .classConLeft .themeLink {
+        height: 60px;
+        border-radius: 5px;
+    }
+    .classConBox .classConLeft .themeLink p{
+        background-color: #f8f8f8;
+        height: 60px;
+        line-height: 60px;
+        padding:0px 20px;;
+        cursor: pointer;
+        transition: .2s ease-in-out;
+        color:#555;
+    }
+    .classConBox .classConLeft .themeLink p:hover{
+        background-color: rgba(255,255,255,.95);
+
+    }
+    .classConBox .classConLeft .themeLink.on p{
+        font-weight: bold;
+        color:#262626;
+        background-color: rgba(255,255,255,.95);
+
+    }
+
+
+    .classConCardWrap {
+        width: 100%;
+        margin-left: 20px;
+        flex-shrink: 1;
+    }
+    .classConCardWrap .makeBtnWrap{
+        position: relative;
+        margin-bottom:20px;
+        width: max-content;
+    }
+    .classConCardWrap .makeSomeBtn{
+        padding:10px 20px;
+        display: flex;
+        padding-left: 14px;
+        border-radius: 100px;
+        align-items: center;
+        background-color: #555;
+        color:#fff;
+        transition: .3s ease-in-out;
+        cursor: pointer;
+    }
+    .classConCardWrap .makeSomeBtn >i {
+        color:#fff;
+        margin-top:2px;
+        margin-right: 10px;
+    }
+    .classConCardWrap .makeSomeBtn:hover{
+        box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+    }
+
+    .classConCardWrap  .makeSomeWrap{
+        position: absolute;
+        bottom:35px;
+        left:85px;
+
+        height: auto;
+        background-color: rgba(0,0,0,0.7);
+        border-radius: 4px;
+        overflow: hidden;
+        padding: 5px 0px;
+        transform: scale(0);
+        transform-origin: bottom left;
+        transition: .3s ease-in-out;
+        width: max-content;
+    }
+    .classConCardWrap  .makeSomeWrap.on{
+        transform: scale(1);
+    }
+    .classConCardWrap  .makeSomeWrap .makeBtn{
+        cursor: pointer;
+        display: block;
+        padding: 5px 15px;
+        color: #fff;
+        font-size: 13px;
+
+    }
+    .classConCardWrap  .makeSomeWrap .makeBtn:hover{
+        text-decoration: underline;
+    }
+
+    .classSomeLink > .title {
+        width: 100%;
+        flex-shrink: 1;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding:30px 0px;
+    }
+    .classConCardWrap .moreBtn{
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100px;
+        flex-shrink: 0;
+        cursor: pointer;
+        background-color: transparent;
+        transition: .2s ease-in-out;
+    }
+
+    
+    .classSomeLink {
+        width: 100%;
+        padding:0px 20px;
+        display: flex;
+        align-items: center;
+        background-color: #f8f8f8;
+        transition: .3s ease-in-out;
+    }
+
+    .classSomeLink:hover {
+        background-color: rgba(255,255,255,0.95);
+    }
+
+
+    .classSomeLinkWrap+.classSomeLinkWrap {
+        border-top:1px solid #ccc;
+    }
+
+    .classSomeLink .moreBtnWrap{
+        position: relative
+    }
+    .classSomeLink .moreBtn{
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100px;
+        flex-shrink: 0;
+        cursor: pointer;
+        background-color: transparent;
+        transition: .2s ease-in-out;
+    }
+    .classSomeLink .moreBtn:hover{
+        background-color: rgba(0,0,0,0.2);
+    }
+    .classSomeLink .moreBtn>i{
+        color:#262626;
+        font-size: 18px;
+    }
+    .classSomeLink .moreWrap{
+        position: absolute;
+        z-index: 1;
+        height: auto;
+        background-color:rgba(0,0,0,0.7);
+        border-radius: 4px;
+        overflow: hidden;
+        right: -46px;
+        top: 28px;
+        padding:5px 0px;
+        transform: scale(0);
+        transform-origin:top left;
+        transition: .3s ease-in-out;
+    }
+    .classSomeLink .moreWrap.on{
+        transform: scale(1);
+    }
+    .classSomeLink .moreWrap a{
+        display: block;
+        padding:5px 15px;
+        color:#fff;
+        font-size: 13px;
+    }
+    .classSomeLink .moreWrap a:hover{
+        text-decoration: underline;
+    }
+    .themeTitle {
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .themeTitle>p {
+        font-size: 20px;
+        padding-top:20px;
+        padding-left:20px;
+        padding-bottom:20px;
+        margin-top:20px;
+        font-weight: bold;
+        color:#262626;
+        background-color: #f8f8f8;
+    }
+    .themeTitle>p:hover {
+        background-color: rgba(255,255,255,0.95);
+    }
+    .themeTitle + .classSomeLinkWrap {
+        border-top:1px solid #262626;
+    }
