@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="header.jsp" flush="true">
-    <jsp:param name="title" value="클래스"/>
+    <jsp:param name="title" value="수업보관함"/>
 </jsp:include>
 
 <div class="contentWrap">

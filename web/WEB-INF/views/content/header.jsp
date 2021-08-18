@@ -58,15 +58,41 @@
 
 </header>
 <nav class="sideNav">
-	<a href="/" class="sideNavLink toolTipWrap on">
-		<i class="fas fa-chalkboard-teacher"></i>
-		<p class="toolTipBot">클래스</p>
-	</a>
-
-	<a href="keep.do" class="sideNavLink toolTipWrap">
-		<i class="fas fa-archive"></i>
-		<p class="toolTipBot">수업보관함</p>
-	</a>
+	<c:choose>
+		<c:when test="${param.title == '클래스'}">
+			<a href="/" class="sideNavLink toolTipWrap on">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p class="toolTipBot">클래스</p>
+			</a>
+		
+			<a href="keep.do" class="sideNavLink toolTipWrap">
+				<i class="fas fa-archive"></i>
+				<p class="toolTipBot">수업보관함</p>
+			</a>
+		</c:when>
+		<c:when test="${param.title == '수업보관함'}">
+			<a href="/" class="sideNavLink toolTipWrap">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p class="toolTipBot">클래스</p>
+			</a>
+		
+			<a href="keep.do" class="sideNavLink toolTipWrap on">
+				<i class="fas fa-archive"></i>
+				<p class="toolTipBot">수업보관함</p>
+			</a>
+		</c:when>
+		<c:when test="${param.title != '클래스' && param.title != '수업보관함'}">
+			<a href="/" class="sideNavLink toolTipWrap">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p class="toolTipBot">클래스</p>
+			</a>
+		
+			<a href="keep.do" class="sideNavLink toolTipWrap">
+				<i class="fas fa-archive"></i>
+				<p class="toolTipBot">수업보관함</p>
+			</a>
+		</c:when>
+	</c:choose>
 </nav>
 
 
@@ -88,14 +114,41 @@
 		</c:choose>
 
 	</div>
-	<a href="/" class="mainLink on">
-		<i class="fas fa-chalkboard-teacher"></i>
-		<p>클래스</p>
-	</a>
-	<a href="keep.do" class="mainLink">
-		<i class="fas fa-archive"></i>
-		<p>수업보관함</p>
-	</a>
+	
+
+	<c:choose>
+		<c:when test="${param.title == '클래스'}">
+			<a href="/" class="mainLink on">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p>클래스</p>
+			</a>
+			<a href="keep.do" class="mainLink">
+				<i class="fas fa-archive"></i>
+				<p>수업보관함</p>
+			</a>
+		</c:when>
+		<c:when test="${param.title == '수업보관함'}">
+			<a href="/" class="mainLink">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p>클래스</p>
+			</a>
+			<a href="keep.do" class="mainLink on">
+				<i class="fas fa-archive"></i>
+				<p>수업보관함</p>
+			</a>
+		</c:when>
+		<c:when test="${param.title != '클래스' && param.title != '수업보관함'}">
+			<a href="/" class="mainLink on">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p>클래스</p>
+			</a>
+			<a href="keep.do" class="mainLink">
+				<i class="fas fa-archive"></i>
+				<p>수업보관함</p>
+			</a>
+		</c:when>
+	</c:choose>
+
 	<div class="classList">
 		<p class="classListTitle">나의 수업</p>
 		<c:choose>
