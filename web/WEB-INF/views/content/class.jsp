@@ -43,7 +43,7 @@
                     <button class="makeSomeBtn"><i class="fas fa-plus"></i>만들기</button>
                     <div class="makeSomeWrap">
                         <p class="makeBtn modalBtn" data-modal="">주제</p>
-                        <p class="makeBtn modalBtn" data-modal="addSome">수업/과제</p>
+                        <p class="makeBtn modalBtn" data-modal="addSome">과제</p>
                         <p class="makeBtn modalBtn" data-modal="addSome">자료</p>
                     </div>
                 </div>
@@ -65,8 +65,6 @@
                                 <i class="fas fa-ellipsis-v"></i>
                             </div>
                             <div class="moreWrap">
-                                <a href="">보관</a>
-                                <a href="">수정</a>
                                 <a href="">삭제</a>
                             </div>
                         </div>
@@ -88,8 +86,6 @@
                                 <i class="fas fa-ellipsis-v"></i>
                             </div>
                             <div class="moreWrap">
-                                <a href="">보관</a>
-                                <a href="">수정</a>
                                 <a href="">삭제</a>
                             </div>
                         </div>
@@ -106,8 +102,6 @@
                                 <i class="fas fa-ellipsis-v"></i>
                             </div>
                             <div class="moreWrap">
-                                <a href="">보관</a>
-                                <a href="">수정</a>
                                 <a href="">삭제</a>
                             </div>
                         </div>
@@ -122,7 +116,7 @@
 <div class="modalWrap" data-modal="addSome">
     <div class="modalCon" style="width:500px; max-height: 1000px;">
         <p class="modalTitle">
-            <span>수업/과제 등록</span>
+            <span class="codeTransColor_border" data-sucode="${sucode}">과제 제출하기</span>
             <i class="fas fa-times modalClose"></i>
         </p>
         <form action="" method="post">
@@ -170,7 +164,7 @@
 
 
             <div class="btnWrap">
-                <button type="submit" class="adMissionBtn pointBtn">등록</button>
+                <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">등록</button>
             </div>
 
         </form>
@@ -180,14 +174,42 @@
 </body>
 <script>
 
-//클래스카드 모어버튼
-$(document).on('click', '.classSomeLink .moreBtn', function(){
-    $(this).siblings('.moreWrap').toggleClass('on')
-})
+    // 모어버튼
+    $(document).on('click', '.moreBtn', function(){
+        $(this).siblings('.moreWrap').toggleClass('on')
+    })
 
-//만들기 버튼
-$(document).on('click', '.makeSomeBtn', function(){
-    $('.makeSomeWrap').toggleClass('on')
-})
+
+    //파일 관련
+    $(document).on('click','.modalWrap .fileBtn',function(){
+        $('#fileInp').trigger('click');
+    })
+    $(document).on('change', '#fileInp', function(){
+        var fileName1   = $(this).val().split('\\');
+        var fileNameLeng = fileName1.length;
+        var fileName = fileName1[fileNameLeng-1];  
+
+        if($(this).val()!=null){
+            $('.modalWrap .fileBtn').hide();
+            $('.modalWrap .fileSpace').css({
+                display:'flex'
+            });
+            $('.modalWrap .fileSpace>span').text(fileName)
+        }
+    })
+
+    $(document).on('click', '.modalWrap .fileSpace>i', function(){
+        $(this).closest('.fileSpace').hide();
+        $('.modalWrap .fileBtn').css({
+            display:'flex'
+        });
+        $('#fileInp').val('');
+
+    })
+
+    //만들기 버튼
+    $(document).on('click', '.makeSomeBtn', function(){
+        $('.makeSomeWrap').toggleClass('on')
+    })
 
 </script>

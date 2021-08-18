@@ -9,12 +9,12 @@
 <div class="contentWrap">
     <div class="innerWrap">
         <a href="" class="smallTitle codeTransColor_back">
-            <p>1학년 1반 수업이에용 대제목 - 룰루랄라 수업부제목 <i class="codeTransColor_color fas fa-chevron-right"></i></p>
+            <p>1학년 1반 수업이에용 대제목 - 룰루랄라 수업부제목 <i class="codeTransColor_color fas fa-chevron-right" data-sucode="${sucode}"></i></p>
         </a>
 
         
         <div class="boradConBox">
-            <div class="boradConTitle codeTransColor_border">
+            <div class="boradConTitle codeTransColor_border" data-sucode="${sucode}">
                 <div class="tit">
                     <p class="main">1주차 유닉스 실무 OT</p>
                     <p class="sub">이가은 선생님 ・ 2021-10-11</p>
@@ -23,7 +23,7 @@
                 <!-- 선생님만 나옴 -->
                 <div class="moreBtnWrap">
                     <div class="moreBtn">
-                        <i class="fas fa-ellipsis-v codeTransColor_color"></i>
+                        <i class="fas fa-ellipsis-v codeTransColor_color" data-sucode="${sucode}"></i>
                     </div>
                     <div class="moreWrap">
                         <a href="">삭제</a>
@@ -48,7 +48,7 @@
         <p class="boradWorkTitle">제출된 과제</p>
 
         <div class="streamCard">
-            <div class="iconCircle codeTransColor_back">
+            <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
                 <i class="far fa-file-alt"></i>
             </div>
             <a href="" class="text" download>
@@ -62,7 +62,7 @@
         <!-- 학생_제출한게 있으면 -->
         <p class="boradWorkTitle">내가 제출한 과제</p>
         <div class="streamCard">
-            <div class="iconCircle codeTransColor_back">
+            <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
                 <i class="far fa-file-alt"></i>
             </div>
             <a href="" class="text" download>
@@ -81,13 +81,13 @@
 
         <!-- 학생_제출한게 없으면-->
         <div class="workSubmitWrap">
-            <button class="modalBtn codeTransColor_back" data-modal="workSubmit">과제 제출하기</button>
+            <button class="modalBtn codeTransColor_back" data-modal="workSubmit" data-sucode="${sucode}">과제 제출하기</button>
         </div>
 
         <div class="modalWrap" data-modal="workSubmit">
             <div class="modalCon" style="width:500px; max-height: 1000px;">
                 <p class="modalTitle">
-                    <span class="codeTransColor_border">과제 제출하기</span>
+                    <span class="codeTransColor_border" data-sucode="${sucode}">과제 제출하기</span>
                     <i class="fas fa-times modalClose"></i>
                 </p>
                 <form action="" method="post">
@@ -100,7 +100,7 @@
                     </div>
                     <input type="file" name="file" id="fileInp" style="display: none;">
                     <div class="btnWrap" style="margin-top:20px">
-                        <button type="submit" class="codeTransColor_back adMissionBtn pointBtn">제출</button>
+                        <button type="submit" class="codeTransColor_back adMissionBtn pointBtn" data-sucode="${sucode}">제출</button>
                     </div>
     
                 </form>
