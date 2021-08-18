@@ -8,25 +8,16 @@
 <div class="contentWrap">
     <div class="innerWrap">
         <div class="conTabWarp">
-            <a href="" class="conTab on">스트림</a>
-            <a href="" class="conTab">수업</a>
-            <a href="" class="conTab">사용자</a>
+            <a href="../list/mystream.do?sucode=${sucode}" class="conTab on codeTransColor_color codeTransColor_border" data-sucode="${sucode}">스트림</a>
+            <a href="../list/myclass.do?sucode=${sucode}" class="conTab">수업</a>
         </div>
 
         <div class="titleBox codeTransColor_back" data-sucode="${sucode}">
-            <c:choose>
-                <c:when test="${!empty subList}">
-                    <c:forEach items="${subList}" var="subjectVo">
-
-                        <p class="title">${subjectVo.suname}</p>
-                        <p class="school">${subjectVo.ssubname}</p>
-                        <p class="teacher">${subjectVo.tname} 선생님</p>
-                    </c:forEach>
-                </c:when>
-            </c:choose>
-
-
-
+            <c:forEach items="${subList}" var="subjectVo">
+                <p class="title">${subjectVo.suname}</p>
+                <p class="school">${subjectVo.ssubname}</p>
+                <p class="teacher">${subjectVo.tname} 선생님</p>
+            </c:forEach>
         </div>
         <div class="streamConBox">
             <div class="homeWorkBox">
