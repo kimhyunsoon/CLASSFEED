@@ -73,4 +73,10 @@ public class MainController {
 		}
 		return null;
 	}
+
+	@GetMapping("/keep.do")
+	public String keepSubject(){
+
+		return "content/keep";
+	}
 }

@@ -58,12 +58,12 @@
 
 </header>
 <nav class="sideNav">
-	<a href="" class="sideNavLink toolTipWrap on">
+	<a href="/" class="sideNavLink toolTipWrap on">
 		<i class="fas fa-chalkboard-teacher"></i>
 		<p class="toolTipBot">클래스</p>
 	</a>
 
-	<a href="" class="sideNavLink toolTipWrap">
+	<a href="keep.do" class="sideNavLink toolTipWrap">
 		<i class="fas fa-archive"></i>
 		<p class="toolTipBot">수업보관함</p>
 	</a>
@@ -88,11 +88,11 @@
 		</c:choose>
 
 	</div>
-	<a href="" class="mainLink on">
+	<a href="/" class="mainLink on">
 		<i class="fas fa-chalkboard-teacher"></i>
 		<p>클래스</p>
 	</a>
-	<a href="" class="mainLink">
+	<a href="keep.do" class="mainLink">
 		<i class="fas fa-archive"></i>
 		<p>수업보관함</p>
 	</a>
