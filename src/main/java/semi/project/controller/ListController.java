@@ -180,9 +180,9 @@ public class ListController {
     public String addTheme(HttpSession session, ThemeVo themeVo) {
         Object t = session.getAttribute("loginOkTid"); //선생님 만이 주제 추가 가능
         String tid = (String)t;
-
         Object s = session.getAttribute("sucode"); //세션에서 수업코드를 가져옴.
         String sucode = (String)s; // Object -> String
+
         String thcode=""; // 주제 코드를 담을 변수
         String fail = "fail";
         List<ThemeVo> tinfo = themeService.selectAllS(thcode);
@@ -212,7 +212,7 @@ public class ListController {
                 }
             }
         }
-        return "redirect:../list/myclass.do?sucode=sucode";
+        return "redirect:../list/myclass.do?sucode="+sucode;
     }
 
 
