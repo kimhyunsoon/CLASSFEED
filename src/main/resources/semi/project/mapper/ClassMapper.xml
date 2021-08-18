@@ -21,7 +21,9 @@
 		select tname from teacher where tid=(select tid from subject where sucode=#{sucode});
 	</select>
 
-
+	<select id="selectSid" resultType="String" parameterType="String">
+		select sid from class where sucode=#{sucode}
+	</select>
 
 
 

@@ -21,6 +21,7 @@ import java.util.List;
  * 스트림 공지사항 입력
  * 수업페이지 리스트 출력
  * 주제 테이블 인서트까지
+ * 알림창 리스트 출력
  * */
 
 @Log4j
@@ -35,6 +36,7 @@ public class ListController {
     private NoticeService noticeService;
     private StudentService studentService;
     private ThemeService themeService;
+    private AlarmService alarmService;
 
 
     @GetMapping("/mystream.do") // 해당 과목의 자료, 과제 를 불러 오기 위해
@@ -215,6 +217,20 @@ public class ListController {
         return "redirect:../list/myclass.do?sucode="+sucode;
     }
 
+
+    @GetMapping("/alarm.do")
+    public ModelAndView alarmlist(HttpSession session) {
+        Object id = session.getAttribute("sid");
+        String sid = (String)id;
+
+        List<AlarmVo> list =  alarmService.aselectBysidS(sid);
+
+        System.out.println(list);
+
+        ModelAndView mv = new ModelAndView("test/alarm","list",list);
+
+        return mv;
+    }
 
 
 

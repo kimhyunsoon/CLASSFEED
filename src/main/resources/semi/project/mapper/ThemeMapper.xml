@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id ="thinsert"  parameterType="ThemeVo">
-		insert into theme values(#{thcode}, #{tid}, #{sucode}, #{thname}, SYSDATE)
+		insert into theme values(#{thcode}, #{tid}, #{sucode}, #{thname}, SYSDATE) order by trdate asc
 	</insert>
 	
 	<select id="selectBysucode" resultType="ThemeVo" parameterType="String">

@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.SubjectMapper">
 
+	<select id="selectSuname" resultType="String" parameterType="String">
+		select suname from subject where sucode = #{sucode}
+	</select>
+
 	<select id="selectBySucode" resultType="String" parameterType="String">
 		select sucode from subject where sucode = #{sucode}
 	</select>
@@ -33,4 +37,16 @@
 	<select id="selectBytid" resultType="SubjectVo" parameterType="String">
 		select * from subject where tid = #{tid}
 	</select>
+
+	<select id="selectTid" resultType="String" parameterType="String">
+		select tid from subject where sucode = #{sucode}
+	</select>
+
+	<update id="updateKeepOn" parameterType="String">
+		update subject set skeep=#{skeep} where sucode = #{sucode}
+	</update>
+
+	<update id="updateKeepOff" parameterType="String">
+		update subject set skeep=#{skeep} where sucode = #{sucode}
+	</update>
 </mapper>

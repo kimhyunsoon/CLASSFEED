@@ -23,4 +23,7 @@ public interface SubjectMapper {
 	List<SubjectVo> selectBytid(String tid);
 	String selectSuname(String sucode);
 	String selectTid(String sucdoe); // 선생님 id 찾기위해
+
+    void updateKeepOn(String skeep, String sucode);
+	void updateKeepOff(String skeep, String sucode);
 }

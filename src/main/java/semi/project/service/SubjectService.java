@@ -3,6 +3,7 @@ package semi.project.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import semi.project.domain.SubjectVo;
 import semi.project.domain.TeacherVo;
 
@@ -21,4 +22,6 @@ public interface SubjectService {
 	String selectSunameS(String sucode);
 
 	String selectTidS(String sucode);
+	void updateKeepOnS(@Param("skeep")String skeep, @Param("sucode")String sucode);
+	void updateKeepOffS(@Param("skeep")String skeep, @Param("sucode")String sucode);
 }

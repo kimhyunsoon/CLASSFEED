@@ -86,5 +86,17 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectMapper.selectTid(sucode);
 	}
 
+	@Override
+	public void updateKeepOnS(String skeep, String sucode) {
+		log.info("킵코드 예스"+skeep);
+		log.info("킵코드 수코드"+skeep);
+		subjectMapper.updateKeepOn(skeep, sucode);
+	}
+
+	@Override
+	public void updateKeepOffS(String skeep, String sucode) {
+		subjectMapper.updateKeepOff(skeep, sucode);
+	}
+
 
 }

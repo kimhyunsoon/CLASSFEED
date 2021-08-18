@@ -52,6 +52,7 @@ public class BoardController {
         String sid = (String)id1;
         String tid = (String)id2;
         String gaincode = (String)code;
+        log.info("세션에서 받아온: "+gaincode);
         log.info("#boadlist sid:"+sid+" seq: "+bseq);
         log.info("#boadlist tid:"+tid+" seq: "+bseq);
         List<SubjectVo> subList = subjectService.selectAllS(gaincode); //수업코드로 subject 테이블 불러오기
@@ -61,14 +62,19 @@ public class BoardController {
             List<SubjectVo> list = subjectService.selectBytid(tid);
             List<TeacherVo> tlist = teacherService.tNameCkS(tid);
             List<BoardVo> blist =  boardService.boardSelectBySeqS(bseq);
-            log.info("bseq를 사용해서불러온"+blist);
+            log.info("bseq를 사용해서불러온 보드리스트"+blist);
+            log.info("선생님아이디"+tid);
+            log.info("수업코드로 받아온 서브젝트 정보"+subList);
+            log.info("센세 아이디로 받아온 서브젝트 정보"+list);
             ModelAndView mv = new ModelAndView();
             mv.setViewName("content/board");
             mv.addObject("tLogin",tid);
+            mv.addObject("tname",tname);
             mv.addObject("list", blist);
             mv.addObject("subList",subList); //header.jsp
             mv.addObject("tSubList", list); //header.jsp
             mv.addObject("tList", tlist); //header.jsp
+            return mv;
 
         }else if(sid !=null){
             String writeTid = boardService.boardSelectTidS(bseq); // bseq를 이용해 선생님 아이디 불러옴
@@ -160,10 +166,14 @@ public class BoardController {
 
         String ofname = file.getOriginalFilename();
 
-        Object code = session.getAttribute("sucode"); Object id = session.getAttribute("tid");
-        String sucode = (String)code; String tid = (String)id;
+        Object code = session.getAttribute("sucode");
+        Object id = session.getAttribute("loginOkTid");
+        String sucode = (String)code;
+        String tid = (String)id;
+        log.info("가온나"+thcode+tid);
 
         String suname = subjectService.selectSunameS(sucode); // 해당하는 과목코드를 이용해 과목 이름을 뽑아온다.
+        log.info("수코드로 가져온 수네임"+suname);
         String tname = teacherService.tnameS(tid); // session을 이용해서  과제를 제출한 선생님의 이름을 뽑아온다.
         String adivision = "A"; // 종류는 A or B 이므로 과제를 표현할때는 A 값을 넣기위한 세팅
 
@@ -200,11 +210,11 @@ public class BoardController {
             log.info("#arrin url: "+url);
             log.info("#arrin thcode: "+boardVo.getThcode());
             boardService.insertOkFileS(boardVo);
-            return "redirect:mysubject.do?sucode="+sucode+"";
+            return "redirect:../list/myclass.do?sucode="+sucode+"";
         }
         else {
             boardService.insertNotFileS(boardVo);
-            return "redirect:mysubject.do?sucode="+sucode+"";
+            return "redirect:../list/myclass.do?sucode="+sucode+"";
         }
 
     }
