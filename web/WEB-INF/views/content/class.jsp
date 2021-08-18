@@ -26,15 +26,11 @@
                 <div class="themeLink on codeTransColor_back" data-sucode="${sucode}">
                     <p>모든 주제</p>
                 </div>
-                <div class="themeLink codeTransColor_back" data-sucode="${sucode}" data-theme="1주차">
-                    <p>1주차</p>
-                </div>
-                <div class="themeLink codeTransColor_back" data-sucode="${sucode}" data-theme="2주차">
-                    <p>2주차</p>
-                </div>
-                <div class="themeLink codeTransColor_back" data-sucode="${sucode}" data-theme="3주차">
-                    <p>3주차</p>
-                </div>
+                <c:forEach items="${thlist}" var="themeVo">
+                    <div class="themeLink codeTransColor_back" data-sucode="${sucode}" data-theme="1주차">
+                        <p>${themeVo.thname}</p>
+                    </div>
+                </c:forEach>
                 
             </div>
 
@@ -70,17 +66,19 @@
                         </div>
                     </div>
                 </div>
-                
 
+                <c:forEach items="${thlist}" var="themeVo">
                 <div class="themeTitle codeTransColor_border codeTransColor_back" data-sucode="${sucode}">
-                    <p>1주차</p>
+                    <p>${themeVo.thname}</p>
                 </div>
+                <c:forEach items="${blist}" var="boardVo">
+                    <c:if test="${themeVo.thcode==boardVo.thcode}">
                 <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
                     <div class="classSomeLink">
                         <div class="iconCircle">
                             <i class="fas fa-chalkboard"></i>
                         </div>
-                        <a href="" class="title">0주차 유닉스 (수업)</a>
+                        <a href="../myboard/content.do?bseq=${boardVo.bseq }" class="title">${boardVo.btitle}</a>
                         <div class="moreBtnWrap">
                             <div class="moreBtn">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -91,22 +89,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
-                    <div class="classSomeLink">
-                        <div class="iconCircle">
-                            <i class="fas fa-chalkboard"></i>
-                        </div>
-                        <a href="" class="title">0주차 유닉스 (수업)</a>
-                        <div class="moreBtnWrap">
-                            <div class="moreBtn">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </div>
-                            <div class="moreWrap">
-                                <a href="">삭제</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </c:if>
+                </c:forEach>
+                </c:forEach>
 
             </div>
 

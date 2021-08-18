@@ -8,6 +8,12 @@
                                  #{bcontent},SYSDATE,#{bdeadline},null,null,#{sucode})
     </insert>
 
+    <insert id="insertOkFile" parameterType="BoardVo">
+        insert into board values(SEQ_BOARD.nextval,#{tid},#{thcode},#{btitle},
+                                 #{bcontent},SYSDATE,#{bdeadline},#{bfname},#{bfsize},#{sucode})
+    </insert>
+
+
     <insert id="insertBoardOkFile" parameterType="BoardVo">
         insert into board values(SEQ_BOARD.nextval,#{tid},#{thcode},#{btitle},
                                  #{bcontent},SYSDATE,null,#{bfname},#{bfsize},#{sucode})
@@ -28,6 +34,10 @@
 
     <select id="selectBySucode" resultType="BoardVo" parameterType="String">
         select * from board where thcode in(select thcode from THEME where sucode=#{sucode})
+    </select>
+
+    <select id="boardSelectTid" resultType="String" parameterType="long">
+        select tid from board where bseq = #{bseq}
     </select>
 
     <select id="boardSelectBySeq" resultType="BoardVo" parameterType="long">

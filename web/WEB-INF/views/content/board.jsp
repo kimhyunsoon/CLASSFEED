@@ -8,15 +8,18 @@
 
 <div class="contentWrap">
     <div class="innerWrap">
+        <c:forEach items="${subList}" var="subjectVo">
         <a href="" class="smallTitle codeTransColor_back">
-            <p>1학년 1반 수업이에용 대제목 - 룰루랄라 수업부제목 <i class="codeTransColor_color fas fa-chevron-right" data-sucode="${sucode}"></i></p>
+            <p>${subjectVo.suname} - ${subjectVo.ssubname} <i class="codeTransColor_color fas fa-chevron-right" data-sucode="${sucode}"></i></p>
         </a>
+        </c:forEach>
 
         
         <div class="boradConBox">
+        <c:forEach items="${blist}" var="boardVo">
             <div class="boradConTitle codeTransColor_border" data-sucode="${sucode}">
                 <div class="tit">
-                    <p class="main">1주차 유닉스 실무 OT</p>
+                    <p class="main">${boardVo.btitle}</p>
                     <p class="sub">이가은 선생님 ・ 2021-10-11</p>
 
                 </div>

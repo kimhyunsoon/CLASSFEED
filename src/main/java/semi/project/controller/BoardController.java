@@ -45,19 +45,28 @@ public class BoardController {
         String tid = (String)id2;
         String gaincode = (String)code;
         log.info("#boadlist sid:"+sid+" seq: "+bseq);
-
+        List<SubjectVo> subList = subjectService.selectAllS(gaincode); //수업코드로 subject 테이블 불러오기
 
         if(tid != null){
 
         }else if(sid !=null){
             String writeTid = boardService.boardSelectTidS(bseq); // bseq를 이용해 선생님 아이디 불러옴
-            String tname = teacherService.tnameS(tid); // 불러온 tid를 이용해서 선생님 이름 불러옴
+            log.info("writeTid"+writeTid);
+            String tname = teacherService.tnameS(writeTid); // 불러온 tid를 이용해서 선생님 이름 불러옴
             List<BoardVo> list =  boardService.boardSelectBySeqS(bseq);
-            log.info(list);
+            log.info("bseq를 사용해서불러온"+list);
+
+            List<StudentVo> slist = studentService.sNameCkS(sid);
+            ArrayList<SubjectVo> t= sInfo2Header(sid);
+
             ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/boardCon");
+            mv.setViewName("content/board");
             mv.addObject("list", list);
             mv.addObject("tname",tname);
+            mv.addObject("subList",subList); //class.jsp, header.jsp에서
+            mv.addObject("sSubList",t); //header.jsp에서
+            mv.addObject("sList", slist); //header.jsp에서
+
             return mv;
 
         }

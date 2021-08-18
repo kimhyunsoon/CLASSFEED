@@ -15,6 +15,7 @@
 		<typeAlias alias="SubjectVo" type="semi.project.domain.SubjectVo"/>
 		<typeAlias alias="ScommentVo" type="semi.project.domain.ScommentVo"/>
 		<typeAlias alias="NoticeVo" type="semi.project.domain.NoticeVo"/>
+
 		
 		<typeAlias alias="StudentRandom" type="semi.project.domain.StudentRandom"/>
 	</typeAliases>
@@ -29,6 +30,7 @@
 		<mapper resource="semi/project/mapper/SubjectMapper.xml"/>
 		<mapper resource="semi/project/mapper/ScommentMapper.xml"/>
 		<mapper resource="semi/project/mapper/NoticeMapper.xml"/>
+
 	</mappers>
 
 </configuration>

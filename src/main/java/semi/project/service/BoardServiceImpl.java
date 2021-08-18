@@ -116,11 +116,13 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 
 	@Override
 	public String boardSelectTidS(long bseq) {
+		log.info("service bseq1"+bseq);
 		return boardMapper.boardSelectTid(bseq);
 	}
 
 	@Override
 	public List<BoardVo> boardSelectBySeqS(long bseq) {
+		log.info("service bseq2"+bseq);
 		return boardMapper.boardSelectBySeq(bseq);
 	}
 
