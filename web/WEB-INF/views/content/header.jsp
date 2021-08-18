@@ -12,8 +12,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon">
-	<link rel="icon" href="../img/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../img/favicon.ico" type="image/x-icon">
 	<title>CLASSFEED | ${param.title}</title>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -272,20 +272,35 @@
 				'background-color':thisColor
 			})
 		}
-        for(i=0; i<$('.codeTransColor_border').length; i++){
-			var thisColor = codeTransColor($('.codeTransColor_border').eq(i).data('sucode'));
+        for(j=0; j<$('.codeTransColor_border').length; j++){
+			var thisColor = codeTransColor($('.codeTransColor_border').eq(j).data('sucode'));
 
-            $('.codeTransColor_border').eq(i).css({
+            $('.codeTransColor_border').eq(j).css({
 				'border-color':thisColor
 			})
 	
 		}
-        for(i=0; i<$('.codeTransColor_color').length; i++){
-			var thisColor = codeTransColor($('.codeTransColor_color').eq(i).data('sucode'));
+        for(m=0; m<$('.codeTransColor_color').length; m++){
+			var thisColor = codeTransColor($('.codeTransColor_color').eq(m).data('sucode'));
 
-			$('.codeTransColor_color').eq(i).css({
+			$('.codeTransColor_color').eq(m).css({
 				'color':thisColor
 			})
+		}
+	})
+	// 모어버튼
+    $(document).on('click', '.moreBtn', function(){
+        $('.moreWrap').not($(this).siblings('.moreWrap')).removeClass('on')
+		if($(this).siblings('.moreWrap').hasClass('on')){
+			$(this).siblings('.moreWrap').removeClass('on')
+		}else {
+			$(this).siblings('.moreWrap').addClass('on')
+		}
+    })
+
+	$(document).on('click', 'body', function(e){
+		if(!$(e.target).hasClass('moreBtn') && !$(e.target).parents('button').hasClass('moreBtn')){
+			$('.moreWrap').removeClass('on')
 		}
 	})
 </script>

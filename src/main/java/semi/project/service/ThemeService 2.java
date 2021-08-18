@@ -6,7 +6,6 @@ import semi.project.domain.ThemeVo;
 
 public interface ThemeService {
 	String selectByThcodeS(String thcode);
-	public Boolean chkThcode(String thcode);
 	List<ThemeVo> selectAllS(String thcode);
 	void thinsertS(ThemeVo themeVo);
 	List<ThemeVo> selectBysucodeS(String sucode);

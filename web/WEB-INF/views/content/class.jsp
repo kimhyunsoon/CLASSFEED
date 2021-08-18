@@ -57,11 +57,11 @@
                         </div>
                         <a href="" class="title">0주차 유닉스 (수업)</a>
                         <div class="moreBtnWrap">
-                            <div class="moreBtn">
+                            <button class="moreBtn">
                                 <i class="fas fa-ellipsis-v"></i>
-                            </div>
+                            </button>
                             <div class="moreWrap">
-                                <a href="">삭제</a>
+                                <a href="" class="moreAnchor">삭제</a>
                             </div>
                         </div>
                     </div>
@@ -80,11 +80,11 @@
                         </div>
                         <a href="../myboard/content.do?bseq=${boardVo.bseq }" class="title">${boardVo.btitle}</a>
                         <div class="moreBtnWrap">
-                            <div class="moreBtn">
+                            <button class="moreBtn">
                                 <i class="fas fa-ellipsis-v"></i>
-                            </div>
+                            </button>
                             <div class="moreWrap">
-                                <a href="">삭제</a>
+                                <a href="" class="moreAnchor">삭제</a>
                             </div>
                         </div>
                     </div>
@@ -159,11 +159,6 @@
 </body>
 <script>
 
-    // 모어버튼
-    $(document).on('click', '.moreBtn', function(){
-        $(this).siblings('.moreWrap').toggleClass('on')
-    })
-
 
     //파일 관련
     $(document).on('click','.modalWrap .fileBtn',function(){
@@ -195,6 +190,12 @@
     //만들기 버튼
     $(document).on('click', '.makeSomeBtn', function(){
         $('.makeSomeWrap').toggleClass('on')
+        
+    })
+    $(document).on('click', 'body', function(e){
+        if(!$(e.target).hasClass('makeSomeBtn') && !$(e.target).closest('button').hasClass('makeSomeBtn')){
+            $('.makeSomeWrap').removeClass('on')
+        }
     })
 
 </script>

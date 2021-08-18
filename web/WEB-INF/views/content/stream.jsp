@@ -34,7 +34,7 @@
 
                     <div class="textAreaWrap">
                         <form action="../list/notice.do" method="post">
-                        <textarea name="ncontent" >안녀하세요. 이렇게 내용을 미리 써둬봅시다...</textarea>
+                        <textarea name="ncontent" placeholder="공지내용을 입력해주세요."></textarea>
                         <div class="btnWrap">
                             <button class="cancleBtn" type="reset">취소</button>
                             <button class="submitBtn codeTransColor_back" data-sucode="${sucode}" type="submit">등록</button>
@@ -53,11 +53,11 @@
                                 <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
                                     <i class="fas fa-bullhorn"></i>
                                 </div>
-                                <a href="javascript:void(0)" class="text">
+                                <a href="javascript:void(0)" class="text" style="text-decoration: none; cursor: default;">
                                     <p class="title">${noticeVo.sid} </p>
                                     <p class="title">${noticeVo.tid} </p>
                                     <p class="date">${noticeVo.nrdate}</p>
-                                    <p class="content">    ${noticeVo.ncontent}</p>
+                                    <pre class="content">${noticeVo.ncontent}</pre>
                                 </a>
                                 
 
@@ -67,11 +67,13 @@
                                     <c:when test="${!empty tList}">
                                         <c:forEach items="${tList}" var="teacherVo">
                                             <c:if test="${teacherVo.tid == noticeVo.tid}">
-                                                <div class="moreBtn">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </div>
-                                                <div class="moreWrap">
-                                                    <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
+                                                <div class="moreBtnWrap">
+                                                    <button class="moreBtn">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <div class="moreWrap">
+                                                        <a href="javascript:void(0)" class="moreAnchor deleteClass" data-class="" style="top:55px">삭제</a>
+                                                    </div>
                                                 </div>
                                             </c:if>
                                         </c:forEach>
@@ -79,11 +81,13 @@
                                     <c:when test="${!empty sList}">
                                         <c:forEach items="${sList}" var="studentVo">
                                             <c:if test="${studentVo.sid == noticeVo.sid}">
-                                                <div class="moreBtn">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </div>
-                                                <div class="moreWrap">
-                                                    <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
+                                                <div class="moreBtnWrap">
+                                                    <button class="moreBtn">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <div class="moreWrap">
+                                                        <a href="javascript:void(0)" class="moreAnchor deleteClass" data-class="" style="top:55px">삭제</a>
+                                                    </div>
                                                 </div>
                                             </c:if>
                                         </c:forEach>
@@ -110,13 +114,15 @@
                         <p class="title">${boardVo.tid} 님이 새 수업을 게시 : ${boardVo.btitle}</p>
                         <p class="date">${boardVo.brdate}</p>
                     </a>
-                    <div class="moreBtn">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </div>
-                    <div class="moreWrap">
-                        <a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
-                        <a href="javascript:void(0)" class="editClass" data-class="">수정</a>
-                        <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
+                    <div class="moreBtnWrap">
+                        <button class="moreBtn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="moreWrap">
+                            <a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
+                            <a href="javascript:void(0)" class="moreAnchor editClass" data-class="">수정</a>
+                            <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
+                        </div>
                     </div>
                 </div>
                         </c:forEach>
@@ -131,11 +137,6 @@
 
 </body>
 <script>
-
-    //클래스카드 모어버튼
-    $(document).on('click', '.streamCard .moreBtn', function(){
-        $(this).siblings('.moreWrap').toggleClass('on')
-    })
 
     $(document).on('click', '.streamCard.noticeCard .title', function(){
         $('.streamCard.noticeCard').addClass('on');

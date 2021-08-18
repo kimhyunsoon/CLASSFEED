@@ -20,6 +20,7 @@ import java.util.List;
  * 스트림페이지 리스트 출력
  * 스트림 공지사항 입력
  * 수업페이지 리스트 출력
+ * 주제 테이블 인서트까지
  * */
 
 @Log4j
@@ -174,6 +175,49 @@ public class ListController {
         }
         return "redirect:mystream.do?sucode="+sucode;
     }
+
+    @PostMapping("/theme.do") //주제 생성
+    public String addTheme(HttpSession session, ThemeVo themeVo) {
+        Object t = session.getAttribute("loginOkTid"); //선생님 만이 주제 추가 가능
+        String tid = (String)t;
+
+        Object s = session.getAttribute("sucode"); //세션에서 수업코드를 가져옴.
+        String sucode = (String)s; // Object -> String
+        String thcode=""; // 주제 코드를 담을 변수
+        String fail = "fail";
+        List<ThemeVo> tinfo = themeService.selectAllS(thcode);
+
+        for(int j=0; j<1;){
+            StudentRandom r = new StudentRandom();
+            char[] num = r.ran();
+            if(num==null){
+                log.info("failed generate num");
+                j=0;
+            }else{
+                for(int i=0; i<num.length;i++){
+                    thcode += Character.toString(num[i]);
+                }
+                thcode = thcode.trim();
+                log.info("#thcode" + thcode);
+                boolean flag = themeService.chkThcode(thcode);
+                if(flag==true){
+                    themeVo.setThcode(thcode);
+                    themeVo.setTid(tid);
+                    themeVo.setSucode(sucode);
+                    themeService.thinsertS(themeVo);
+                    j = 1;
+                }else{
+                    log.info("retry generate num");
+                    j=0;
+                }
+            }
+        }
+        return "redirect:../list/myclass.do?sucode=sucode";
+    }
+
+
+
+
 
     ArrayList<SubjectVo> sInfo2Header(String sid){ //header.jsp에 학생 정보를 보내기 위한 메소드입니다
 

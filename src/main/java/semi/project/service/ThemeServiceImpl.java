@@ -2,6 +2,8 @@ package semi.project.service;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,10 @@ import semi.project.domain.ThemeVo;
 import semi.project.mapper.ThemeMapper;
 
 @Service
+@Log4j
+@AllArgsConstructor
 public class ThemeServiceImpl implements ThemeService {
-	@Autowired
+
 	private ThemeMapper themeMapper;
 
 	@Override
@@ -18,6 +22,19 @@ public class ThemeServiceImpl implements ThemeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Boolean chkThcode(String thcode){
+		String code=themeMapper.selectByThcode(thcode);
+		log.info("#code"+code);
+		if(code==null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 
 	@Override
 	public List<ThemeVo> selectAllS(String thcode) {

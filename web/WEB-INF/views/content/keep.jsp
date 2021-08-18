@@ -26,7 +26,7 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <div class="moreWrap">
-                                                <a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
+                                                <a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
                                             </div>
 
                                         </div>
@@ -171,7 +171,7 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <div class="moreWrap">
-                                                <a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
+                                                <a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
                                             </div>
 
                                         </div>

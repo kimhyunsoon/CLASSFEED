@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 스트림페이지 리스트 출력
- * 스트림 공지사항 입력
- * 수업페이지 리스트 출력
+ * 과제or자료 상세내용 페이지 출력
+ * 학생일 경우 과제 제출 기능
+ *
  * */
 
 @Log4j
@@ -73,6 +73,11 @@ public class BoardController {
 
         return null;
     }
+
+    
+
+
+
 
 
 

@@ -9,7 +9,7 @@
 <div class="contentWrap">
     <div class="innerWrap">
         <c:forEach items="${subList}" var="subjectVo">
-        <a href="" class="smallTitle codeTransColor_back">
+        <a href="" class="smallTitle codeTransColor_back" data-sucode="${sucode}">
             <p>${subjectVo.suname} - ${subjectVo.ssubname} <i class="codeTransColor_color fas fa-chevron-right" data-sucode="${sucode}"></i></p>
         </a>
         </c:forEach>
@@ -25,11 +25,11 @@
                 </div>
                 <!-- 선생님만 나옴 -->
                 <div class="moreBtnWrap">
-                    <div class="moreBtn">
+                    <button class="moreBtn">
                         <i class="fas fa-ellipsis-v codeTransColor_color" data-sucode="${sucode}"></i>
-                    </div>
+                    </button>
                     <div class="moreWrap">
-                        <a href="">삭제</a>
+                        <a href="" class="moreAnchor">삭제</a>
                     </div>
                 </div>
                 <!-- 선생님만 나옴 끝-->
@@ -46,6 +46,7 @@
             </a>
 
         </div>
+    </c:forEach>
 
         <!-- 선생님 -->
         <p class="boradWorkTitle">제출된 과제</p>
@@ -72,11 +73,13 @@
                 <p class="title">김현순 님이 제출한 과제 : 파일명파일명.jpg</p>
                 <p class="date">2021.08.16.</p>
             </a>
-            <div class="moreBtn">
-                <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-            <div class="moreWrap">
-                <a href="javascript:void(0)" class="deleteClass" data-class="">삭제</a>
+            <div class="moreBtnWrap">
+                <button class="moreBtn">
+                    <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                </button>
+                <div class="moreWrap">
+                    <a href="javascript:void(0)" class="moreAnchor deleteClass" data-class="">삭제</a>
+                </div>
             </div>
         </div>
         <!-- 학생_제출한게 있으면 끝-->
@@ -116,12 +119,6 @@
 </div>
 </body>
 <script>
-
-    // 모어버튼
-    $(document).on('click', '.moreBtn', function(){
-        $(this).siblings('.moreWrap').toggleClass('on')
-    })
-
 
     //파일 관련
     $(document).on('click','.modalWrap .fileBtn',function(){

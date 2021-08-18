@@ -22,11 +22,13 @@
 												<p class="tit">${subjectVo.suname}</p>
 												<p class="sub">${subjectVo.ssubname}</p>
 											</a>
-											<button class="moreBtn">
-												<i class="fas fa-ellipsis-v"></i>
-											</button>
-											<div class="moreWrap">
-												<a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
+											<div class="moreBtnWrap">
+												<button class="moreBtn">
+													<i class="fas fa-ellipsis-v"></i>
+												</button>
+												<div class="moreWrap">
+													<a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
+												</div>
 											</div>
 
 										</div>
@@ -167,11 +169,13 @@
 												<p class="tit">${subjectVo.suname}</p>
 												<p class="sub">${subjectVo.ssubname}</p>
 											</a>
-											<button class="moreBtn">
-												<i class="fas fa-ellipsis-v"></i>
-											</button>
-											<div class="moreWrap">
-												<a href="javascript:void(0)" class="saveClass" data-class="">보관</a>
+											<div class="moreBtnWrap">
+												<button class="moreBtn">
+													<i class="fas fa-ellipsis-v"></i>
+												</button>
+												<div class="moreWrap">
+													<a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
+												</div>
 											</div>
 
 										</div>
@@ -378,11 +382,6 @@
 		setTimeout(function(){
 			thisBtn.removeClass('on');
 		},3000)
-	})
-
-	//클래스카드 모어버튼
-	$(document).on('click', '.cardTop .moreBtn', function(){
-		$(this).siblings('.moreWrap').toggleClass('on')
 	})
 
 </script>
