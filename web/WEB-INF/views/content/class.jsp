@@ -23,11 +23,11 @@
 
         <div class="classConBox">
             <div class="classConLeft">
-                <div class="themeLink on codeTransColor_back" data-sucode="${sucode}">
+                <div class="themeLink on codeTransColor_back thCodeTab" data-sucode="${sucode}" data-thcode="">
                     <p>모든 주제</p>
                 </div>
                 <c:forEach items="${thlist}" var="themeVo">
-                    <div class="themeLink codeTransColor_back" data-sucode="${sucode}" data-theme="1주차">
+                    <div class="themeLink codeTransColor_back thCodeTab" data-sucode="${sucode}" data-thcode="${themeVo.thcode}">
                         <p>${themeVo.thname}</p>
                     </div>
                 </c:forEach>
@@ -51,7 +51,7 @@
 
                 <c:forEach items="${blist}" var="boardVo">
                     <c:if test="${empty boardVo.thcode}">
-                        <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
+                        <div class="classSomeLinkWrap codeTransColor_back thCodeBlock" data-thcode="" data-sucode="${sucode}">
                             <div class="classSomeLink">
                                 <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
                                     <c:choose>
@@ -83,12 +83,12 @@
     
 
                 <c:forEach items="${thlist}" var="themeVo">
-                <div class="themeTitle codeTransColor_border codeTransColor_back" data-sucode="${sucode}">
+                <div class="themeTitle codeTransColor_border codeTransColor_back thCodeBlock thCodeTitle" data-thcode="${themeVo.thcode}" data-sucode="${sucode}">
                     <p>${themeVo.thname}</p>
                 </div>
                 <c:forEach items="${blist}" var="boardVo">
                     <c:if test="${themeVo.thcode==boardVo.thcode}">
-                        <div class="classSomeLinkWrap codeTransColor_back" data-sucode="${sucode}">
+                        <div class="classSomeLinkWrap codeTransColor_back thCodeBlock" data-thcode="${themeVo.thcode}"" data-sucode="${sucode}">
                             <div class="classSomeLink">
                                 <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
                                     <c:choose>
@@ -329,7 +329,29 @@
     })
 
 
+    //좌측 주제탭 클릭
+    $(document).on('click', '.thCodeTab', function(){
+        var thisCode = $(this).data('thcode');
+        $('.thCodeTab').not($(this)).removeClass('on');
+        $(this).addClass('on');
+        if(thisCode == ''){
+            $('.thCodeBlock').show();
+        } else {
+            $('.thCodeBlock').not($('thCodeBlock[data-thcode="'+thisCode+'"]')).hide();
+            $('.thCodeBlock[data-thcode="'+thisCode+'"]').show();
+        }
+    })
 
-    
-
+    //주제타이틀 클릭
+    $(document).on('click', '.thCodeTitle', function(){
+        var thisCode = $(this).data('thcode');
+        $('.thCodeTab').not($('.thCodeTab[data-thcode="'+thisCode+'"]')).removeClass('on');
+        $('.thCodeTab[data-thcode="'+thisCode+'"]').addClass('on');
+        if(thisCode == ''){
+            $('.thCodeBlock').show();
+        } else {
+            $('.thCodeBlock').not($('thCodeBlock[data-thcode="'+thisCode+'"]')).hide();
+            $('.thCodeBlock[data-thcode="'+thisCode+'"]').show();
+        }
+    })
 </script>
