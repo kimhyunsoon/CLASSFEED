@@ -11,4 +11,5 @@ public interface ThemeService {
 	List<ThemeVo> selectBysucodeS(String sucode);
 
 	List<ThemeVo> selectByTidS(String tid, String sucode);
+	List<ThemeVo> selectAllClassS(String sucode);
 }

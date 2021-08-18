@@ -1,4 +1,4 @@
-/*package semi.project.domain;
+package semi.project.domain;/*package semi.project.domain;
 
 import java.sql.Date;
 

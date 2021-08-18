@@ -36,7 +36,7 @@ public class SubjectController {
     SubjectService subjectService;
     ClassService classService;
 
-    @PostMapping("/subject.do") // 과목 추가
+    @PostMapping("/subject.do") // !!!과목 추가
     public String addSubject(HttpSession session, SubjectVo subjectVo) {
         // jsp 에서 suname, ssubname 값 을 가져온다.
         String sucode=""; // 과목 코드를 담을 변수
@@ -77,7 +77,7 @@ public class SubjectController {
         return "redirect:../main/list.do";
     }
 
-    @PostMapping("/class.do")
+    @PostMapping("/class.do") // !!! 학생 클래스 참여
     public String addClass(HttpSession session, ClassVo classVo,
                                 @RequestParam("sucode")String sucode) {
         Object id = session.getAttribute("loginOksid"); // 수업 참여는 학생만 하므로 sid값 만 존재

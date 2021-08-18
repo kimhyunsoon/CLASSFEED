@@ -43,4 +43,19 @@ public class ThemeServiceImpl implements ThemeService {
 		return list;
 	}
 
+
+
+
+
+
+
+
+
+	@Override
+	public List<ThemeVo> selectAllClassS(String sucode) {
+		// TODO Auto-generated method stub
+		return themeMapper.selectAllClass(sucode);
+	}
+
+
 }

@@ -88,4 +88,12 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 
+	@Override
+	public String tnameS(String tid) {
+		// TODO Auto-generated method stub
+		return teacherMapper.tname(tid);
+	}
+
+
+
 }

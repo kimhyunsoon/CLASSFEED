@@ -17,7 +17,10 @@ public interface SubjectMapper {
 	void suinsert(SubjectVo subjectVo);
 	List<SubjectVo> selectAll(String sucode);
 	List<TeacherVo> selectTname(String sucode);
+
 	
 	List<SubjectVo> testAll(String sucode);
 	List<SubjectVo> selectBytid(String tid);
+	String selectSuname(String sucode);
+	String selectTid(String sucdoe); // 선생님 id 찾기위해
 }

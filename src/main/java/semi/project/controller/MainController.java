@@ -35,7 +35,7 @@ public class MainController {
     private ThemeService themeService;
 
     @GetMapping("/list.do")
-	public ModelAndView list(HttpSession session) {
+	public ModelAndView list(HttpSession session) { //메인 화면 subject 리스트 출력
 
 		Object id = session.getAttribute("loginOksid");
 		Object id2 = session.getAttribute("loginOkTid");

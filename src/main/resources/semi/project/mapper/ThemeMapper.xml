@@ -19,6 +19,14 @@
 	<select id="selectBysucode" resultType="ThemeVo" parameterType="String">
 		select * from theme where sucode = #{sucode} order by sucode desc
 	</select>
+
+	<select id="selectByTid" resultType="ThemeVo" parameterType="String">
+		select * from theme where tid=#{tid} and sucode=#{sucode}
+	</select>
+
+	<select id="selectAllClass" resultType="ThemeVo" parameterType="String">
+		select * from theme where sucode=#{sucode}
+	</select>
 	
 	
 </mapper>

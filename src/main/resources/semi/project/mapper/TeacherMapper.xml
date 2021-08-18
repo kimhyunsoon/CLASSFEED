@@ -28,6 +28,11 @@
 		insert into teacher values(#{tid}, #{tpwd}, #{tname}, #{tphonenumber},#{temail}, #{tagency}, SYSDATE)
 	</insert>
 
+	<select id="tname" resultType="String" parameterType="String">
+		select tname from teacher where tid=#{tid}
+	</select>
 
-	
+
+
+
 </mapper>

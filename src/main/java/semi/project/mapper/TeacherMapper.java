@@ -15,4 +15,5 @@ public interface TeacherMapper {
 	//추가
 	String temailck(String temail);
 	List<TeacherVo> tNameCk(String tid);
+	String tname(String tid);
 }
