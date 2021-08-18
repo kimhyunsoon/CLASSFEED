@@ -16,7 +16,7 @@
 
         
         <div class="boradConBox">
-        <c:forEach items="${blist}" var="boardVo">
+        <c:forEach items="${list}" var="boardVo">
             <div class="boradConTitle codeTransColor_border" data-sucode="${sucode}">
                 <div class="tit">
                     <p class="main">${boardVo.btitle}</p>
