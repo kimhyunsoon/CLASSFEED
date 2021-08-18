@@ -12,4 +12,5 @@ public interface ThemeService {
 
 	List<ThemeVo> selectByTidS(String tid, String sucode);
 	List<ThemeVo> selectAllClassS(String sucode);
+	public Boolean chkThcode(String thcode);
 }
