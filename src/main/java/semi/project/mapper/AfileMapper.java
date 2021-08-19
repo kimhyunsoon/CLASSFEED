@@ -8,5 +8,6 @@ import semi.project.domain.AfileVo;
 @Repository
 public interface AfileMapper {
 	void fileUpload(AfileVo afileVo);
-	List<AfileVo> SelectBySeq(long bseq);
+	List<AfileVo> afileSelectBySeq(long bseq);
+	List<AfileVo> afileSelectBySid(AfileVo afileVo);
 }

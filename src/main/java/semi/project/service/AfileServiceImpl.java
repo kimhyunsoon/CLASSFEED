@@ -25,8 +25,15 @@ public class AfileServiceImpl implements AfileService {
 	}
 
 	@Override
-	public List<AfileVo> SelectBySeqS(long bseq) {
-		return afileMapper.SelectBySeq(bseq);
+	public List<AfileVo> afileSelectBySeqS(long bseq) {
+		return afileMapper.afileSelectBySeq(bseq);
+	}
+
+
+	@Override
+	public List<AfileVo> afileSelectBySids(AfileVo afileVo) {
+		log.info("로그를 몇번 찍는건지");
+		return afileMapper.afileSelectBySid(afileVo);
 	}
 
 }

@@ -48,7 +48,7 @@ public class BoardController {
     
     
     @GetMapping("/content.do") // 과제or자료를 눌렀을때
-    public ModelAndView readBoard(String sucode, HttpSession session,long bseq, BoardVo boardVo) {
+    public ModelAndView readBoard(String sucode, HttpSession session,long bseq, BoardVo boardVo, AfileVo afileVo) {
         Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
         Object id2 = session.getAttribute("loginOkTid"); // session 에서 tid 값 불러오기
         Object code = session.getAttribute("sucode");
@@ -60,11 +60,15 @@ public class BoardController {
         log.info("#boadlist tid:"+tid+" seq: "+bseq);
         List<SubjectVo> subList = subjectService.selectAllS(gaincode); //수업코드로 subject 테이블 불러오기
 
+
+        
         if(tid != null){
             String tname = teacherService.tnameS(tid);
             List<SubjectVo> list = subjectService.selectBytid(tid);
             List<TeacherVo> tlist = teacherService.tNameCkS(tid);
             List<BoardVo> blist =  boardService.boardSelectBySeqS(bseq);
+            List<AfileVo> submitList = afileService.afileSelectBySeqS(bseq); //제출한 학생 리스트
+            log.info("#submission list"+submitList);
             log.info("bseq를 사용해서불러온 보드리스트"+blist);
             log.info("선생님아이디"+tid);
             log.info("수업코드로 받아온 서브젝트 정보"+subList);
@@ -74,6 +78,7 @@ public class BoardController {
             mv.addObject("tLogin",tid);
             mv.addObject("tname",tname);
             mv.addObject("list", blist);
+            mv.addObject("submit", submitList);
             mv.addObject("subList",subList); //header.jsp
             mv.addObject("tSubList", list); //header.jsp
             mv.addObject("tList", tlist); //header.jsp
@@ -85,15 +90,23 @@ public class BoardController {
             String tname = teacherService.tnameS(writeTid); // 불러온 tid를 이용해서 선생님 이름 불러옴
             List<BoardVo> list =  boardService.boardSelectBySeqS(bseq);
             log.info("bseq를 사용해서불러온"+list);
+            log.info("#sid: "+sid);
+            afileVo.setSid(sid);
+            afileVo.setBseq(bseq);
+            List<AfileVo> submitList = afileService.afileSelectBySids(afileVo);
+            log.info("submitList: "+submitList);
+
 
 
             List<StudentVo> slist = studentService.sNameCkS(sid);
+            log.info("slist: "+slist);
             ArrayList<SubjectVo> t= sInfo2Header(sid);
 
             ModelAndView mv = new ModelAndView();
             mv.setViewName("content/board");
             mv.addObject("list", list); //보드 테이블 정보 보냄
             mv.addObject("tname",tname);
+            mv.addObject("submit",submitList);
             mv.addObject("subList",subList); //class.jsp, header.jsp에서
             mv.addObject("sSubList",t); //header.jsp에서
             mv.addObject("sList", slist); //header.jsp에서
@@ -118,10 +131,27 @@ public class BoardController {
         if(file.exists()){
             return new ModelAndView("fileDownloadView", "downloadFile", file); //fileDownloadView: 스프링컨테이너에서 생성된 파일 객체
         }else{
-            return new ModelAndView("redirect:list.do");
+            return new ModelAndView("redirect:content.do");
         }
 
     }
+
+    //학생이 '과제' 보드에 올린 파일 다운로드
+    @GetMapping("adownload.do")
+    public ModelAndView aDownload(String afname){
+        //넘어오는 파일이름으로 파일 객체를 생성해야함
+        //페이지를 보고 있는 순간에 파일이 삭제되었지만 새로고침이 되지 않은 경우, 파일이 존재하지 않으므로, 파일 존재여부를 체크해야함
+        log.info("넘겨준 파일 이름"+afname);
+        File file = new File(Path.FILE_STORE, afname);
+        log.info("다운로드를 위해 생성된 객체"+file);
+        if(file.exists()){
+            return new ModelAndView("fileDownloadView", "downloadFile", file); //fileDownloadView: 스프링컨테이너에서 생성된 파일 객체
+        }else{
+            return new ModelAndView("redirect:content.do");
+        }
+
+    }
+
 
     //학생 과제 제출(파일 첨부)
     @PostMapping("sfileUpload.do")

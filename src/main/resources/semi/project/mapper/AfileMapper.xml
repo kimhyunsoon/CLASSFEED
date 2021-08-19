@@ -8,11 +8,15 @@
 		insert into afile values(#{afname},#{sid},#{afsize},#{bseq},SYSDATE,#{sname},#{aofname})
 	</insert>
 
-	<select id="SelectBySeq" resultType="AfileVo" parameterType="long">
+	<select id="afileSelectBySeq" resultType="AfileVo" parameterType="long">
 		select * from afile where bseq=#{bseq}
 	</select>
 
-	<select id="SelectSid" resultType="String" parameterType="long">
-		select sid form afile where bseq=#{bseq}
+	<select id="SelectSid" resultType="String" parameterType="String">
+		select sid from afile where bseq=#{bseq}
+	</select>
+
+	<select id="afileSelectBySid" resultType="AfileVo" parameterType="AfileVo">
+		select * from afile where sid=#{sid} and bseq =#{bseq}
 	</select>
 </mapper>

@@ -101,17 +101,22 @@
         <!-- 학생_제출한게 있으면 -->
 
 
-
-
         <p class="boradWorkTitle">내가 제출한 과제</p>
+
+        <c:forEach items="${submit}" var="afileVo">
+            <c:if test="${!empty afileVo.afname}">
         <div class="streamCard">
             <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
                 <i class="far fa-file-alt"></i>
             </div>
-            <a href="" class="text" download>
-                <p class="title">김현순 님이 제출한 과제 : 파일명파일명.jpg</p>
-                <p class="date">2021.08.16.</p>
-            </a>
+
+
+                <a href="adownload.do?afname=${afileVo.afname }" class="text" download>
+                    <p class="title">김현순 님이 제출한 과제 : 파일명파일명.jpg</p>
+                    <p class="date">2021.08.16.</p>
+                </a>
+
+
             <div class="moreBtnWrap">
                 <button class="moreBtn">
                     <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
@@ -121,6 +126,9 @@
                 </div>
             </div>
         </div>
+            </c:if>
+        </c:forEach>
+
 
         <!-- 학생_제출한게 있으면 끝-->
 
