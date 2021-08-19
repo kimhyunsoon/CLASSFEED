@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -21,8 +23,30 @@
         </div>
         <div class="streamConBox">
             <div class="homeWorkBox">
-                <p class="title">곧 마감되는 과제</p>
-                <p class="noWork">기한이 곧 돌아오는 과제가 없습니다.</p>
+                <p class="title">오늘 마감되는 과제</p>
+                <c:choose>
+                    <c:when test="${!empty boardList}">
+                        <c:set var="now" value="<%=new java.util.Date()%>" />
+                        <c:set var="nowDate"><fmt:formatDate value="${now}" pattern="yyyyMMdd"/></c:set>
+                        
+                        <c:forEach items="${boardList}" var="boardVo">
+                            <c:set var="bdeadlineDate"><fmt:formatDate value="${boardVo.bdeadline}" pattern="yyyyMMdd"/></c:set>
+                            <c:if test="${nowDate == bdeadlineDate}">
+                                <c:set var="cnt" value="1"/>
+                                <a href="../myboard/content.do?bseq=${boardVo.bseq}" class="nowDateLink">
+                                    <b>${boardVo.btitle}</b>
+                                    <span>${boardVo.bdeadline} 까지</span>
+                                </a>
+                            </c:if>
+                            <c:if test="${empty cnt}">
+                                <p class="noWork">오늘 마감되는 과제가 없습니다.</p>
+                            </c:if>
+                        </c:forEach>
+                    </c:when>
+                    <c:when test="${empty boardList}">
+                        <p class="noWork">오늘 마감되는 과제가 없습니다.</p>
+                    </c:when>
+                </c:choose>
             </div>
 
             <div class="streamCardWrap">

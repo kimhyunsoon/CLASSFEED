@@ -22,9 +22,7 @@
                 <div class="tit">
 
                     <p class="main">${boardVo.btitle}</p>
-            <c:forEach items="${tList}" var="teacherVo">
-
-                    <p class="sub">${teacherVo.tname} 선생님 </c:forEach>・ ${boardVo.brdate}</p>
+                    <p class="sub">${tname} 선생님 ・ ${boardVo.brdate}</p>
 
                 </div>
                 <c:choose>
@@ -73,35 +71,15 @@
 
         </c:forEach>
 
-
-        <!-- 선생님 -->
-<c:choose>
-    <c:when test="${!empty tList}">
-        <c:choose>
-            <c:when test="${!empty boardVo.bdeadline}">
-
-
-        <p class="boradWorkTitle">제출된 과제</p>
-
-            <div class="streamCard">
-                <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
-                    <i class="far fa-file-alt"></i>
-                </div>
-                <a href="" class="text" download>
-                    <p class="title">김현순님이 제출한 과제 : 파일명파일명.jpg</p>
-                    <p class="date">2021.08.16.</p>
-                </a>
-            </div>
-            </c:when>
-        </c:choose>
-    </c:when>
-</c:choose>
-        <!-- 선생님 끝 -->
-
-        <!-- 학생_제출한게 있으면 -->
-
         <c:if test="${!empty submit}">
-        <p class="boradWorkTitle">내가 제출한 과제</p>
+            <c:choose>
+                <c:when test="${empty sList}">
+                    <p class="boradWorkTitle">제출된 과제</p>
+                </c:when>
+                <c:when test="${!empty sList}">
+                    <p class="boradWorkTitle">내가 제출한 과제</p>
+                </c:when>
+            </c:choose>
         </c:if>
         <c:forEach items="${submit}" var="afileVo">
             <c:if test="${!empty afileVo.afname}">
@@ -148,9 +126,9 @@
                         <p>파일 첨부하기</p>
                     </div>
                     <div class="fileSpace">
-                        <span>파일명파일명 파일명.jpg</span><i class="fas fa-times"></i>
+                        <span style="max-width: 200px;"></span><i class="fas fa-times"></i>
                     </div>
-                    <input type="file" name="file" id="fileInp" style="display: none;">
+                    <input type="file" name="file" id="fileInp" style="display: none;" required>
                     <div class="btnWrap" style="margin-top:20px">
                         <button type="submit" class="codeTransColor_back adMissionBtn pointBtn" data-sucode="${sucode}">제출</button>
                     </div>
@@ -166,7 +144,13 @@
 </div>
 </body>
 <script>
-
+    $(document).on('click' ,'.adMissionBtn', function(){
+        var thisFile = $('#fileInp').val();
+        if(!thisFile){
+            alert('파일을 첨부해주세요.')
+            return false;
+        }
+    })
     //파일 관련
     $(document).on('click','.modalWrap .fileBtn',function(){
         $('#fileInp').trigger('click');
