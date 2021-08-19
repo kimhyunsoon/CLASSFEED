@@ -14,4 +14,5 @@ public interface StudentMapper {
 	//추가
 	String semailck(String semail);
 	List<StudentVo> sNameCk(String sid);
+	String selectBySid(String sid);
 }

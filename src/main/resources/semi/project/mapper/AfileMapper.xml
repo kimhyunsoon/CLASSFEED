@@ -2,11 +2,17 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="semi.project.mapper.AfileVo">
-
-
+<mapper namespace="semi.project.mapper.AfileMapper">
 
 	<insert id="fileUpload" parameterType="AfileVo">
-		insert into afile values(#{afname}, #{sid}, #{afsize}, #{bseq})
+		insert into afile values(#{afname},#{sid},#{afsize},#{bseq},SYSDATE,#{sname},#{aofname})
 	</insert>
+
+	<select id="SelectBySeq" resultType="AfileVo" parameterType="long">
+		select * from afile where bseq=#{bseq}
+	</select>
+
+	<select id="SelectSid" resultType="String" parameterType="long">
+		select sid form afile where bseq=#{bseq}
+	</select>
 </mapper>

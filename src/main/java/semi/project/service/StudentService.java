@@ -13,4 +13,5 @@ public interface StudentService {
 	String semailckS(String semail);
 	String sidckS2(String sid);
 	List<StudentVo> sNameCkS(String sid);
+	String selectBySidS(String sid);
 }

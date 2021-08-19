@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import semi.project.domain.*;
+import semi.project.filesetting.Path;
 import semi.project.service.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class BoardController {
     private ThemeService themeService;
     private AlarmService alarmService;
     private FileUploadService fileUploadService;
+    private AfileService afileService;
 
     
     
@@ -89,7 +92,7 @@ public class BoardController {
 
             ModelAndView mv = new ModelAndView();
             mv.setViewName("content/board");
-            mv.addObject("list", list);
+            mv.addObject("list", list); //보드 테이블 정보 보냄
             mv.addObject("tname",tname);
             mv.addObject("subList",subList); //class.jsp, header.jsp에서
             mv.addObject("sSubList",t); //header.jsp에서
@@ -102,6 +105,60 @@ public class BoardController {
         return null;
     }
 
+
+
+    //선생님이 '자료' 보드에 올린 파일 다운로드
+    @GetMapping("download.do")
+    public ModelAndView download(String bfname){
+        //넘어오는 파일이름으로 파일 객체를 생성해야함
+        //페이지를 보고 있는 순간에 파일이 삭제되었지만 새로고침이 되지 않은 경우, 파일이 존재하지 않으므로, 파일 존재여부를 체크해야함
+        log.info("넘겨준 파일 이름"+bfname);
+        File file = new File(Path.FILE_STORE, bfname);
+        log.info("다운로드를 위해 생성된 객체"+file);
+        if(file.exists()){
+            return new ModelAndView("fileDownloadView", "downloadFile", file); //fileDownloadView: 스프링컨테이너에서 생성된 파일 객체
+        }else{
+            return new ModelAndView("redirect:list.do");
+        }
+
+    }
+
+    //학생 과제 제출(파일 첨부)
+    @PostMapping("sfileUpload.do")
+    public String sFileUpload(MultipartFile file, HttpSession session,
+                              long bseq, AfileVo afileVo) {
+        log.info("?????안와???");
+
+        Object code = session.getAttribute("sucode");
+        String sucode = (String)code;
+        Object id = session.getAttribute("loginOksid");
+        String sid = (String)id;
+
+        String ofname = file.getOriginalFilename(); // 파일 이름을 가져온다
+        log.info("ofname"+ofname);
+
+        String sname = studentService.selectBySidS(sid);
+
+        String submission = "submission";
+        log.info("#sfileUpload ofname:"+ofname+", sid: "+sid+", bseq: "+bseq+ ",sname: "+sname);
+
+        if(!ofname.equals("")) { // 파일이 존재하면!
+            afileVo.setBseq(bseq);
+            afileVo.setSid(sid);
+            afileVo.setSname(sname);
+
+
+            ofname = ofname.trim(); // 공백제거해주고
+            String url = fileUploadService.sSaveStore(file, afileVo);
+            log.info("#url: "+url);
+            afileService.fileUploadS(afileVo);
+            return "redirect:content.do?bseq="+bseq;
+        }else {
+
+            return null;
+        }
+    }
+    
 
     //기한이 없는(==수업자료) 행 인서트
     @PostMapping("/boardin.do")
@@ -159,6 +216,7 @@ public class BoardController {
 
 
 
+    //기한이 있는 자료(==과제) 인서트
     @PostMapping("/assignin.do")
     public String assignIn(ThemeVo themeVo, @RequestParam("themelist")String thcode,
                            HttpSession session, @RequestParam("rdeadline")String rdeadline, BoardVo boardVo,
