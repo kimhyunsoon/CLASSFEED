@@ -82,11 +82,11 @@
                                         </button>
                                         <div class="moreWrap">
                                             <c:choose>
-                                                <c:when test="${empty boardVo.bdeadline}">
-                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editStudyFile" data-bseq="${boardVo.bseq)" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
+                                               <c:when test="${empty boardVo.bdeadline}">
+                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editStudyFile" data-bseq="${boardVo.bseq}" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
                                                 </c:when>
                                                 <c:when test="${!empty boardVo.bdeadline}">
-                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editAssignment" data-bseq="${boardVo.bseq)" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
+                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editAssignment" data-bseq="${boardVo.bseq}" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
                                                 </c:when>
                                             </c:choose>
                                             
