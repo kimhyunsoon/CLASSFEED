@@ -152,8 +152,7 @@ public class BoardController {
             String url = fileUploadService.sSaveStore(file, afileVo);
             log.info("#url: "+url);
             afileService.fileUploadS(afileVo);
-            log.info("이쯤에서 afileVo"+afileVo);
-            return "redirect:content.do?sucode=bseq"+bseq;
+            return "redirect:content.do?bseq="+bseq;
         }else {
 
             return null;
