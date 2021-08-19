@@ -1341,3 +1341,22 @@
         color:#fff;
         font-size: 20px;
     }
+
+    .noClassWrap{
+        padding: 100px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        border-radius: 10px;
+    }
+    .noClassWrap > svg {
+        width: 300px;
+    }
+    .noClassWrap > p {
+        width: 100%;
+        flex-shrink: 0;
+        text-align: center;
+        margin-top:20px;
+    }
