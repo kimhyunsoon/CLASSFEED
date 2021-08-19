@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
+import semi.project.domain.AfileVo;
 import semi.project.domain.BoardVo;
 import semi.project.filesetting.Path;
 import semi.project.mapper.BoardMapper;
@@ -60,6 +61,33 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 		return Path.FILE_STORE + fname;
 
 	}
+
+	@Override
+	public String sSaveStore(MultipartFile file, AfileVo afileVo) {
+		String ofname = file.getOriginalFilename();
+		int idx = ofname.lastIndexOf(".");
+		String ofheader = ofname.substring(0,idx); //파일이름 추출
+		String ext = ofname.substring(idx); // 확장자명 추출
+		long ms = System.currentTimeMillis();
+		StringBuilder sb = new StringBuilder();
+		sb.append(ofheader);
+		sb.append("_");
+		sb.append(ms);
+		sb.append(ext);
+		String fname = sb.toString();
+		long bfsize = file.getSize();
+		afileVo.setAfname(fname);
+		afileVo.setAfsize(bfsize);
+		afileVo.setAofname(ofname);
+		boolean flag = writeFile(file, fname);
+		if(flag) {
+			log.info("#업로드 성공");
+		}else {
+			log.info("#업로드 실패");
+		}
+		return Path.FILE_STORE + fname;
+	}
+
 
 	@Override
 	public boolean writeFile(MultipartFile file, String fname) {

@@ -46,7 +46,7 @@
 
             <pre class="boradContent">${boardVo.bcontent}</pre>
             <c:if test="${!empty boardVo.bfname}">
-            <a href="" class="boradFile toolTipWrap" download>
+            <a href="download.do?bfname=${boardVo.bfname }" class="boradFile toolTipWrap" download>
                 <i class="far fa-file-alt"></i>
                 <span>${boardVo.bfname}</span>
                 <p class="toolTipBot">다운로드</p>
@@ -125,7 +125,7 @@
         <!-- 학생_제출한게 있으면 끝-->
 
 
-        
+
 
         <div class="modalWrap" data-modal="workSubmit">
             <div class="modalCon" style="width:300px; max-height: 1000px;">
@@ -133,7 +133,8 @@
                     <span class="codeTransColor_border" data-sucode="${sucode}">과제 제출하기</span>
                     <i class="fas fa-times modalClose"></i>
                 </p>
-                <form action="" method="post">
+                <c:forEach items="${list }" var="boardVo">
+                <form action="sfileUpload.do?bseq=${boardVo.bseq }" method="post" enctype="multipart/form-data">
                     <div class="fileBtn">
                         <i class="far fa-folder-open"></i>
                         <p>파일 첨부하기</p>
@@ -147,6 +148,7 @@
                     </div>
     
                 </form>
+                </c:forEach>
             </div>
         </div>
         <!-- 학생_제출한게 없으면 끝-->

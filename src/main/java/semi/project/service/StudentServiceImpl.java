@@ -79,4 +79,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentMapper.sNameCk(sid);
 	}
 
+	@Override
+	public String selectBySidS(String sid) {
+		return studentMapper.selectBySid(sid);
+	}
+
 }

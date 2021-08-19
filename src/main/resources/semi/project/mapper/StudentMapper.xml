@@ -24,5 +24,9 @@
 		insert into student values(#{sid}, #{sname}, #{sphonenumber}, 
 		#{spwd}, #{semail}, default, SYSDATE)
 	</insert>
+
+	<select id="selectBySid" resultType="String" parameterType="String">
+		select sname from student where sid=#{sid}
+	</select>
 	
 </mapper>
