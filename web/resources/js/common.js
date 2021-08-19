@@ -26,7 +26,7 @@ $(document).on('click', '.sideMenuWrap', function(){
 
 //알림센터 열기 이벤트
 $(document).on('click' , '.feedCenter' ,function(){
-    $('.feedCenterBox').addClass('on')
+    $('.feedCenterBox').toggleClass('on')
     // $('.sideMenuWrap').addClass('on')
 })
 

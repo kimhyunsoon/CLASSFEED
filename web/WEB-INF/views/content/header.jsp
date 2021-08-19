@@ -45,10 +45,9 @@
 			<b class="feedDot"></b>
 			<img src="../img/feedCenter.svg">
 			<p class="toolTipBot">알림센터</p>
-
 		</button>
 
-		<a href="../member/logout.do" class="mypageLink toolTipWrap">
+		<a href="javascript:void(0)" class="mypageLink toolTipWrap">
 			<img src="../img/defaltProfile.png">
 			<p class="toolTipBot toolTipBot2">마이페이지</p>
 		</a>
@@ -198,12 +197,65 @@
 	</div>
 
 </nav>
+<nav class="feedCenterBox">
+	<p class="feedTitle"><span>알림센터</span><i class="fas fa-times feedCenterClose"></i></p>
+	<div class="feedList">
+		<!-- <p class="noListMsg">알림이 없습니다.</p> -->
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+		<a href="" class="feedMsg">
+			<p>새로운 과제가 등록되었습니다.</p>
+			<div><span>JAVA 기초 프로그래밍 클래스와 메쏘드 심화과정</span><p>김형수 선생님</p></div>
+		</a>
+	</div>
+
+</nav>
+<nav class="myPageBox">
+	<a href="javascript:void(0)" onClick="alert('기능 준비 중입니다. 😂')">내 계정 관리</a>
+	<a href="javascript:void(0)" class="logoutBtn">로그아웃</a>
+</nav>
 
 
 
 
 
 <script>
+
+	$(document).on('click', '.logoutBtn', function(){
+		if(confirm('정말 로그아웃 하시겠습니까?')){
+			location.href ='../member/logout.do'
+		}
+	})
     function codeTransColor(val){
 		var num1 = Number(numTrans(val)[0]);
 		var num2 = Number(numTrans(val)[1]);
@@ -253,7 +305,6 @@
 		return colors[index];
 
 	}
-
 
 	function numTrans(val) {
 		var val = val.toUpperCase()
@@ -321,9 +372,29 @@
 		}
     })
 
+	//바깥클릭 모어랩 닫기
 	$(document).on('click', 'body', function(e){
 		if(!$(e.target).hasClass('moreBtn') && !$(e.target).parents('button').hasClass('moreBtn')){
 			$('.moreWrap').removeClass('on')
 		}
+	})
+
+	//바깥클릭 알림센터 닫기
+	$(document).on('click', 'body', function(e){
+		if(!$(e.target).hasClass('feedCenter') && !$(e.target).parents('button').hasClass('feedCenter') && !$(e.target).parents('nav').hasClass('feedCenterBox')){
+			$('.feedCenterBox').removeClass('on')
+		}
+	})
+
+	//바깥클릭 계정관리 닫기
+	$(document).on('click', 'body', function(e){
+		if(!$(e.target).hasClass('mypageLink') && !$(e.target).parents('a').hasClass('mypageLink') && !$(e.target).parents('nav').hasClass('myPageBox')){
+			$('.myPageBox').removeClass('on')
+		}
+	})
+
+	//계정관리 열기
+	$(document).on('click', '.mypageLink' ,function(){
+		$('.myPageBox').toggleClass('on');
 	})
 </script>

@@ -89,11 +89,11 @@
         height: 42px;
         display: flex;
         align-items: center;
-        box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
         border-radius: 100px;
         justify-content: center;
         overflow: hidden;
-        margin-left: 30px;
+        margin-left: 20px;
+        margin-right: 10px;
     }
     .rightBtnWrap .mypageLink img{
         width: 100%;
@@ -686,7 +686,9 @@
         padding-top:3px;
         cursor: pointer;
         height: 28px;
-        width: 100px;
+        width: 110px;
+        display: flex;
+        justify-content: center;
     }
     .classCard .classCode>div {
         width: 80px;
@@ -1069,7 +1071,8 @@
     }
     .classConCardWrap .makeBtnWrap{
         position: relative;
-        margin-bottom:20px;
+        margin-bottom:10px;
+        margin-top:10px;
         width: max-content;
     }
     .classConCardWrap .makeSomeBtn{
@@ -1360,4 +1363,47 @@
         flex-shrink: 0;
         text-align: center;
         margin-top:20px;
+    }
+
+
+    .myPageBox {
+        position: fixed;
+        width: 105px;
+        height: auto;
+        border-radius: 5px;
+        right: 10px;
+        border: 1px solid #ececec;
+        top: 50px;
+        z-index: 21;
+        background-color: #fff;
+        box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+        transition: .5s ease-in-out;
+        transform-origin: top;
+        opacity: 0;
+        transform: scale(0);
+        padding:10px;
+    }
+    .myPageBox.on {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .myPageBox a {
+        padding:4px 10px;
+        padding-bottom:5px;
+        transition: .3s ease-in-out;
+        border-radius: 5px;
+        border:1px solid #ececec;
+
+        font-size: 10px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+    .myPageBox a:hover{
+        background-color: #f2f2f2;
+
+    }
+    .myPageBox a+a {
+        margin-top:10px;
+
     }

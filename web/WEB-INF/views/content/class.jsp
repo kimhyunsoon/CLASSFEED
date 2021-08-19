@@ -43,8 +43,15 @@
                         <button class="makeSomeBtn"><i class="fas fa-plus"></i>만들기</button>
                         <div class="makeSomeWrap">
                             <p class="makeBtn modalBtn" data-modal="addTheme">주제</p>
-                            <p class="makeBtn modalBtn" data-modal="addAssignment">과제</p>
-                            <p class="makeBtn modalBtn" data-modal="addStudyFile">자료</p>
+                            <c:forEach items="${thlist}" var="themeVo">
+                                <c:set var="themeCnt" value="${themeCnt+1}"/>
+                            </c:forEach>
+                            <c:if test="${!empty themeCnt}">
+                                <p class="makeBtn modalBtn" data-modal="addAssignment">과제</p>
+                                <p class="makeBtn modalBtn" data-modal="addStudyFile">자료</p>
+                            </c:if>
+
+                            
                         </div>
                     </div>
                 </c:if>
@@ -152,13 +159,12 @@
                 </div>
                 <div class="doubleRow">
                     <select name="rdeadline" class="selectWrap">
-                        <option value="0" selected>기한 없음</option>
+                        <option value="0" selected>당일</option>
                         <c:forEach var="cnt" begin="1" end="30">
                             <option value="${cnt}">${cnt}일</option>
                         </c:forEach>
                     </select>
                     <select name="themelist" class="selectWrap">
-                        <option value="0" selected>주제 없음</option>
                         <c:forEach items="${thlist}" var="themeVo">
                             <option value="${themeVo.thcode}">${themeVo.thname}</option>
                         </c:forEach>
@@ -204,7 +210,6 @@
                 <p class="subTitle">주제</p>
 
                 <select name="themelist" class="selectWrap">
-                    <option value="0" selected>주제 없음</option>
                     <c:forEach items="${thlist}" var="themeVo">
                         <option value="${themeVo.thcode}">${themeVo.thname}</option>
                     </c:forEach>
@@ -255,6 +260,92 @@
             </form>
         </div>
     </div>
+
+
+
+    <div class="modalWrap" data-modal="editAssignment">
+        <div class="modalCon" style="width:500px; max-height: 1000px;">
+            <p class="modalTitle">
+                <span class="codeTransColor_border" data-sucode="${sucode}">과제 수정하기</span>
+                <i class="fas fa-times modalClose"></i>
+            </p>
+            <form action="/myboard/boardUpdate.do" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="bseq" value="">
+                <c:forEach items="${tList}" var="teacherVo">
+                    <input type="hidden" name="tid" value="${teacherVo.tid}">
+                </c:forEach>
+                <input type="hidden" name="sucode" value="${sucode}">
+                <p class="subTitle">제목</p>
+                <div class="inpWrap">
+                    <input type="text" name="btitle" class="inp" required>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <p class="subTitle">내용</p>
+                <div class="inpWrap" style="height: 170px;">
+                    <textarea name="bcontent" class="inp" style="resize: none; padding:8px"></textarea>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <p class="subTitle">주제</p>
+                <select name="rdeadline" class="selectWrap">
+                    <option value="0" selected>당일</option>
+                    <c:forEach var="cnt" begin="1" end="30">
+                        <option value="${cnt}">${cnt}일</option>
+                    </c:forEach>
+                </select>
+                <select name="themelist" class="selectWrap">
+                    <c:forEach items="${thlist}" var="themeVo">
+                        <option value="${themeVo.thcode}">${themeVo.thname}</option>
+                    </c:forEach>
+                </select>
+    
+    
+                <div class="btnWrap">
+                    <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">수정하기</button>
+                </div>
+    
+            </form>
+        </div>
+    </div>
+    <div class="modalWrap" data-modal="editStudyFile">
+        <div class="modalCon" style="width:500px; max-height: 1000px;">
+            <p class="modalTitle">
+                <span class="codeTransColor_border" data-sucode="${sucode}">자료 수정하기</span>
+                <i class="fas fa-times modalClose"></i>
+            </p>
+            <form action="/myboard/boardin.do" method="post" enctype="multipart/form-data">
+                <p class="subTitle">제목</p>
+                <div class="inpWrap">
+                    <input type="text" name="btitle" class="inp" required>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <p class="subTitle">내용</p>
+                <div class="inpWrap" style="height: 170px;">
+                    <textarea name="bcontent" class="inp" style="resize: none; padding:8px"></textarea>
+                    <div class="inpBar"></div>
+                </div>
+    
+                <p class="subTitle">주제</p>
+
+                <select name="themelist" class="selectWrap">
+                    <c:forEach items="${thlist}" var="themeVo">
+                        <option value="${themeVo.thcode}">${themeVo.thname}</option>
+                    </c:forEach>
+                </select>
+    
+                <div class="btnWrap">
+                    <button type="submit" class="adMissionBtn pointBtn codeTransColor_back" data-sucode="${sucode}">수정하기</button>
+                </div>
+    
+            </form>
+        </div>
+    </div>
+
+
+
+
 </c:if>
 
 
