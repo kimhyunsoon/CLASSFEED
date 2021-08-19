@@ -83,10 +83,10 @@
                                         <div class="moreWrap">
                                             <c:choose>
                                                <c:when test="${empty boardVo.bdeadline}">
-                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editStudyFile" data-bseq="${boardVo.bseq}" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
+                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-modal="editStudyFile" data-bseq="${boardVo.bseq}" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
                                                 </c:when>
                                                 <c:when test="${!empty boardVo.bdeadline}">
-                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editAssignment" data-bseq="${boardVo.bseq}" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
+                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-modal="editAssignment" data-bseq="${boardVo.bseq}" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
                                                 </c:when>
                                             </c:choose>
                                             
@@ -219,10 +219,7 @@
                     <input type="hidden" name="tid" value="${teacherVo.tid}">
                 </c:forEach>
                 <input type="hidden" name="sucode" value="${sucode}">
-                <c:forEach items="${tList}" var="teacherVo">
-                    <input type="hidden" name="tid" value="${teacherVo.tid}">
-                </c:forEach>
-                <input type="hidden" name="sucode" value="${sucode}">
+                
                 <p class="subTitle">주제명</p>
                 <div class="inpWrap">
                     <input type="text" name="thname" class="inp" required>
@@ -238,7 +235,10 @@
     </div>
 
 
-
+    '.bseq').val(bseq)
+    thisModal.find('.btitle').val(btitle)
+    thisModal.find('.bcontent').val(bcontent)
+    thisModal.find('.thcode
     <div class="modalWrap" data-modal="editAssignment">
         <div class="modalCon" style="width:500px; max-height: 1000px;">
             <p class="modalTitle">
@@ -246,31 +246,25 @@
                 <i class="fas fa-times modalClose"></i>
             </p>
             <form action="/myboard/boardUpdate.do" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="bseq" value="">
                 <c:forEach items="${tList}" var="teacherVo">
                     <input type="hidden" name="tid" value="${teacherVo.tid}">
                 </c:forEach>
                 <input type="hidden" name="sucode" value="${sucode}">
+                <input type="hidden" class="bseq" name="bseq" value="">
                 <p class="subTitle">제목</p>
                 <div class="inpWrap">
-                    <input type="text" name="btitle" class="inp" required>
+                    <input type="text" name="btitle" class="inp btitle" required>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">내용</p>
                 <div class="inpWrap" style="height: 170px;">
-                    <textarea name="bcontent" class="inp" style="resize: none; padding:8px"></textarea>
+                    <textarea name="bcontent" class="inp bcontent" style="resize: none; padding:8px"></textarea>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">주제</p>
-                <select name="rdeadline" class="selectWrap">
-                    <option value="0" selected>당일</option>
-                    <c:forEach var="cnt" begin="1" end="30">
-                        <option value="${cnt}">${cnt}일</option>
-                    </c:forEach>
-                </select>
-                <select name="themelist" class="selectWrap">
+                <select name="themelist" class="selectWrap thcode">
                     <c:forEach items="${thlist}" var="themeVo">
                         <option value="${themeVo.thcode}">${themeVo.thname}</option>
                     </c:forEach>
@@ -291,22 +285,25 @@
                 <i class="fas fa-times modalClose"></i>
             </p>
             <form action="/myboard/boardUpdate.do" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="bseq" value="">
+                <c:forEach items="${tList}" var="teacherVo">
+                    <input type="hidden" name="tid" value="${teacherVo.tid}">
+                </c:forEach>
+                <input type="hidden" name="sucode" value="${sucode}">
+                <input type="hidden" class="bseq" name="bseq" value="">
                 <p class="subTitle">제목</p>
                 <div class="inpWrap">
-                    <input type="text" name="btitle" class="inp" required>
+                    <input type="text" name="btitle" class="inp btitle" required>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">내용</p>
                 <div class="inpWrap" style="height: 170px;">
-                    <textarea name="bcontent" class="inp" style="resize: none; padding:8px"></textarea>
+                    <textarea name="bcontent" class="inp bcontent" style="resize: none; padding:8px"></textarea>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">주제</p>
-
-                <select name="themelist" class="selectWrap">
+                <select name="themelist" class="selectWrap thcode">
                     <c:forEach items="${thlist}" var="themeVo">
                         <option value="${themeVo.thcode}">${themeVo.thname}</option>
                     </c:forEach>
