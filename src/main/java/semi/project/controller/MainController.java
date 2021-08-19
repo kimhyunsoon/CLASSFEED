@@ -77,9 +77,9 @@ public class MainController {
 
 	@GetMapping("keepOn.do") //수업 보관
 	public String keepOn(String sucode) {
-		log.info("#keep sucode: "+sucode);
 		String skeep = "Y";
 		subjectService.updateKeepOnS(skeep, sucode);
+		log.info("keep on 넘어오니~~~??");
 		return "redirect:../main/list.do";
 	}
 
@@ -88,6 +88,7 @@ public class MainController {
 		log.info("#keep sucode: "+sucode);
 		String skeep = "N";
 		subjectService.updateKeepOffS(skeep, sucode);
+		log.info("keep off 넘어오니~~~??");
 		return "redirect:../main/list.do";
 	}
 
@@ -105,13 +106,10 @@ public class MainController {
 		Object id2 = session.getAttribute("loginOkTid");
 		String tid = (String)id2;
 		String sid = (String)id;
-		log.info("센세id"+tid);
 		if(tid != null) {
 
 			List<TeacherVo> tlist = teacherService.tNameCkS(tid);
 			List<SubjectVo> list = subjectService.selectBytid(tid);
-			log.info("선생님 수업 킵"+tlist);
-			log.info("선생님 수업 킵"+list);
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("content/keep");
 			mv.addObject("tSubList",list);

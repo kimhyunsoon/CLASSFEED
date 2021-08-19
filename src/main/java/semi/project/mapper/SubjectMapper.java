@@ -3,6 +3,7 @@ package semi.project.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import semi.project.domain.SubjectVo;
 import semi.project.domain.TeacherVo;
@@ -24,6 +25,6 @@ public interface SubjectMapper {
 	String selectSuname(String sucode);
 	String selectTid(String sucdoe); // 선생님 id 찾기위해
 
-    void updateKeepOn(String skeep, String sucode);
-	void updateKeepOff(String skeep, String sucode);
+	void updateKeepOn(@Param("skeep")String skeep, @Param("sucode")String sucode);
+	void updateKeepOff(@Param("skeep")String skeep, @Param("sucode")String sucode);
 }

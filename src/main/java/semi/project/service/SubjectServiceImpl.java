@@ -88,13 +88,15 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public void updateKeepOnS(String skeep, String sucode) {
-		log.info("킵코드 예스"+skeep);
-		log.info("킵코드 수코드"+skeep);
+		log.info("킵온 코드"+skeep);
+		log.info("킵온 수코드"+sucode);
 		subjectMapper.updateKeepOn(skeep, sucode);
 	}
 
 	@Override
 	public void updateKeepOffS(String skeep, String sucode) {
+		log.info("킵오프 코드"+skeep);
+		log.info("킵오프 수코드"+sucode);
 		subjectMapper.updateKeepOff(skeep, sucode);
 	}
 
