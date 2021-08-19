@@ -100,9 +100,9 @@
 
         <!-- 학생_제출한게 있으면 -->
 
-
+        <c:if test="${!empty submit}">
         <p class="boradWorkTitle">내가 제출한 과제</p>
-
+        </c:if>
         <c:forEach items="${submit}" var="afileVo">
             <c:if test="${!empty afileVo.afname}">
         <div class="streamCard">
@@ -112,8 +112,8 @@
 
 
                 <a href="adownload.do?afname=${afileVo.afname }" class="text" download>
-                    <p class="title">김현순 님이 제출한 과제 : 파일명파일명.jpg</p>
-                    <p class="date">2021.08.16.</p>
+                    <p class="title">${afileVo.sname } 님이 제출한 과제 : ${afileVo.aofname }</p>
+                    <p class="date">${afileVo.afrdate }</p>
                 </a>
 
 

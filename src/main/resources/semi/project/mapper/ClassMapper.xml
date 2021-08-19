@@ -13,6 +13,7 @@
 		insert into class values(#{sucode}, #{sid})
 	</insert>
 
+
 	<select id="selectBySid" resultType="String" parameterType="String">
 		select sucode from class where sid=#{sid}
 	</select>

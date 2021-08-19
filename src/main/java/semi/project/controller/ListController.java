@@ -39,7 +39,8 @@ public class ListController {
     private AlarmService alarmService;
 
 
-    @GetMapping("/mystream.do") // 해당 과목의 자료, 과제 를 불러 오기 위해
+    // 스트림 탭의 리스트(공지,과제,자료) 출력
+    @GetMapping("/mystream.do")
     public ModelAndView mystream(String sucode, HttpSession session) {
         // jsp에서 sucode를 물고온다.
         Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
@@ -92,7 +93,8 @@ public class ListController {
         return null;
     }
 
-    @GetMapping("/myclass.do") // !!! 수업 탭의 리스트 출력(왼쪽 주제리스트, 중앙에 주제 안에 과제,자료)
+    // !!! 수업 탭의 리스트 출력(왼쪽 주제리스트, 중앙에 주제 안에 과제,자료)
+    @GetMapping("/myclass.do")
     public ModelAndView myclass(String sucode, HttpSession session) {
         // jsp에서 sucode를 물고온다.
         Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
@@ -150,6 +152,7 @@ public class ListController {
         return null;
     }
 
+    // 공지입력기능
     @PostMapping("/notice.do")
     public String addNotice(HttpSession session, NoticeVo noticeVo){
         Object teacher = session.getAttribute("loginOkTid");
@@ -178,6 +181,7 @@ public class ListController {
         return "redirect:mystream.do?sucode="+sucode;
     }
 
+    //주제만들기 기능
     @PostMapping("/theme.do") //주제 생성
     public String addTheme(HttpSession session, ThemeVo themeVo) {
         Object t = session.getAttribute("loginOkTid"); //선생님 만이 주제 추가 가능
@@ -218,6 +222,7 @@ public class ListController {
     }
 
 
+    //알람??
     @GetMapping("/alarm.do")
     public ModelAndView alarmlist(HttpSession session) {
         Object id = session.getAttribute("sid");

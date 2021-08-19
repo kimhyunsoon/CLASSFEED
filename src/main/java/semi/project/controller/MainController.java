@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * 메인화면(==개설한 or 수강중인 클래스 리스트)
+ * 수업 보관 및 복원, 보관함 리스트 출력
  */
 
 
@@ -34,6 +35,7 @@ public class MainController {
 	private StudentService studentService;
     private ThemeService themeService;
 
+    //메인리스트 출력
     @GetMapping("/list.do")
 	public ModelAndView list(HttpSession session) { //메인 화면 subject 리스트 출력
 
@@ -94,11 +96,6 @@ public class MainController {
 
 
 
-//	@GetMapping("keepList.do")
-//	public String keepSubject(){
-//
-//		return "content/keep";
-//	}
 
 	@GetMapping("keepList.do") //수업보관함 리스트 불러오기
 	public ModelAndView keepList(SubjectVo subjectVo, HttpSession session) {

@@ -24,7 +24,8 @@ import java.util.List;
 /**
  * 과제or자료 상세내용 페이지 출력
  * 학생일 경우 과제 제출 기능
- *
+ * 선생님일 경우 board 테이블에 과제, 자료 생성
+ * 파일 다운로드 기능
  * */
 
 @Log4j
@@ -44,10 +45,10 @@ public class BoardController {
     private FileUploadService fileUploadService;
     private AfileService afileService;
 
-    
-    
-    
-    @GetMapping("/content.do") // 과제or자료를 눌렀을때
+
+
+    // 수업 탭에서 과제or자료를 눌렀을때
+    @GetMapping("/content.do")
     public ModelAndView readBoard(String sucode, HttpSession session,long bseq, BoardVo boardVo, AfileVo afileVo) {
         Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
         Object id2 = session.getAttribute("loginOkTid"); // session 에서 tid 값 불러오기
@@ -153,7 +154,7 @@ public class BoardController {
     }
 
 
-    //학생 과제 제출(파일 첨부)
+    //학생 과제 제출(afile 테이블, 파일 첨부)
     @PostMapping("sfileUpload.do")
     public String sFileUpload(MultipartFile file, HttpSession session,
                               long bseq, AfileVo afileVo) {
@@ -190,7 +191,7 @@ public class BoardController {
     }
     
 
-    //기한이 없는(==수업자료) 행 인서트
+    //기한이 없는(==수업자료) 행 인서트(선생님, board 테이블)
     @PostMapping("/boardin.do")
     public String addBoard(ThemeVo themeVo, @RequestParam("themelist")String thcode,
                           HttpSession session, BoardVo boardVo, AlarmVo alarmVo, MultipartFile file) { //deadline이 없는 수업 자료 insert
@@ -246,7 +247,7 @@ public class BoardController {
 
 
 
-    //기한이 있는 자료(==과제) 인서트
+    //기한이 있는 자료(==과제) 인서트(선생님, board 테이블)
     @PostMapping("/assignin.do")
     public String assignIn(ThemeVo themeVo, @RequestParam("themelist")String thcode,
                            HttpSession session, @RequestParam("rdeadline")String rdeadline, BoardVo boardVo,
