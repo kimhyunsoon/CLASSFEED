@@ -48,5 +48,18 @@
         select * from board where bseq = #{bseq}
     </select>
 
+    <delete id="deleteBySeq" parameterType="long">
+        delete board where bseq = #{bseq}
+    </delete>
+
+    <select id="getBoard" resultType="BoardVo" parameterType="long">
+        select * from board where bseq=#{bseq}
+    </select>
+
+    <update id="boardUpdate" parameterType="BoardVo">
+        update board set btitle=#{btitle}, bcontent=#{bcontent} where bseq = #{bseq}
+    </update>
+
+
 
 </mapper>

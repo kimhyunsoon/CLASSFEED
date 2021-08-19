@@ -21,4 +21,10 @@ public interface BoardMapper {
 
     List<BoardVo> selectBySucode(String sucode);
     List<BoardVo> boardSelectBySeq(long bseq);
+
+    void deleteBySeq(long bseq);
+
+    BoardVo getBoard(long bseq);
+
+    void boardUpdate(BoardVo boardVo);
 }

@@ -36,6 +36,12 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 	}
 
 	@Override
+	public void deleteBySeqS(long bseq) {
+		// TODO Auto-generated method stub
+		boardMapper.deleteBySeq(bseq);
+	}
+
+	@Override
 	public String saveStore(MultipartFile file, BoardVo boardVo) {
 		String ofname = file.getOriginalFilename();
 		int idx = ofname.lastIndexOf(".");
@@ -96,7 +102,7 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 		FileOutputStream fos = null;
 		try {
 			byte data[] = file.getBytes();
-			fos = new FileOutputStream(Path.FILE_STORE+fname);
+					fos = new FileOutputStream(Path.FILE_STORE+fname);
 			fos.write(data);
 			fos.flush();
 
@@ -153,6 +159,19 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 		log.info("service bseq2"+bseq);
 		return boardMapper.boardSelectBySeq(bseq);
 	}
+
+	@Override
+	public BoardVo getBoardS(long bseq) {
+		// TODO Auto-generated method stub
+		return boardMapper.getBoard(bseq);
+	}
+
+	@Override
+	public void boardUpdateS(BoardVo boardVo) {
+		// TODO Auto-generated method stub
+		boardMapper.boardUpdate(boardVo);
+	}
+
 
 
 
