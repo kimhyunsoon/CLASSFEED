@@ -106,25 +106,34 @@
                         <c:forEach items="${boardList}" var="boardVo">
 
 
-                <div class="streamCard">
-                    <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
-                        <i class="fas fa-chalkboard"></i>
-                    </div>
-                    <a href="" class="text">
-                        <p class="title">${boardVo.tid} 님이 새 수업을 게시 : ${boardVo.btitle}</p>
-                        <p class="date">${boardVo.brdate}</p>
-                    </a>
-                    <div class="moreBtnWrap">
-                        <button class="moreBtn">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <div class="moreWrap">
-                            <a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
-                            <a href="javascript:void(0)" class="moreAnchor editClass" data-class="">수정</a>
-                            <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
-                        </div>
-                    </div>
-                </div>
+                            <div class="streamCard">
+                                <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
+                                    <c:choose>
+                                        <c:when test="${empty boardVo.bdeadline}">
+                                            <i class="far fa-file-alt" aria-hidden="true"></i>
+                                            <c:set var="boardType" value="자료"/>
+                                        </c:when>
+                                        <c:when test="${!empty boardVo.bdeadline}">
+                                            <c:set var="boardType" value="과제"/>
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                                <a href="../myboard/content.do?bseq=${boardVo.bseq}" class="text">
+                                    <p class="title">${boardVo.tid} 님이 새 ${boardType}을 게시 : ${boardVo.btitle}</p>
+                                    <p class="date">${boardVo.brdate}</p>
+                                </a>
+                                <div class="moreBtnWrap">
+                                    <button class="moreBtn">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="moreWrap">
+                                        <a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
+                                        <a href="javascript:void(0)" class="moreAnchor editClass" data-class="">수정</a>
+                                        <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
+                                    </div>
+                                </div>
+                            </div>
                         </c:forEach>
                     </c:when>
                 </c:choose>

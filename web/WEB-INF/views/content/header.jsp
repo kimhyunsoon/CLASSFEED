@@ -208,30 +208,50 @@
 		var num1 = Number(numTrans(val)[0]);
 		var num2 = Number(numTrans(val)[1]);
 		var num3 = Number(numTrans(val)[2]);
+		var num4 = Number(numTrans(val)[3]);
 
+		// console.log(numTrans(val))
 		var st = 0;
 		var ed = 0;
 		var index = 0;
-		if(num2 % 2 == 0){
+
+		// console.log('전체 : '+numTrans(val))
+
+		if(num4 % 2 == 0){
 			st = 0;
-			ed = 3;
-		} else {
-			st = 4;
 			ed = 7;
+		} else {
+			st = 8;
+			ed = 15;
 		}
-		if(num3 % 2 == 0){
+		// console.log('1단계 범위: '+st+' ~ '+ed)
+
+		if(num2 % 2 == 0){
+			st = st;
+			ed = ed-4;
+		} else {
+			st = st+4;
+			ed = ed;
+		}
+		// console.log('2단계 범위: '+st+' ~ '+ed)
+
+		if(num1 % 2 == 0){
 			st = st;
 			ed = ed-2;
 		} else {
 			st = st+2;
 			ed = ed;
 		}
-		if(num1 % 2 == 0){
+		// console.log('3단계 범위: '+st+' or '+ed)
+
+		if(num3 % 2 == 0){
 			index = st;
 		} else {
 			index = ed;
 		}
+
 		return colors[index];
+
 	}
 
 
@@ -241,27 +261,30 @@
 		for (i = 0, j = val.length - 1; i < val.length; i += 1, j -= 1) {
 			result += Math.pow(base.length, j) * (base.indexOf(val[i]) + 1);
 		}
-		var sliceRe = String(result).replace(/0/gi,'').slice(-3,result.length)
+
+
+		var sliceRe = String(result).replace(/0/gi,'').slice(-4,result.length)   
 		return sliceRe;
 	};
 
     var colors = [
 		'#F23831',
-		'#E51057',
-		'#9114A3',
-		'#5C2BAA',
 		'#3843A9',
+		'#6E4B40',
+		'#43A84D',
+		'#56717F',
 		'#2088ED',
-		'#0C9DEF',
+		'#E51057',
+		'#FF8E1F',
 		'#07B3CD',
 		'#038C7D',
-		'#43A84D',
-		'#80BE4B',
-		'#FFBB29',
-		'#FF8E1F',
 		'#FF4B23',
-		'#6E4B40',
-		'#56717F',
+		'#0C9DEF',
+		'#5C2BAA',
+		'#FFBB29',
+		'#80BE4B',
+		'#9114A3',
+
 	];
 
 	$(function(){
