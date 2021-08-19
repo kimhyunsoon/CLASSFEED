@@ -78,7 +78,7 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="moreWrap">
-                                            <a href="" class="moreAnchor">삭제</a>
+                                            <a href="../myboard/boardDel.do?bseq=${boardVo.bseq }" class="moreAnchor">삭제</a>
                                         </div>
                                     </div>
                                 </c:if>
@@ -114,7 +114,7 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="moreWrap">
-                                            <a href="" class="moreAnchor">삭제</a>
+                                            <a href="../myboard/boardDel.do?bseq=${boardVo.bseq }" class="moreAnchor">삭제</a>
                                         </div>
                                     </div>
                                 </c:if>

@@ -119,6 +119,31 @@ public class BoardController {
         return null;
     }
 
+    @PostMapping("update.do")
+    public String boardUpdate(BoardVo boardVo) {
+
+        log.info("#update.do bitile:"+boardVo.getBtitle());
+        log.info("#update.do bcontent:"+boardVo.getBcontent());
+        log.info("#update.do bseq:"+boardVo.getBseq());
+
+        boardService.boardUpdateS(boardVo);
+        return "redirect:boardlist.do";
+    }
+
+
+
+
+
+
+
+    @GetMapping("boardDel.do")
+    public String boardDel(long bseq) {
+        log.info("#boardDel bseq: "+bseq);
+        boardService.deleteBySeqS(bseq);
+        return "redirect:../list/myclass.do";
+    }
+
+
 
 
     //선생님이 '자료' 보드에 올린 파일 다운로드
@@ -136,6 +161,10 @@ public class BoardController {
         }
 
     }
+
+
+
+
 
     //학생이 '과제' 보드에 올린 파일 다운로드
     @GetMapping("adownload.do")
@@ -267,14 +296,16 @@ public class BoardController {
         String adivision = "A"; // 종류는 A or B 이므로 과제를 표현할때는 A 값을 넣기위한 세팅
 
         List<String> sidlist = classService.selectSidS(sucode); // 해당 수업 코드에 해당 하는 학생 id 리스트 로 뽑아 온다.
-        if(sidlist.get(0)!=null) { // 만약 0 번째 주소에 값이 null 이 아니면 -> list 는 0번째 부터 들어 가니깐 0 != null 이라는건 학생이 한명 이상 존재 한다는 뜻!
-            for(int i =0; i<sidlist.size();i++) { // 뽑아온 학생의 수만큼 반목문 수행.
-                alarmVo.setAtname(tname); // 선생님 이름
-                alarmVo.setAsuname(suname); // 과목명
-                alarmVo.setAdivision(adivision); // 종류
-                alarmVo.setSucode(sucode); // 과목 코드
-                alarmVo.setSid(sidlist.get(i)); // list 0번째 값부터 list의 크기만큼
-                alarmService.ainsertS(alarmVo); // Alarm Table에 insert 해준다.
+        if(sidlist.size()>0) {
+            if (sidlist.get(0) != null) { // 만약 0 번째 주소에 값이 null 이 아니면 -> list 는 0번째 부터 들어 가니깐 0 != null 이라는건 학생이 한명 이상 존재 한다는 뜻!
+                for (int i = 0; i < sidlist.size(); i++) { // 뽑아온 학생의 수만큼 반목문 수행.
+                    alarmVo.setAtname(tname); // 선생님 이름
+                    alarmVo.setAsuname(suname); // 과목명
+                    alarmVo.setAdivision(adivision); // 종류
+                    alarmVo.setSucode(sucode); // 과목 코드
+                    alarmVo.setSid(sidlist.get(i)); // list 0번째 값부터 list의 크기만큼
+                    alarmService.ainsertS(alarmVo); // Alarm Table에 insert 해준다.
+                }
             }
         }
 
