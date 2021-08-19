@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import semi.project.domain.ClassVo;
-import semi.project.domain.StudentVo;
-import semi.project.domain.SubjectVo;
-import semi.project.domain.TeacherVo;
+import semi.project.domain.*;
 import semi.project.service.*;
 
 import javax.servlet.http.HttpSession;
@@ -34,6 +31,7 @@ public class MainController {
     private TeacherService teacherService;
 	private StudentService studentService;
     private ThemeService themeService;
+    private AlarmService alarmService;
 
     //메인리스트 출력
     @GetMapping("/list.do")
@@ -75,7 +73,21 @@ public class MainController {
 		}
 		return null;
 	}
-	
+
+	@GetMapping("/alarm.do")
+	public ModelAndView mainAlarm(HttpSession session) {
+		Object id = session.getAttribute("sid");
+		String sid = (String)id;
+
+		List<AlarmVo> alarmList =  alarmService.aselectBysidS(sid);
+
+		System.out.println(alarmList);
+
+		ModelAndView mv = new ModelAndView("index","alarmList",alarmList);
+
+		return mv;
+	}
+
 
 	@GetMapping("keepOn.do") //수업 보관
 	public String keepOn(String sucode) {
@@ -93,6 +105,7 @@ public class MainController {
 		log.info("keep off 넘어오니~~~??");
 		return "redirect:../main/list.do";
 	}
+
 
 
 

@@ -19,4 +19,12 @@
 	<select id="afileSelectBySid" resultType="AfileVo" parameterType="AfileVo">
 		select * from afile where sid=#{sid} and bseq =#{bseq}
 	</select>
+
+	<delete id="deleteByAfName" parameterType="String">
+		delete afile where afname = #{afname}
+	</delete>
+
+
+
+
 </mapper>

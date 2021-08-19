@@ -241,7 +241,7 @@
                 <span class="codeTransColor_border" data-sucode="${sucode}">과제 수정하기</span>
                 <i class="fas fa-times modalClose"></i>
             </p>
-            <form action="/myboard/boardUpdate.do" method="post" enctype="multipart/form-data">
+            <form action="../myboard/update.do" method="post" enctype="multipart/form-data">
                 <c:forEach items="${tList}" var="teacherVo">
                     <input type="hidden" name="tid" value="${teacherVo.tid}">
                 </c:forEach>
@@ -280,7 +280,7 @@
                 <span class="codeTransColor_border" data-sucode="${sucode}">자료 수정하기</span>
                 <i class="fas fa-times modalClose"></i>
             </p>
-            <form action="/myboard/boardUpdate.do" method="post" enctype="multipart/form-data">
+            <form action="../myboard/update.do" method="post" enctype="multipart/form-data">
                 <c:forEach items="${tList}" var="teacherVo">
                     <input type="hidden" name="tid" value="${teacherVo.tid}">
                 </c:forEach>
@@ -323,7 +323,7 @@
 <script>
     //수정하기 클릭이벤트
     $(document).on('click','.editBtn',function(){
-        var bseq = $(this).data('seq');
+        var bseq = $(this).data('bseq');
         var btitle = $(this).data('btitle');
         var bcontent = $(this).data('bcontent');
         var thcode = $(this).data('thcode');

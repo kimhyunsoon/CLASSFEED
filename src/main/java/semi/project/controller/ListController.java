@@ -224,18 +224,21 @@ public class ListController {
 
     //알람??
     @GetMapping("/alarm.do")
-    public ModelAndView alarmlist(HttpSession session) {
+    public ModelAndView streamAlarm(HttpSession session) {
         Object id = session.getAttribute("sid");
         String sid = (String)id;
 
-        List<AlarmVo> list =  alarmService.aselectBysidS(sid);
+        List<AlarmVo> alarmList =  alarmService.aselectBysidS(sid);
 
-        System.out.println(list);
+        System.out.println(alarmList);
 
-        ModelAndView mv = new ModelAndView("test/alarm","list",list);
+        ModelAndView mv = new ModelAndView("content/stream","alarmList",alarmList);
 
         return mv;
     }
+
+
+
 
 
 

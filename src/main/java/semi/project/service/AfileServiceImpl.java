@@ -36,4 +36,9 @@ public class AfileServiceImpl implements AfileService {
 		return afileMapper.afileSelectBySid(afileVo);
 	}
 
+	@Override
+	public void deleteByAfName(String afname) {
+		afileMapper.deleteByAfName(afname);
+	}
+
 }

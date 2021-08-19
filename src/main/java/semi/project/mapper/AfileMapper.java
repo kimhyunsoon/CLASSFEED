@@ -10,4 +10,5 @@ public interface AfileMapper {
 	void fileUpload(AfileVo afileVo);
 	List<AfileVo> afileSelectBySeq(long bseq);
 	List<AfileVo> afileSelectBySid(AfileVo afileVo);
+	void deleteByAfName(String afname);
 }

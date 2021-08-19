@@ -121,7 +121,7 @@ public class BoardController {
 
     @PostMapping("update.do")
     public String boardUpdate(BoardVo boardVo, long bseq) {
-        boardVo.setBseq(bseq);
+//        boardVo.setBseq(bseq);
 
         log.info("#update.do bitile:"+boardVo.getBtitle());
         log.info("#update.do bcontent:"+boardVo.getBcontent());
@@ -183,7 +183,11 @@ public class BoardController {
     @GetMapping("afileDel.do")
     public String del(@RequestParam String afname, @RequestParam long bseq){
         File file = new File(Path.FILE_STORE, afname); //(부모, 자식), 삭제하려는 대상 파일
-        if(file.exists()) file.delete();
+        if(file.exists()){
+            file.delete();
+
+        }
+        afileService.deleteByAfName(afname);
         return "redirect:content.do?bseq="+bseq;
     }
 
@@ -246,19 +250,7 @@ public class BoardController {
 
         List<String> sidlist = classService.selectSidS(sucode); // 알림 기능을 위해 해당 수업 코드에 해당 하는 학생 id 리스트 로 뽑아 온다.
 
-        //알림 기능 구현
-        if(sidlist.size()>0) { // 만약 0 번째 주소에 값이 null 이 아니면 -> list 는 0번째 부터 들어 가니깐 0 != null 이라는건 학생이 한명 이상 존재 한다는 뜻!
-            if(sidlist.get(0)!=null) {
-                for(int i =0; i<sidlist.size();i++) { // 뽑아온 학생의 수만큼 반목문 수행.
-                    alarmVo.setAtname(tname); // 선생님 이름
-                    alarmVo.setAsuname(suname); // 과목명
-                    alarmVo.setAdivision(adivision); // 종류
-                    alarmVo.setSucode(sucode); // 과목 코드
-                    alarmVo.setSid(sidlist.get(i)); // list 0번째 값부터 list의 크기만큼
-                    alarmService.ainsertS(alarmVo); // Alarm Table에 insert 해준다.
-                }
-            }
-        }
+
 
         if(!ofname.equals("")) {
             log.info("#ofname 넘어오냐?"+ofname);
@@ -269,13 +261,31 @@ public class BoardController {
             String url = fileUploadService.saveStore(file, boardVo);
             log.info("#url: "+url);
             log.info("#thcode: "+boardVo.getThcode());
+
+            //알림 기능 구현
+
             boardService.insertBoardOkFileS(boardVo);
+
             return "redirect:../list/myclass.do?sucode="+sucode;
         }else {
             boardVo.setTid(tid);
             boardVo.setThcode(thcode);
             boardVo.setSucode(sucode);
             boardService.insertBoardNotFileS(boardVo);
+            log.info("#bseq!!: "+boardVo.getBseq());
+            if(sidlist.size()>0) { // 만약 0 번째 주소에 값이 null 이 아니면 -> list 는 0번째 부터 들어 가니깐 0 != null 이라는건 학생이 한명 이상 존재 한다는 뜻!
+                if(sidlist.get(0)!=null) {
+                    for(int i =0; i<sidlist.size();i++) { // 뽑아온 학생의 수만큼 반목문 수행.
+                        alarmVo.setAtname(tname); // 선생님 이름
+                        alarmVo.setAsuname(suname); // 과목명
+                        alarmVo.setAdivision(adivision); // 종류
+                        alarmVo.setSucode(sucode); // 과목 코드
+                        alarmVo.setSid(sidlist.get(i)); // list 0번째 값부터 list의 크기만큼
+                        alarmVo.setBseq(boardVo.getBseq());
+                        alarmService.ainsertS(alarmVo); // Alarm Table에 insert 해준다.
+                    }
+                }
+            }
             return "redirect:../list/myclass.do?sucode="+sucode;
         }
     }
