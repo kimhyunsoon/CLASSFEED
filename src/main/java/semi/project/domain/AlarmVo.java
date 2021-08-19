@@ -16,5 +16,5 @@ public class AlarmVo {
 	private String adivision;
 	private String sid;
 	private String sucode;
-	private long bseq;
+
 }

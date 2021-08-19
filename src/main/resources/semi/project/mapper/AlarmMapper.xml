@@ -5,7 +5,7 @@
 <mapper namespace="semi.project.mapper.AlarmMapper">
 	<insert id="ainsert" parameterType="AlarmVo">
 		insert into alarm values(SEQ_ALARM.nextval,#{atname},#{asuname},#{adivision},
-		#{sid},#{sucode}, #{bseq})
+		#{sid},#{sucode})
 	</insert>
 	
 	<select id="aselectBysid" resultType="AlarmVo" parameterType="String">

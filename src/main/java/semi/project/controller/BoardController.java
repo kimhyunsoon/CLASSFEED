@@ -281,7 +281,7 @@ public class BoardController {
                         alarmVo.setAdivision(adivision); // 종류
                         alarmVo.setSucode(sucode); // 과목 코드
                         alarmVo.setSid(sidlist.get(i)); // list 0번째 값부터 list의 크기만큼
-                        alarmVo.setBseq(boardVo.getBseq());
+
                         alarmService.ainsertS(alarmVo); // Alarm Table에 insert 해준다.
                     }
                 }
