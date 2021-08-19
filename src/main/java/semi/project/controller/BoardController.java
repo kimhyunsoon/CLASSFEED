@@ -120,7 +120,8 @@ public class BoardController {
     }
 
     @PostMapping("update.do")
-    public String boardUpdate(BoardVo boardVo) {
+    public String boardUpdate(BoardVo boardVo, long bseq) {
+        boardVo.setBseq(bseq);
 
         log.info("#update.do bitile:"+boardVo.getBtitle());
         log.info("#update.do bcontent:"+boardVo.getBcontent());
@@ -129,10 +130,6 @@ public class BoardController {
         boardService.boardUpdateS(boardVo);
         return "redirect:boardlist.do";
     }
-
-
-
-
 
 
 
@@ -181,6 +178,15 @@ public class BoardController {
         }
 
     }
+
+    //학생이 '과제' 보드에 올린 파일 삭제(학생 본인, 선생님??)
+    @GetMapping("afileDel.do")
+    public String del(@RequestParam String afname, @RequestParam long bseq){
+        File file = new File(Path.FILE_STORE, afname); //(부모, 자식), 삭제하려는 대상 파일
+        if(file.exists()) file.delete();
+        return "redirect:content.do?bseq="+bseq;
+    }
+
 
 
     //학생 과제 제출(afile 테이블, 파일 첨부)

@@ -33,7 +33,7 @@
                                 <i class="fas fa-ellipsis-v codeTransColor_color" data-sucode="${sucode}"></i>
                             </button>
                             <div class="moreWrap">
-                                <a href="" class="moreAnchor">삭제</a>
+                                <a href="boardDel.do?bseq=${boardVo.bseq }" class="moreAnchor">삭제</a>
                             </div>
                         </div>
                         <!-- 선생님만 나옴 끝-->
@@ -100,7 +100,7 @@
                     <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                 </button>
                 <div class="moreWrap">
-                    <a href="javascript:void(0)" class="moreAnchor deleteClass" data-class="">삭제</a>
+                    <a href="afileDel.do?afname=${afileVo.afname }&bseq=${afileVo.bseq}" class="moreAnchor deleteClass" data-class="">삭제</a>
                 </div>
             </div>
         </div>
