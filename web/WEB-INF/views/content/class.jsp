@@ -56,39 +56,6 @@
                     </div>
                 </c:if>
 
-                <c:forEach items="${blist}" var="boardVo">
-                    <c:if test="${empty boardVo.thcode}">
-                        <div class="classSomeLinkWrap codeTransColor_back thCodeBlock" data-thcode="" data-sucode="${sucode}">
-                            <div class="classSomeLink">
-                                <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
-                                    <c:choose>
-                                        <c:when test="${empty boardVo.bdeadline}">
-                                            <i class="far fa-file-alt" aria-hidden="true"></i>
-                                        </c:when>
-                                        <c:when test="${!empty boardVo.bdeadline}">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-                                <a href="../myboard/content.do?bseq=${boardVo.bseq }" class="title">${boardVo.btitle}</a>
-                                
-                                <c:if test="${!empty tList}">
-                                    <div class="moreBtnWrap">
-                                        <button class="moreBtn">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                        <div class="moreWrap">
-                                            <a href="../myboard/boardDel.do?bseq=${boardVo.bseq }" class="moreAnchor">삭제</a>
-                                        </div>
-                                    </div>
-                                </c:if>
-
-                            </div>
-                        </div>
-                    </c:if>
-                </c:forEach>
-    
-
                 <c:forEach items="${thlist}" var="themeVo">
                 <div class="themeTitle codeTransColor_border codeTransColor_back thCodeBlock thCodeTitle" data-thcode="${themeVo.thcode}" data-sucode="${sucode}">
                     <p>${themeVo.thname}</p>
@@ -114,6 +81,15 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="moreWrap">
+                                            <c:choose>
+                                                <c:when test="${empty boardVo.bdeadline}">
+                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editStudyFile" data-bseq="${boardVo.bseq)" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
+                                                </c:when>
+                                                <c:when test="${!empty boardVo.bdeadline}">
+                                                    <a href="javascript:void(0)" class="editBtn modalBtn" data-edit="editAssignment" data-bseq="${boardVo.bseq)" data-btitle="${boardVo.btitle}" data-bcontent="${boardVo.bcontent}" data-thcode="${boardVo.thcode}">수정</a>
+                                                </c:when>
+                                            </c:choose>
+                                            
                                             <a href="../myboard/boardDel.do?bseq=${boardVo.bseq }" class="moreAnchor">삭제</a>
                                         </div>
                                     </div>
@@ -314,7 +290,8 @@
                 <span class="codeTransColor_border" data-sucode="${sucode}">자료 수정하기</span>
                 <i class="fas fa-times modalClose"></i>
             </p>
-            <form action="/myboard/boardin.do" method="post" enctype="multipart/form-data">
+            <form action="/myboard/boardUpdate.do" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="bseq" value="">
                 <p class="subTitle">제목</p>
                 <div class="inpWrap">
                     <input type="text" name="btitle" class="inp" required>
@@ -351,6 +328,20 @@
 
 </body>
 <script>
+    //수정하기 클릭이벤트
+    $(document).on('click','.editBtn',function(){
+        var bseq = $(this).data('seq');
+        var btitle = $(this).data('btitle');
+        var bcontent = $(this).data('bcontent');
+        var thcode = $(this).data('thcode');
+        
+        var thisModal = $('.modalWrap[data-modal="'+$(this).data('modal')+'"]');
+        thisModal.find('.bseq').val(bseq)
+        thisModal.find('.btitle').val(btitle)
+        thisModal.find('.bcontent').val(bcontent)
+        thisModal.find('.thcode option[value="'+bcontent+'"]').prop('selected',true);
+    })
+    
 
 
     //파일 관련
