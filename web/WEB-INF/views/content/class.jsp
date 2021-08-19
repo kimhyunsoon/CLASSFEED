@@ -235,10 +235,6 @@
     </div>
 
 
-    '.bseq').val(bseq)
-    thisModal.find('.btitle').val(btitle)
-    thisModal.find('.bcontent').val(bcontent)
-    thisModal.find('.thcode
     <div class="modalWrap" data-modal="editAssignment">
         <div class="modalCon" style="width:500px; max-height: 1000px;">
             <p class="modalTitle">
