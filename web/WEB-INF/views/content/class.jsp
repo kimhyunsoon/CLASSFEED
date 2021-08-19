@@ -129,20 +129,20 @@
                 <span class="codeTransColor_border" data-sucode="${sucode}">과제 만들기</span>
                 <i class="fas fa-times modalClose"></i>
             </p>
-            <form action="" method="post">
+            <form action="/myboard/assignin.do" method="post" enctype="multipart/form-data">
                 <c:forEach items="${tList}" var="teacherVo">
                     <input type="hidden" name="tid" value="${teacherVo.tid}">
                 </c:forEach>
                 <input type="hidden" name="sucode" value="${sucode}">
                 <p class="subTitle">제목</p>
                 <div class="inpWrap">
-                    <input type="text" name="title" class="inp" required>
+                    <input type="text" name="btitle" class="inp" required>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">내용</p>
                 <div class="inpWrap" style="height: 170px;">
-                    <textarea name="content" class="inp" style="resize: none; padding:8px"></textarea>
+                    <textarea name="bcontent" class="inp" style="resize: none; padding:8px"></textarea>
                     <div class="inpBar"></div>
                 </div>
     
@@ -151,13 +151,13 @@
                     <p class="subTitle">주제</p>
                 </div>
                 <div class="doubleRow">
-                    <select name="endDate" class="selectWrap">
+                    <select name="rdeadline" class="selectWrap">
                         <option value="0" selected>기한 없음</option>
                         <c:forEach var="cnt" begin="1" end="30">
                             <option value="${cnt}">${cnt}일</option>
                         </c:forEach>
                     </select>
-                    <select name="subject" class="selectWrap">
+                    <select name="themelist" class="selectWrap">
                         <option value="0" selected>주제 없음</option>
                         <c:forEach items="${thlist}" var="themeVo">
                             <option value="${themeVo.thcode}">${themeVo.thname}</option>
@@ -188,22 +188,22 @@
                 <span class="codeTransColor_border" data-sucode="${sucode}">자료 올리기</span>
                 <i class="fas fa-times modalClose"></i>
             </p>
-            <form action="" method="post">
+            <form action="/myboard/boardin.do" method="post" enctype="multipart/form-data">
                 <p class="subTitle">제목</p>
                 <div class="inpWrap">
-                    <input type="text" name="title" class="inp" required>
+                    <input type="text" name="btitle" class="inp" required>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">내용</p>
                 <div class="inpWrap" style="height: 170px;">
-                    <textarea name="content" class="inp" style="resize: none; padding:8px"></textarea>
+                    <textarea name="bcontent" class="inp" style="resize: none; padding:8px"></textarea>
                     <div class="inpBar"></div>
                 </div>
     
                 <p class="subTitle">주제</p>
 
-                <select name="subject" class="selectWrap">
+                <select name="themelist" class="selectWrap">
                     <option value="0" selected>주제 없음</option>
                     <c:forEach items="${thlist}" var="themeVo">
                         <option value="${themeVo.thcode}">${themeVo.thname}</option>
@@ -233,7 +233,7 @@
                 <span class="codeTransColor_border" data-sucode="${sucode}">주제 만들기</span>
                 <i class="fas fa-times modalClose"></i>
             </p>
-            <form action="" method="post">
+            <form action="/list/theme.do" method="post">
                 <c:forEach items="${tList}" var="teacherVo">
                     <input type="hidden" name="tid" value="${teacherVo.tid}">
                 </c:forEach>
@@ -244,7 +244,7 @@
                 <input type="hidden" name="sucode" value="${sucode}">
                 <p class="subTitle">주제명</p>
                 <div class="inpWrap">
-                    <input type="text" name="title" class="inp" required>
+                    <input type="text" name="thname" class="inp" required>
                     <div class="inpBar"></div>
                 </div>
     

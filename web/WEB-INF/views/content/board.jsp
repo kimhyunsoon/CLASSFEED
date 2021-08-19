@@ -16,59 +16,93 @@
 
         
         <div class="boradConBox">
+
         <c:forEach items="${list}" var="boardVo">
             <div class="boradConTitle codeTransColor_border" data-sucode="${sucode}">
                 <div class="tit">
+
                     <p class="main">${boardVo.btitle}</p>
-                    <p class="sub">이가은 선생님 ・ 2021-10-11</p>
+            <c:forEach items="${tList}" var="teacherVo">
+
+                    <p class="sub">${teacherVo.tname} 선생님 </c:forEach>・ ${boardVo.brdate}</p>
 
                 </div>
-                <!-- 선생님만 나옴 -->
-                <div class="moreBtnWrap">
-                    <button class="moreBtn">
-                        <i class="fas fa-ellipsis-v codeTransColor_color" data-sucode="${sucode}"></i>
-                    </button>
-                    <div class="moreWrap">
-                        <a href="" class="moreAnchor">삭제</a>
-                    </div>
-                </div>
-                <!-- 선생님만 나옴 끝-->
+                <c:choose>
+                    <c:when test="${!empty tList}">
+                        <!-- 선생님만 나옴 -->
+                        <div class="moreBtnWrap">
+                            <button class="moreBtn">
+                                <i class="fas fa-ellipsis-v codeTransColor_color" data-sucode="${sucode}"></i>
+                            </button>
+                            <div class="moreWrap">
+                                <a href="" class="moreAnchor">삭제</a>
+                            </div>
+                        </div>
+                        <!-- 선생님만 나옴 끝-->
+                    </c:when>
+                </c:choose>
+
             </div>
-            <pre class="boradContent">유닉스 실무 OT 내용입니다.
-교안은 https://prezi.com/view/eyOMNnjXOI7DXWMFqE6S/ 요기를 참고 하세요
 
-효과적인 소통을 위해 밴드 운영합니다.
-밴드 주소는 https://band.us/n/a3ab46C3xeK1m</pre>
+            <pre class="boradContent">${boardVo.bcontent}</pre>
+            <c:if test="${!empty boardVo.bfname}">
             <a href="" class="boradFile toolTipWrap" download>
                 <i class="far fa-file-alt"></i>
-                <span>파일명.jpg</span>
+                <span>${boardVo.bfname}</span>
                 <p class="toolTipBot">다운로드</p>
             </a>
+            </c:if>
 
-            <!-- 학생_제출한게 없으면-->
-            <div class="workSubmitWrap">
-                <button class="modalBtn codeTransColor_back" data-modal="workSubmit" data-sucode="${sucode}">과제 제출하기</button>
-            </div>
+        <c:choose>
+            <c:when test="${!empty sList}">
+                <c:choose>
+                    <c:when test="${!empty boardVo.bdeadline}">
+                        <!-- 학생_제출한게 없으면-->
+                        <div class="workSubmitWrap">
+                            <button class="modalBtn codeTransColor_back" data-modal="workSubmit" data-sucode="${sucode}">과제 제출하기</button>
+                        </div>
+                    </c:when>
+                </c:choose>
+
+            </c:when>
+        </c:choose>
+
+
 
         </div>
-    </c:forEach>
+
+        </c:forEach>
+
 
         <!-- 선생님 -->
+<c:choose>
+    <c:when test="${!empty tList}">
+        <c:choose>
+            <c:when test="${!empty boardVo.bdeadline}">
+
+
         <p class="boradWorkTitle">제출된 과제</p>
 
-        <div class="streamCard">
-            <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
-                <i class="far fa-file-alt"></i>
+            <div class="streamCard">
+                <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
+                    <i class="far fa-file-alt"></i>
+                </div>
+                <a href="" class="text" download>
+                    <p class="title">김현순님이 제출한 과제 : 파일명파일명.jpg</p>
+                    <p class="date">2021.08.16.</p>
+                </a>
             </div>
-            <a href="" class="text" download>
-                <p class="title">김현순 님이 제출한 과제 : 파일명파일명.jpg</p>
-                <p class="date">2021.08.16.</p>
-            </a>
-        </div>
-
+            </c:when>
+        </c:choose>
+    </c:when>
+</c:choose>
         <!-- 선생님 끝 -->
 
         <!-- 학생_제출한게 있으면 -->
+
+
+
+
         <p class="boradWorkTitle">내가 제출한 과제</p>
         <div class="streamCard">
             <div class="iconCircle codeTransColor_back" data-sucode="${sucode}">
@@ -87,6 +121,7 @@
                 </div>
             </div>
         </div>
+
         <!-- 학생_제출한게 있으면 끝-->
 
 

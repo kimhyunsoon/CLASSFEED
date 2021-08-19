@@ -67,7 +67,7 @@
 				<p class="toolTipBot">클래스</p>
 			</a>
 		
-			<a href="keep.do" class="sideNavLink toolTipWrap">
+			<a href="keepList.do" class="sideNavLink toolTipWrap">
 				<i class="fas fa-archive"></i>
 				<p class="toolTipBot">수업보관함</p>
 			</a>
@@ -78,7 +78,7 @@
 				<p class="toolTipBot">클래스</p>
 			</a>
 		
-			<a href="keep.do" class="sideNavLink toolTipWrap on">
+			<a href="keepList.do" class="sideNavLink toolTipWrap on">
 				<i class="fas fa-archive"></i>
 				<p class="toolTipBot">수업보관함</p>
 			</a>
@@ -89,7 +89,7 @@
 				<p class="toolTipBot">클래스</p>
 			</a>
 		
-			<a href="keep.do" class="sideNavLink toolTipWrap">
+			<a href="keepList.do" class="sideNavLink toolTipWrap">
 				<i class="fas fa-archive"></i>
 				<p class="toolTipBot">수업보관함</p>
 			</a>
@@ -124,7 +124,7 @@
 				<i class="fas fa-chalkboard-teacher"></i>
 				<p>클래스</p>
 			</a>
-			<a href="keep.do" class="mainLink">
+			<a href="keepList.do" class="mainLink">
 				<i class="fas fa-archive"></i>
 				<p>수업보관함</p>
 			</a>
@@ -134,7 +134,7 @@
 				<i class="fas fa-chalkboard-teacher"></i>
 				<p>클래스</p>
 			</a>
-			<a href="keep.do" class="mainLink on">
+			<a href="keepList.do" class="mainLink on">
 				<i class="fas fa-archive"></i>
 				<p>수업보관함</p>
 			</a>
@@ -144,7 +144,7 @@
 				<i class="fas fa-chalkboard-teacher"></i>
 				<p>클래스</p>
 			</a>
-			<a href="keep.do" class="mainLink">
+			<a href="keepList.do" class="mainLink">
 				<i class="fas fa-archive"></i>
 				<p>수업보관함</p>
 			</a>

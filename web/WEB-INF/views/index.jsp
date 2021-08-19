@@ -13,7 +13,8 @@
 					<c:when test="${!empty tSubList}">
 						<div class="classCardWrap">
 							<c:forEach items="${tSubList }" var="subjectVo">
-								<a href="list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
+								<c:if test="${subjectVo.skeep!= 'Y' }">
+								<c href="list/mystream.do?sucode=${subjectVo.sucode}" class="classLink">
 								<div class="classCard" data-sucode="${subjectVo.sucode}">
 									<div class="cardTop codeTransColor_back" data-sucode="${subjectVo.sucode}">
 										<div class="titleWrap">
@@ -27,7 +28,7 @@
 													<i class="fas fa-ellipsis-v"></i>
 												</button>
 												<div class="moreWrap">
-													<a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
+													<a href="../main/keepOn.do?sucode=${subjectVo.sucode }" class="moreAnchor saveClass" data-class="">보관</a>
 												</div>
 											</div>
 
@@ -49,6 +50,7 @@
 										<p class="toolTipBot">초대코드 복사하기</p>
 									</div>
 								</div>
+									</c:if>
 							</c:forEach>
 						</div>
 					</c:when>
@@ -161,6 +163,7 @@
 					<c:when test="${!empty sSubList}">
 						<div class="classCardWrap">
 							<c:forEach items="${sSubList }" var="subjectVo">
+								<c:if test="${subjectVo.skeep!= 'Y' }">
 								<div class="classCard">
 									<div class="cardTop codeTransColor_back" data-sucode="${subjectVo.sucode}">
 										<div class="titleWrap">
@@ -169,19 +172,11 @@
 												<p class="tit">${subjectVo.suname}</p>
 												<p class="sub">${subjectVo.ssubname}</p>
 											</a>
-											<div class="moreBtnWrap">
-												<button class="moreBtn">
-													<i class="fas fa-ellipsis-v"></i>
-												</button>
-												<div class="moreWrap">
-													<a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
-												</div>
-											</div>
-
 										</div>
 									</div>
 										<div class="teacherTag">${subjectVo.tname} 선생님</div>
 								</div>
+								</c:if>
 							</c:forEach>
 						</div>
 					</c:when>
