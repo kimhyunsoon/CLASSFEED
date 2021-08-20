@@ -96,7 +96,7 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </button>
                                                     <div class="moreWrap">
-                                                        <a href="javascript:void(0)" class="moreAnchor deleteClass" data-class="" style="top:55px">삭제</a>
+                                                        <a href="noticeDel.do?nseq=${noticeVo.nseq}" class="moreAnchor deleteClass" data-class="" style="top:55px">삭제</a>
                                                     </div>
                                                 </div>
                                             </c:if>
@@ -110,7 +110,7 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </button>
                                                     <div class="moreWrap">
-                                                        <a href="javascript:void(0)" class="moreAnchor deleteClass" data-class="" style="top:55px">삭제</a>
+                                                        <a href="noticeDel.do" class="moreAnchor deleteClass" data-class="" style="top:55px">삭제</a>
                                                     </div>
                                                 </div>
                                             </c:if>
@@ -147,16 +147,7 @@
                                     <p class="title">${boardVo.tid} 님이 새 ${boardType}을 게시 : ${boardVo.btitle}</p>
                                     <p class="date">${boardVo.brdate}</p>
                                 </a>
-                                <div class="moreBtnWrap">
-                                    <button class="moreBtn">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                    <div class="moreWrap">
-                                        <a href="javascript:void(0)" class="moreAnchor saveClass" data-class="">보관</a>
-                                        <a href="javascript:void(0)" class="moreAnchor editClass" data-class="">수정</a>
-                                        <a href="javascript:void(0)" class="deleteClass" data-class="" style="top:55px">삭제</a>
-                                    </div>
-                                </div>
+
                             </div>
                         </c:forEach>
                     </c:when>

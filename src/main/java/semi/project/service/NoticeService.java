@@ -15,4 +15,5 @@ public interface NoticeService {
 	void insertByTeacher(NoticeVo noticeVo);
 	List<NoticeVo> selectBySucode(String sucode);
 
+    void deleteByNseqS(long nseq);
 }

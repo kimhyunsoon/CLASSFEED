@@ -11,4 +11,6 @@ public interface NoticeMapper {
     void insertByStu(NoticeVo noticeVo);
     void insertByTeacher(NoticeVo noticeVo);
     List<NoticeVo> selectBySucode(String sucode);
+
+    void deleteByNseqS(long nseq);
 }

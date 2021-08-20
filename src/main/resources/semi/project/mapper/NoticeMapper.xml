@@ -16,6 +16,10 @@
         select * from notice where sucode = #{sucode} order by nseq desc
     </select>
 
+    <delete id="deleteByNseqS" parameterType="long">
+        delete notice where nseq = #{nseq}
+    </delete>
+
 
 
 

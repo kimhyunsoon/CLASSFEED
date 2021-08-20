@@ -181,6 +181,17 @@ public class ListController {
         return "redirect:mystream.do?sucode="+sucode;
     }
 
+    //공지삭제기능
+    @GetMapping("/noticeDel.do")
+    public String noticeDel(long nseq, HttpSession session) {
+        Object code = session.getAttribute("sucode");
+        String sucode = (String) code;
+        log.info("#noticeDel nseq: "+nseq);
+        noticeService.deleteByNseqS(nseq);
+        return "redirect:mystream.do?sucode="+sucode;
+    }
+
+
     //주제만들기 기능
     @PostMapping("/theme.do") //주제 생성
     public String addTheme(HttpSession session, ThemeVo themeVo) {

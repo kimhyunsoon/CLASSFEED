@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NoticeVo { // 공지
-	private long seq_notice; // 공지 번호
+	private long nseq; // 공지 번호
 	private Date nrdate; // 작성 날짜
 	private String ncontent; // 공지 내용
 

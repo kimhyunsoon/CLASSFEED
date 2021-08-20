@@ -32,4 +32,12 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<NoticeVo> selectBySucode(String sucode) {
 		return noticeMapper.selectBySucode(sucode);
 	}
+
+
+	@Override
+	public void deleteByNseqS(long nseq) {
+		// TODO Auto-generated method stub
+		noticeMapper.deleteByNseqS(nseq);
+	}
+
 }

@@ -128,7 +128,7 @@ public class BoardController {
         log.info("#update.do bseq:"+boardVo.getBseq());
 
         boardService.boardUpdateS(boardVo);
-        return "redirect:boardlist.do";
+        return "redirect:../list/myclass.do";
     }
 
 
