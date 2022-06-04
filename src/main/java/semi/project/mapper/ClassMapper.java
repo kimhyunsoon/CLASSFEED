@@ -9,6 +9,18 @@ import semi.project.domain.SubjectVo;
 
 @Repository
 public interface ClassMapper {
+
+	List<ClassVo> selectClassBySid(String sid);
+	List<String> selectSucodeBySid(String sid);
+
+
+
+
+
+
+
+
+
 	List<SubjectVo> selectBySucode(String sucode);
 	List<String> selectBySid(String sid);
 

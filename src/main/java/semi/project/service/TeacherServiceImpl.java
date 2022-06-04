@@ -12,10 +12,30 @@ import semi.project.mapper.TeacherMapper;
 
 @Service
 @Log4j
-@AllArgsConstructor
+
 public class TeacherServiceImpl implements TeacherService {
 
 	private TeacherMapper teacherMapper;
+
+	public TeacherServiceImpl(TeacherMapper teacherMapper){
+		this.teacherMapper = teacherMapper;
+	}
+
+	@Override
+	public List<TeacherVo> selectTeacherByTid(String tid) {
+		return teacherMapper.selectTeacherByTid(tid);
+	}
+
+
+
+
+
+
+
+
+
+
+
 	
 	@Override
 	public String tloginS(String tid, String tpwd) {

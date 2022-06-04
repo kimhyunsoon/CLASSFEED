@@ -11,6 +11,27 @@ import semi.project.domain.TeacherVo;
 
 @Repository
 public interface SubjectMapper {
+	List<SubjectVo> selectSubjectByTid(String tid);
+	SubjectVo selectSubjectBySucode(String sucode);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	String selectBySucode(String sucode);
 	String selectBySkeep(String sucode);
 	
@@ -25,6 +46,6 @@ public interface SubjectMapper {
 	String selectSuname(String sucode);
 	String selectTid(String sucdoe); // 선생님 id 찾기위해
 
-	void updateKeepOn(@Param("skeep")String skeep, @Param("sucode")String sucode);
-	void updateKeepOff(@Param("skeep")String skeep, @Param("sucode")String sucode);
+	void updateSubjectKeepOn(@Param("skeep")String skeep, @Param("sucode")String sucode);
+	void updateSubjectKeepOff(@Param("skeep")String skeep, @Param("sucode")String sucode);
 }

@@ -6,7 +6,11 @@ import semi.project.domain.ClassVo;
 import semi.project.domain.SubjectVo;
 
 public interface ClassService {
-	List<SubjectVo> selectBySucodeS(String sucode);
+    List<ClassVo> selectClassBySid(String sid);
+
+    List<String> selectSucodeBySid(String sid);
+
+    List<SubjectVo> selectBySucodeS(String sucode);
 	List<String> selectBySidS(String sid);
 	void insertS(ClassVo classVo);
 	List<String> selectSidS(String sucode);

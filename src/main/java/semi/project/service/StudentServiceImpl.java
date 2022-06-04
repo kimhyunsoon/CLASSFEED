@@ -12,10 +12,26 @@ import semi.project.mapper.StudentMapper;
 
 @Service
 @Log4j
-@AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
 	private StudentMapper studentMapper;
+
+	public StudentServiceImpl(StudentMapper studentMapper){
+		this.studentMapper = studentMapper;
+	}
+
+
+
+
+
+
+
+
+
+	@Override
+	public List<StudentVo> selectStudentBySid(String sid) {
+		return studentMapper.selectStudentBySid(sid);
+	}
 	
 	@Override
 	public String sloginS(String sid, String spwd) {

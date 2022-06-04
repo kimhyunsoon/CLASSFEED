@@ -8,6 +8,12 @@ import semi.project.domain.SubjectVo;
 import semi.project.domain.TeacherVo;
 
 public interface SubjectService {
+    List<SubjectVo> selectSubjectByTid(String tid);
+
+	SubjectVo selectSubjectBySucode(String sucode);
+
+	List<SubjectVo> selectAttendedSubject(List<String> sucodeList);
+
 	String selectBySucodeS(String sucode);
 	String selectBySkeepS(String sucode);
 	
@@ -22,6 +28,6 @@ public interface SubjectService {
 	String selectSunameS(String sucode);
 
 	String selectTidS(String sucode);
-	void updateKeepOnS(@Param("skeep")String skeep, @Param("sucode")String sucode);
-	void updateKeepOffS(@Param("skeep")String skeep, @Param("sucode")String sucode);
+	void updateSubjectKeepOn(@Param("skeep")String skeep, @Param("sucode")String sucode);
+	void updateSubjectKeepOff(@Param("skeep")String skeep, @Param("sucode")String sucode);
 }

@@ -3,8 +3,10 @@ package semi.project.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import semi.project.domain.*;
 import semi.project.service.*;
@@ -23,7 +25,6 @@ import java.util.List;
 @Log4j
 @Controller
 @RequestMapping("main")
-@AllArgsConstructor
 public class MainController {
 
     private SubjectService subjectService;
@@ -33,46 +34,96 @@ public class MainController {
     private ThemeService themeService;
     private AlarmService alarmService;
 
+    private static final String Y = "Y";
+	private static final String N = "N";
+
+    public MainController(
+			SubjectService subjectService,
+			ClassService classService,
+			TeacherService teacherService,
+			StudentService studentService,
+			AlarmService alarmService
+	){
+    	this.subjectService = subjectService;
+    	this.classService = classService;
+    	this.teacherService = teacherService;
+    	this.studentService = studentService;
+    	this.alarmService = alarmService;
+	}
+
     //메인리스트 출력
     @GetMapping("/list.do")
-	public ModelAndView list(HttpSession session) { //메인 화면 subject 리스트 출력
+	public String mainList(HttpSession session, Model model) throws Exception {
 
-		Object id = session.getAttribute("loginOksid");
-		Object id2 = session.getAttribute("loginOkTid");
-		String tid = (String)id2;
-		String sid = (String)id;
-		log.info("#loginOksid: "+sid);
+		String tid = (String)session.getAttribute("loginOkTid");
+		String sid = (String)session.getAttribute("loginOksid");
+
+		if(tid == null && sid == null) return "redirect:/";
 
 		if(tid != null) {
-			List<TeacherVo> tlist = teacherService.tNameCkS(tid);
-			List<SubjectVo> list = subjectService.selectBytid(tid);
-			log.info("#tlist"+tlist);
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("index");
+			//선생님일때
+			List<TeacherVo> tlist = teacherService.selectTeacherByTid(tid);
+			List<SubjectVo> list = subjectService.selectSubjectByTid(tid);
 
-			mv.addObject("tSubList",list);
-			mv.addObject("tList", tlist);
-			return mv;
-		}else if(sid !=null) {
-			List<StudentVo> slist = studentService.sNameCkS(sid);
-			List<String> sucode = classService.selectBySidS(sid);
+			model.addAttribute("tSubList",list);
+			model.addAttribute("tList", tlist);
 
-			ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
+		}else {
+			//학생일때
+			List<StudentVo> slist = studentService.selectStudentBySid(sid);
+			List<String> sucodeList = classService.selectSucodeBySid(sid);
+			List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
 
-			for(int i = 0;i<sucode.size();i++) {
-				List<SubjectVo> list = subjectService.selectAllS(sucode.get(i));
-				for(int j=0;j<list.size();j++) {
-					t.add(list.get(j));
-				}
-			}
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("index");
-			mv.addObject("sSubList",t);
-			mv.addObject("sList", slist);
-			return mv;
+			model.addAttribute("sSubList",sSubList);
+			model.addAttribute("sList", slist);
 		}
-		return null;
+		return "index";
 	}
+
+
+	@GetMapping("keepOn.do") //수업 보관
+	public String keepOnSubject(String sucode) {
+		subjectService.updateSubjectKeepOn(Y, sucode);
+		return "redirect:../main/list.do";
+	}
+
+	@GetMapping("keepOff.do") //수업 보관 취소
+	public String keepOffSubject(String sucode) {
+		subjectService.updateSubjectKeepOff(N, sucode);
+		return "redirect:../main/list.do";
+	}
+
+
+
+
+
+	@GetMapping("keepList.do") //수업보관함 리스트 불러오기
+	public String keepList(SubjectVo subjectVo, HttpSession session, Model model) {
+		String tid = (String)session.getAttribute("loginOkTid");
+		String sid = (String)session.getAttribute("loginOksid");
+
+		if(tid == null && sid == null) return "redirect:/";
+
+		if(tid != null) {
+
+			List<TeacherVo> tlist = teacherService.selectTeacherByTid(tid);
+			List<SubjectVo> list = subjectService.selectSubjectByTid(tid);
+
+			model.addAttribute("tSubList",list);
+			model.addAttribute("tList", tlist);
+		}else {
+			//학생일때
+			List<StudentVo> slist = studentService.selectStudentBySid(sid);
+			List<String> sucodeList = classService.selectSucodeBySid(sid);
+			List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
+
+			model.addAttribute("sSubList",sSubList);
+			model.addAttribute("sList", slist);
+		}
+		return "content/keep";
+	}
+
+
 
 	@GetMapping("/alarm.do")
 	public ModelAndView mainAlarm(HttpSession session) {
@@ -88,67 +139,5 @@ public class MainController {
 		return mv;
 	}
 
-
-	@GetMapping("keepOn.do") //수업 보관
-	public String keepOn(String sucode) {
-		String skeep = "Y";
-		subjectService.updateKeepOnS(skeep, sucode);
-		log.info("keep on 넘어오니~~~??");
-		return "redirect:../main/list.do";
-	}
-
-	@GetMapping("keepOff.do") //수업 보관 취소
-	public String keepOff(String sucode) {
-		log.info("#keep sucode: "+sucode);
-		String skeep = "N";
-		subjectService.updateKeepOffS(skeep, sucode);
-		log.info("keep off 넘어오니~~~??");
-		return "redirect:../main/list.do";
-	}
-
-
-
-
-
-	@GetMapping("keepList.do") //수업보관함 리스트 불러오기
-	public ModelAndView keepList(SubjectVo subjectVo, HttpSession session) {
-		Object id = session.getAttribute("loginOksid");
-		Object id2 = session.getAttribute("loginOkTid");
-		String tid = (String)id2;
-		String sid = (String)id;
-		if(tid != null) {
-
-			List<TeacherVo> tlist = teacherService.tNameCkS(tid);
-			List<SubjectVo> list = subjectService.selectBytid(tid);
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("content/keep");
-			mv.addObject("tSubList",list);
-			mv.addObject("tList", tlist);
-			return mv;
-		}else if(sid !=null){
-			List<StudentVo> slist = studentService.sNameCkS(sid);
-			ArrayList<SubjectVo> t= sInfo2Header(sid);
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("content/keep");
-			mv.addObject("sSubList",t);
-			mv.addObject("sList", slist);
-			return mv;
-		}
-
-		return null;
-	}
-
-	ArrayList<SubjectVo> sInfo2Header(String sid){ //header.jsp에 학생 정보를 보내기 위한 메소드입니다
-
-		List<String> sucodelist = classService.selectBySidS(sid);
-		ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
-		for(int i = 0;i<sucodelist.size();i++) {
-			List<SubjectVo> list = subjectService.selectAllS(sucodelist.get(i));
-			for(int j=0;j<list.size();j++) {
-				t.add(list.get(j));
-			}
-		}
-		return t;
-	}
 
 }

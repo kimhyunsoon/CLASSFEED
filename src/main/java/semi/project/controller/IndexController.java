@@ -15,12 +15,8 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(HttpSession session) {
-		Object teacher = session.getAttribute("loginOkTid");
-		String tid = (String) teacher;
-		Object student = session.getAttribute("loginOksid");
-		String sid = (String) student;
-		log.info("login ok teacher"+tid);
-		log.info("login ok student"+sid);
+		String tid = (String)session.getAttribute("loginOkTid");
+		String sid = (String)session.getAttribute("loginOksid");
 		if(tid ==null && sid ==null){
 			return "content/login"; //login.jsp 호출
 		}

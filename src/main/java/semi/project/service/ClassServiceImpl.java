@@ -13,8 +13,27 @@ import semi.project.mapper.ClassMapper;
 @Log4j
 @Service
 public class ClassServiceImpl implements ClassService {
-	@Autowired
+
 	private ClassMapper classMapper;
+
+	public ClassServiceImpl(ClassMapper classMapper){
+		this.classMapper = classMapper;
+	}
+
+	@Override
+	public List<ClassVo> selectClassBySid(String sid) {
+		// TODO Auto-generated method stub
+		return classMapper.selectClassBySid(sid);
+	}
+
+	@Override
+	public List<String> selectSucodeBySid(String sid) {
+		// TODO Auto-generated method stub
+		return classMapper.selectSucodeBySid(sid);
+	}
+
+
+
 	
 	@Override
 	public List<SubjectVo> selectBySucodeS(String sucode) {

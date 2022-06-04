@@ -8,6 +8,19 @@ import semi.project.domain.TeacherVo;
 
 @Repository
 public interface StudentMapper {
+	List<StudentVo> selectStudentBySid(String sid);
+
+
+
+
+
+
+
+
+
+
+
+
 	StudentVo slogin(String arg0, String arg1); // 로그인용
 	String sidck(String sid); // 선생 or 학생 구분
 	void sinsert(StudentVo studentVo); // 회원가입

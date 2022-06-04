@@ -6,6 +6,8 @@ import semi.project.domain.StudentVo;
 import semi.project.domain.TeacherVo;
 
 public interface StudentService {
+	List<StudentVo> selectStudentBySid(String sid);
+
 	String sloginS(String sid, String spwd); // 로그인용
 	String sidckS(String sid); // 선생 or 학생 구분
 	void sinsertS(StudentVo studentVo); // 회원가입
