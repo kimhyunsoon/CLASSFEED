@@ -13,7 +13,9 @@ import semi.project.service.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -51,6 +53,24 @@ public class MainController {
     	this.alarmService = alarmService;
 	}
 
+	private Map<String,Object> getTeacherDefaultInfo(String tid){
+    	Map<String, Object> infoMap = new HashMap<>();
+		infoMap.put("tList",teacherService.selectTeacherByTid(tid));
+		infoMap.put("tSubject",subjectService.selectSubjectByTid(tid));
+    	return infoMap;
+	}
+
+	private Map<String,Object> getStudentDefaultInfo(String sid){
+		Map<String, Object> infoMap = new HashMap<>();
+		List<String> sucodeList = classService.selectSucodeBySid(sid);
+
+		infoMap.put("sList",studentService.selectStudentBySid(sid));
+		infoMap.put("sSubList",subjectService.selectAttendedSubject(sucodeList));
+		return infoMap;
+	}
+
+
+
     //메인리스트 출력
     @GetMapping("/list.do")
 	public String mainList(HttpSession session, Model model) throws Exception {
@@ -62,20 +82,15 @@ public class MainController {
 
 		if(tid != null) {
 			//선생님일때
-			List<TeacherVo> tlist = teacherService.selectTeacherByTid(tid);
-			List<SubjectVo> list = subjectService.selectSubjectByTid(tid);
-
-			model.addAttribute("tSubList",list);
-			model.addAttribute("tList", tlist);
+			Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
+			model.addAttribute("tSubList",teacherInfo.get("tSubject"));
+			model.addAttribute("tList", teacherInfo.get("tList"));
 
 		}else {
 			//학생일때
-			List<StudentVo> slist = studentService.selectStudentBySid(sid);
-			List<String> sucodeList = classService.selectSucodeBySid(sid);
-			List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
-
-			model.addAttribute("sSubList",sSubList);
-			model.addAttribute("sList", slist);
+			Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
+			model.addAttribute("sSubList",studentInfo.get("sSubList"));
+			model.addAttribute("sList", studentInfo.get("sList"));
 		}
 		return "index";
 	}
@@ -105,20 +120,16 @@ public class MainController {
 		if(tid == null && sid == null) return "redirect:/";
 
 		if(tid != null) {
+			//선생님일때
+			Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
+			model.addAttribute("tSubList",teacherInfo.get("tSubject"));
+			model.addAttribute("tList", teacherInfo.get("tList"));
 
-			List<TeacherVo> tlist = teacherService.selectTeacherByTid(tid);
-			List<SubjectVo> list = subjectService.selectSubjectByTid(tid);
-
-			model.addAttribute("tSubList",list);
-			model.addAttribute("tList", tlist);
 		}else {
 			//학생일때
-			List<StudentVo> slist = studentService.selectStudentBySid(sid);
-			List<String> sucodeList = classService.selectSucodeBySid(sid);
-			List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
-
-			model.addAttribute("sSubList",sSubList);
-			model.addAttribute("sList", slist);
+			Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
+			model.addAttribute("sSubList",studentInfo.get("sSubList"));
+			model.addAttribute("sList", studentInfo.get("sList"));
 		}
 		return "content/keep";
 	}

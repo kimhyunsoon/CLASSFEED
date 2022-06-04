@@ -4,6 +4,7 @@ package semi.project.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,9 @@ import semi.project.service.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 스트림페이지 리스트 출력
@@ -26,7 +29,6 @@ import java.util.List;
 
 @Log4j
 @Controller
-@AllArgsConstructor
 @RequestMapping("list")
 public class StreamListController {
     private TeacherService teacherService;
@@ -38,118 +40,101 @@ public class StreamListController {
     private ThemeService themeService;
     private AlarmService alarmService;
 
+    public StreamListController(
+            TeacherService teacherService,
+            SubjectService subjectService,
+            ClassService classService,
+            BoardService boardService,
+            NoticeService noticeService,
+            StudentService studentService,
+            ThemeService themeService,
+            AlarmService alarmService
+    ){
+        this.teacherService = teacherService;
+        this.subjectService = subjectService;
+        this.classService = classService;
+        this.boardService = boardService;
+        this.noticeService = noticeService;
+        this.studentService = studentService;
+        this.themeService = themeService;
+        this.alarmService = alarmService;
+    }
+
 
     // 스트림 탭의 리스트(공지,과제,자료) 출력
     @GetMapping("/mystream.do")
-    public ModelAndView mystream(String sucode, HttpSession session) {
-        // jsp에서 sucode를 물고온다.
-        Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
-        Object id2 = session.getAttribute("loginOkTid"); // session 에서 tid 값 불러오기
+    public String myStream(String sucode,
+                           HttpSession session,
+                           Model model) throws Exception {
+        String tid = (String)session.getAttribute("loginOkTid");
+        String sid = (String)session.getAttribute("loginOksid");
 
-        String sid = (String)id1; // DB에 넣어야 하니깐 String으로 형변환
-        String tid = (String)id2;
+        if(sucode.equals("")){
+            throw new Exception("sucode가 존재하지 않음");
+        }
+        session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅
+
+        if(tid!=null) { // tid가 null이 아니라는건 session에 tid 값이 존재(= 선생님이 로그인중)
+            /**
+             * header(사이드바 등)에 subject의 데이타를 보냅니다
+             */
+            //선생님일때
+            Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
+            model.addAttribute("tSubList",teacherInfo.get("tSubject"));
+            model.addAttribute("tList", teacherInfo.get("tList"));
+            model.addAttribute("tLogin",tid);
+
+        }else {
+            //학생일때
+            Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
+            model.addAttribute("sSubList",studentInfo.get("sSubList"));
+            model.addAttribute("sList", studentInfo.get("sList"));
+            model.addAttribute("sLogin",sid);
+        }
 
         List<SubjectVo> subList = subjectService.selectAllS(sucode); //수업코드로 subject 테이블 호출
         List<BoardVo> boardList = boardService.selectBySucode(sucode); //수업코드로 board 테이블 호출(테마 테이블 거쳐서)
         List<NoticeVo> noticeList = noticeService.selectBySucode(sucode); //수업코드로 공지테이블 호출
-
-        if(tid!=null) { // tid가 null이 아니라는건 session에 tid 값이 존재(= 선생님이 로그인중)
-
-
-            /**
-             * header(사이드바 등)에 subject의 데이타를 보냅니다
-             */
-            List<SubjectVo> list = subjectService.selectBytid(tid);
-            List<TeacherVo> tlist = teacherService.tNameCkS(tid);
-
-            session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/stream");
-            mv.addObject("tLogin",tid);
-            mv.addObject("subList",subList);
-            mv.addObject("boardList", boardList);
-            mv.addObject("noticeList", noticeList);
-            mv.addObject("tSubList", list);
-            mv.addObject("tList", tlist);
-
-            return mv;
-
-        }else if(sid!=null) {
-
-            List<StudentVo> slist = studentService.sNameCkS(sid);
-            ArrayList<SubjectVo> t= sInfo2Header(sid);
-            session.setAttribute("sucode", sucode);
-
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/stream");
-            mv.addObject("sLogin",sid);
-            mv.addObject("subList",subList);
-            mv.addObject("boardList", boardList);
-            mv.addObject("noticeList", noticeList);
-            mv.addObject("sSubList",t);
-            mv.addObject("sList", slist);
-            return mv;
-        }
-        return null;
+        model.addAttribute("subList",subList);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("noticeList", noticeList);
+        return "content/stream";
     }
 
     // !!! 수업 탭의 리스트 출력(왼쪽 주제리스트, 중앙에 주제 안에 과제,자료)
     @GetMapping("/myclass.do")
-    public ModelAndView myclass(String sucode, HttpSession session) {
-        // jsp에서 sucode를 물고온다.
-        Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
-        Object id2 = session.getAttribute("loginOkTid"); // session 에서 tid 값 불러오기
-        Object code = session.getAttribute("sucode");
-        String sid = (String)id1;
-        String tid = (String)id2;
-        String gaincode = (String)code;
+    public String myClass(String sucode,
+                          HttpSession session,
+                          Model model) throws Exception {
 
-        List<SubjectVo> subList = subjectService.selectAllS(gaincode); //수업코드로 subject 테이블 불러오기
-        List<BoardVo> blist = boardService.boardSelectClassS(gaincode); //수업코드로 board 테이블 호출
-        List<ThemeVo> thlist = themeService.selectAllClassS(gaincode); //수업코드로 theme 테이블 호출
-        log.info("blist check"+blist);
-        log.info("thlist check"+thlist);
+        String tid = (String)session.getAttribute("loginOkTid");
+        String sid = (String)session.getAttribute("loginOksid");
 
+        if(sucode.equals("")){
+            throw new Exception("sucode가 존재하지 않음");
+        }
+        session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅
 
         if(tid!=null) {
-            log.info("#check sucode: "+gaincode);
-
-            List<SubjectVo> list = subjectService.selectBytid(tid);
-            List<TeacherVo> tlist = teacherService.tNameCkS(tid);
-
-            session.setAttribute("sucode", gaincode); // key=sucode, value=sucode 세션에 셋팅
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/class");
-            mv.addObject("tLogin",tid);
-            mv.addObject("subList",subList); //header.jsp
-            mv.addObject("tSubList", list); //header.jsp
-            mv.addObject("tList", tlist); //header.jsp
-            mv.addObject("blist",blist);
-            mv.addObject("thlist",thlist);
-
-            // 선생 과 학생을 구분 해야 하므로 key=tsucode 로 설정
-            return mv;
-        }else if(sid!=null) {
-
-            /**
-             * header.jsp에 데이터 보내기 위한 로직
-             */
-            List<StudentVo> slist = studentService.sNameCkS(sid);
-            ArrayList<SubjectVo> t= sInfo2Header(sid);
-            session.setAttribute("sucode", gaincode);
-
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/class");
-            mv.addObject("sLogin",sid);
-            mv.addObject("subList",subList); //class.jsp, header.jsp에서
-            mv.addObject("sSubList",t); //header.jsp에서
-            mv.addObject("sList", slist); //header.jsp에서
-            mv.addObject("blist",blist);
-            mv.addObject("thlist",thlist);
-
-            return mv;
+            Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
+            model.addAttribute("tSubList",teacherInfo.get("tSubject"));
+            model.addAttribute("tList", teacherInfo.get("tList"));
+            model.addAttribute("tLogin",tid);
+        }else{
+            Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
+            model.addAttribute("sSubList",studentInfo.get("sSubList"));
+            model.addAttribute("sList", studentInfo.get("sList"));
+            model.addAttribute("sLogin",sid);
         }
-        return null;
+
+        List<SubjectVo> subList = subjectService.selectAllS(sucode); //수업코드로 subject 테이블 불러오기
+        List<BoardVo> blist = boardService.boardSelectClassS(sucode); //수업코드로 board 테이블 호출
+        List<ThemeVo> thlist = themeService.selectAllClassS(sucode); //수업코드로 theme 테이블 호출
+        model.addAttribute("subList",subList);
+        model.addAttribute("blist",blist);
+        model.addAttribute("thlist",thlist);
+
+        return "content/class";
     }
 
     // 공지입력기능
@@ -265,6 +250,23 @@ public class StreamListController {
             }
         }
         return t;
+    }
+
+
+    private Map<String,Object> getTeacherDefaultInfo(String tid){
+        Map<String, Object> infoMap = new HashMap<>();
+        infoMap.put("tList",teacherService.selectTeacherByTid(tid));
+        infoMap.put("tSubject",subjectService.selectSubjectByTid(tid));
+        return infoMap;
+    }
+
+    private Map<String,Object> getStudentDefaultInfo(String sid){
+        Map<String, Object> infoMap = new HashMap<>();
+        List<String> sucodeList = classService.selectSucodeBySid(sid);
+
+        infoMap.put("sList",studentService.selectStudentBySid(sid));
+        infoMap.put("sSubList",subjectService.selectAttendedSubject(sucodeList));
+        return infoMap;
     }
 
 
