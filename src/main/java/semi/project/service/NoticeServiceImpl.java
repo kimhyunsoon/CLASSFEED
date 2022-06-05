@@ -26,33 +26,37 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	@Override
-	public void insertByStu(NoticeVo noticeVo) {
-		noticeMapper.insertByStu(noticeVo);
-
+	public void insertNoticeByStudent(NoticeVo noticeVo) {
+		noticeMapper.insertNoticeByStudent(noticeVo);
 	}
 
 	@Override
-	public void insertByTeacher(NoticeVo noticeVo) {
-		noticeMapper.insertByTeacher(noticeVo);
-
+	public void insertNoticeByTeacher(NoticeVo noticeVo) {
+		noticeMapper.insertNoticeByTeacher(noticeVo);
 	}
+
+	@Override
+	public void deleteNoticeBynSeq(long nseq) {
+		// TODO Auto-generated method stub
+		noticeMapper.deleteNoticeBynSeqS(nseq);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	@Override
 	public List<NoticeVo> selectBySucode(String sucode) {
@@ -60,10 +64,5 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-	@Override
-	public void deleteByNseqS(long nseq) {
-		// TODO Auto-generated method stub
-		noticeMapper.deleteByNseqS(nseq);
-	}
 
 }

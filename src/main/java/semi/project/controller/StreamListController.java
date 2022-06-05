@@ -124,11 +124,10 @@ public class StreamListController {
         noticeVo.setNcontent(noticeVo.getNcontent());
         if(tid !=null){
             noticeVo.setTid(tid);
-            noticeService.insertByTeacher(noticeVo);
+            noticeService.insertNoticeByTeacher(noticeVo);
         }else if(sid !=null){
             noticeVo.setSid(sid);
-            noticeService.insertByStu(noticeVo);
-
+            noticeService.insertNoticeByStudent(noticeVo);
         }
         return "redirect:mystream.do?sucode="+sucode;
     }
@@ -136,51 +135,22 @@ public class StreamListController {
     //공지삭제기능
     @GetMapping("/noticeDel.do")
     public String noticeDel(long nseq, HttpSession session) {
-        Object code = session.getAttribute("sucode");
-        String sucode = (String) code;
-        log.info("#noticeDel nseq: "+nseq);
-        noticeService.deleteByNseqS(nseq);
+        String sucode = (String) session.getAttribute("sucode");
+        noticeService.deleteNoticeBynSeq(nseq);
         return "redirect:mystream.do?sucode="+sucode;
     }
 
 
     //주제만들기 기능
     @PostMapping("/theme.do") //주제 생성
-    public String addTheme(HttpSession session, ThemeVo themeVo) {
-        Object t = session.getAttribute("loginOkTid"); //선생님 만이 주제 추가 가능
-        String tid = (String)t;
-        Object s = session.getAttribute("sucode"); //세션에서 수업코드를 가져옴.
-        String sucode = (String)s; // Object -> String
+    public String addTheme(HttpSession session, ThemeVo themeVo) throws Exception {
+        String tid = (String)session.getAttribute("loginOkTid"); //선생님 만이 주제 추가 가능
+        String sucode = (String) session.getAttribute("sucode"); //세션에서 수업코드를 가져옴.
 
-        String thcode=""; // 주제 코드를 담을 변수
-        String fail = "fail";
-        List<ThemeVo> tinfo = themeService.selectAllS(thcode);
+        themeVo.setSucode(tid);
+        themeVo.setSucode(sucode);
+        themeService.insertTheme(themeVo);
 
-        for(int j=0; j<1;){
-            StudentRandom r = new StudentRandom();
-            char[] num = r.ran();
-            if(num==null){
-                log.info("failed generate num");
-                j=0;
-            }else{
-                for(int i=0; i<num.length;i++){
-                    thcode += Character.toString(num[i]);
-                }
-                thcode = thcode.trim();
-                log.info("#thcode" + thcode);
-                boolean flag = themeService.chkThcode(thcode);
-                if(flag==true){
-                    themeVo.setThcode(thcode);
-                    themeVo.setTid(tid);
-                    themeVo.setSucode(sucode);
-                    themeService.thinsertS(themeVo);
-                    j = 1;
-                }else{
-                    log.info("retry generate num");
-                    j=0;
-                }
-            }
-        }
         return "redirect:../list/myclass.do?sucode="+sucode;
     }
 
@@ -192,31 +162,8 @@ public class StreamListController {
         String sid = (String)id;
 
         List<AlarmVo> alarmList =  alarmService.aselectBysidS(sid);
-
-        System.out.println(alarmList);
-
         ModelAndView mv = new ModelAndView("content/stream","alarmList",alarmList);
-
         return mv;
-    }
-
-
-
-
-
-
-
-    ArrayList<SubjectVo> sInfo2Header(String sid){ //header.jsp에 학생 정보를 보내기 위한 메소드입니다
-
-        List<String> sucodelist = classService.selectBySidS(sid);
-        ArrayList<SubjectVo> t = new ArrayList<SubjectVo>();
-        for(int i = 0;i<sucodelist.size();i++) {
-            List<SubjectVo> list = subjectService.selectAllS(sucodelist.get(i));
-            for(int j=0;j<list.size();j++) {
-                t.add(list.get(j));
-            }
-        }
-        return t;
     }
 
 
@@ -236,8 +183,5 @@ public class StreamListController {
         model.addAttribute("sList", sList);
         model.addAttribute("sLogin",sid);
     }
-
-
-
 
 }

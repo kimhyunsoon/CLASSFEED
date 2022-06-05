@@ -11,6 +11,12 @@ import semi.project.domain.ThemeVo;
 public interface ThemeMapper {
 
 	List<ThemeVo> selectThemeBySucode(String sucode);
+	int countThemeByThcode(String thcode);
+	void insertTheme(ThemeVo themeVo);
+
+
+
+
 
 
 

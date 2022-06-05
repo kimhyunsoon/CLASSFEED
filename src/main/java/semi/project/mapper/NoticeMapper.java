@@ -10,16 +10,16 @@ import java.util.List;
 public interface NoticeMapper {
 
     List<NoticeVo> selectNoticeBySucode(String sucode);
+    void insertNoticeByStudent(NoticeVo noticeVo);
+    void insertNoticeByTeacher(NoticeVo noticeVo);
+    void deleteNoticeBynSeqS(long nseq);
 
 
 
 
 
 
-
-    void insertByStu(NoticeVo noticeVo);
-    void insertByTeacher(NoticeVo noticeVo);
     List<NoticeVo> selectBySucode(String sucode);
 
-    void deleteByNseqS(long nseq);
+
 }

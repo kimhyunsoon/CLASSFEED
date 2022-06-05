@@ -8,14 +8,23 @@ import semi.project.domain.NoticeVo;
 public interface NoticeService {
 
     List<NoticeVo> selectNoticeBySucode(String sucode);
+    void insertNoticeByStudent(NoticeVo noticeVo);
+    void insertNoticeByTeacher(NoticeVo noticeVo);
+
+
+
+
+
+
+
+
 
     //	List<NoticeVo> selectAllS(long nseq);
 //	List<NoticeVo> nolistS();
 //	void tnoinsertS(NoticeVo noticeVo);
 //	void snoinsertS(NoticeVo noticeVo);
-	void insertByStu(NoticeVo noticeVo);
-	void insertByTeacher(NoticeVo noticeVo);
+
 	List<NoticeVo> selectBySucode(String sucode);
 
-    void deleteByNseqS(long nseq);
+    void deleteNoticeBynSeq(long nseq);
 }

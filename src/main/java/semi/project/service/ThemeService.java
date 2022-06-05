@@ -7,6 +7,8 @@ import semi.project.domain.ThemeVo;
 public interface ThemeService {
     List<ThemeVo> selectThemeBySucode(String sucode);
 
+    void insertTheme(ThemeVo themeVo) throws Exception;
+
     String selectByThcodeS(String thcode);
 	List<ThemeVo> selectAllS(String thcode);
 	void thinsertS(ThemeVo themeVo);

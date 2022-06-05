@@ -8,6 +8,13 @@
 		select * from theme where sucode=#{sucode} order by trdate desc
 	</select>
 
+	<select id="countThemeByThcode" resultType="int" parameterType="String">
+		select count(*) from theme where thcode=#{thcode}
+	</select>
+
+	<insert id ="insertTheme"  parameterType="ThemeVo">
+		insert into theme values(#{thcode}, #{tid}, #{sucode}, #{thname}, SYSDATE)
+	</insert>
 
 
 

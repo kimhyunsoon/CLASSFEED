@@ -8,45 +8,45 @@
         select * from notice where sucode = #{sucode} order by nseq desc
     </select>
 
+    <insert id="insertNoticeByTeacher" parameterType="NoticeVo">
+        insert into notice values(SEQ_NOTICE.nextval,SYSDATE,#{ncontent}, #{tid} , NULL, #{sucode})
+    </insert>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <insert id="insertByStu" parameterType="NoticeVo">
+    <insert id="insertNoticeByStudent" parameterType="NoticeVo">
         insert into notice values(SEQ_NOTICE.nextval,SYSDATE,#{ncontent}, NULL , #{sid}, #{sucode})
     </insert>
 
-    <insert id="insertByTeacher" parameterType="NoticeVo">
-        insert into notice values(SEQ_NOTICE.nextval,SYSDATE,#{ncontent}, #{tid} , NULL, #{sucode})
-    </insert>
+    <delete id="deleteNoticeBynSeqS" parameterType="long">
+        delete notice where nseq = #{nseq}
+    </delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <select id="selectBySucode" resultType="NoticeVo" parameterType="String">
         select * from notice where sucode = #{sucode} order by nseq desc
     </select>
 
-    <delete id="deleteByNseqS" parameterType="long">
-        delete notice where nseq = #{nseq}
-    </delete>
+
 
 
 
