@@ -2,6 +2,7 @@ package semi.project.service;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import semi.project.domain.StudentRandom;
 import semi.project.domain.SubjectVo;
 import semi.project.domain.TeacherVo;
 import semi.project.mapper.SubjectMapper;
@@ -19,6 +20,13 @@ public class SubjectServiceImpl implements SubjectService {
 	public SubjectServiceImpl(SubjectMapper subjectMapper){
 		this.subjectMapper = subjectMapper;
 	}
+
+
+	@Override
+	public int validateSubjectExist(String sucode){
+		return subjectMapper.countSubjectBySucode(sucode);
+	}
+
 
 	@Override
 	public List<SubjectVo> selectSubjectByTid(String tid) {
@@ -42,6 +50,27 @@ public class SubjectServiceImpl implements SubjectService {
 		}
 		return subjectVoList;
 	}
+
+	@Override
+	public void insertSubject(SubjectVo subjectVo){
+		String sucode = "";
+		StudentRandom random = new StudentRandom();
+		char[] num = random.ran(); // 랜덤 과목코드 생성
+
+		if (num == null) {
+			this.insertSubject(subjectVo);
+		}
+		for (int i = 0; i < num.length; i++) {
+			sucode += Character.toString(num[i]);
+		}
+		sucode = sucode.trim();
+		if (subjectMapper.countSubjectBySucode(sucode) > 0) {
+			this.insertSubject(subjectVo);
+		}
+		subjectVo.setSucode(sucode); // sucode 값 셋팅
+		subjectMapper.insertSubject(subjectVo); // 과목  insert
+	}
+
 
 	@Override
 	public void updateSubjectKeepOn(String skeep, String sucode) {

@@ -1,21 +1,19 @@
 package semi.project.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import semi.project.domain.*;
+import semi.project.domain.AlarmVo;
+import semi.project.domain.StudentVo;
+import semi.project.domain.SubjectVo;
+import semi.project.domain.TeacherVo;
 import semi.project.service.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -116,7 +114,7 @@ public class MainController {
 
 
 	private void setTeacherDefaultInfo(String tid, Model model){
-		List<TeacherVo> tList= teacherService.selectTeacherByTid(tid);
+		List<TeacherVo> tList= teacherService.selectTeacherListByTid(tid);
 		List<SubjectVo> tSubList = subjectService.selectSubjectByTid(tid);
 		model.addAttribute("tSubList",tSubList);
 		model.addAttribute("tList", tList);

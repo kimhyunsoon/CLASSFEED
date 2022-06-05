@@ -121,7 +121,6 @@ public class StreamListController {
         String sucode = (String) session.getAttribute("sucode");
 
         noticeVo.setSucode(sucode);
-        noticeVo.setNcontent(noticeVo.getNcontent());
         if(tid !=null){
             noticeVo.setTid(tid);
             noticeService.insertNoticeByTeacher(noticeVo);
@@ -147,7 +146,7 @@ public class StreamListController {
         String tid = (String)session.getAttribute("loginOkTid"); //선생님 만이 주제 추가 가능
         String sucode = (String) session.getAttribute("sucode"); //세션에서 수업코드를 가져옴.
 
-        themeVo.setSucode(tid);
+        themeVo.setTid(tid);
         themeVo.setSucode(sucode);
         themeService.insertTheme(themeVo);
 
@@ -168,7 +167,7 @@ public class StreamListController {
 
 
     private void setTeacherDefaultInfo(String tid, Model model){
-        List<TeacherVo> tList= teacherService.selectTeacherByTid(tid);
+        List<TeacherVo> tList= teacherService.selectTeacherListByTid(tid);
         List<SubjectVo> tSubList = subjectService.selectSubjectByTid(tid);
         model.addAttribute("tSubList",tSubList);
         model.addAttribute("tList", tList);

@@ -10,6 +10,8 @@ public interface ClassService {
 
     List<String> selectSucodeBySid(String sid);
 
+    void insertClass(ClassVo classVo);
+
     List<SubjectVo> selectBySucodeS(String sucode);
 	List<String> selectBySidS(String sid);
 	void insertS(ClassVo classVo);

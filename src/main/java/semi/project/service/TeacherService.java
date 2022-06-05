@@ -5,7 +5,22 @@ import java.util.List;
 import semi.project.domain.TeacherVo;
 
 public interface TeacherService {
-	List<TeacherVo> selectTeacherByTid(String tid);
+	List<TeacherVo> selectTeacherListByTid(String tid);
+
+	int validateTeacherExist(String tid);
+
+	TeacherVo selectTeacherByTid(String tid);
+
+
+
+
+
+
+
+
+
+
+
 
 	String tloginS(String tid, String tpwd);
 	String tidckS(String tid); // 선생 or 학생 구분

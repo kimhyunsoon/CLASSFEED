@@ -8,9 +8,13 @@ import semi.project.domain.SubjectVo;
 import semi.project.domain.TeacherVo;
 
 public interface SubjectService {
+    int validateSubjectExist(String sucode);
+
     List<SubjectVo> selectSubjectByTid(String tid);
 	List<SubjectVo> selectSubjectBySucodeList(String sucode);
 	List<SubjectVo> selectAttendedSubject(List<String> sucodeList);
+
+	void insertSubject(SubjectVo subjectVo);
 
 	void updateSubjectKeepOn(@Param("skeep")String skeep, @Param("sucode")String sucode);
 	void updateSubjectKeepOff(@Param("skeep")String skeep, @Param("sucode")String sucode);

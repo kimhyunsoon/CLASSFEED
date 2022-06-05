@@ -1,5 +1,6 @@
 package semi.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -22,10 +23,22 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public List<TeacherVo> selectTeacherByTid(String tid) {
-		return teacherMapper.selectTeacherByTid(tid);
+	public List<TeacherVo> selectTeacherListByTid(String tid) {
+		List<TeacherVo> teacherVoList = new ArrayList<>();
+		TeacherVo teacherVo= teacherMapper.selectTeacherByTid(tid);
+		teacherVoList.add(teacherVo);
+		return teacherVoList;
 	}
 
+	@Override
+	public int validateTeacherExist(String tid) {
+		return teacherMapper.countTeacherByTid(tid);
+	}
+
+	@Override
+	public TeacherVo selectTeacherByTid(String tid) {
+		return teacherMapper.selectTeacherByTid(tid);
+	}
 
 
 

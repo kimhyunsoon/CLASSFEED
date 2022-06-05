@@ -32,6 +32,27 @@ public class ClassServiceImpl implements ClassService {
 		return classMapper.selectSucodeBySid(sid);
 	}
 
+	@Override
+	public void insertClass(ClassVo classVo) {
+		if(classMapper.countClassByStudent(classVo) == 0){
+			classMapper.insertClass(classVo);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	

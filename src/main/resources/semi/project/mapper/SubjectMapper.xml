@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.SubjectMapper">
 
+	<select id="countSubjectBySucode" resultType="int" parameterType="String">
+		select count(*) from subject where sucode = #{sucode}
+	</select>
+
+
+
 	<select id="selectSubjectByTid" resultType="SubjectVo" parameterType="String">
 		select * from subject where tid = #{tid}
 	</select>
@@ -16,7 +22,12 @@
 			class a
 			inner join subject b
 			on(a.sucode = b.sucode)
+		where b.sucode = #{sucode}
 	</select>
+
+	<insert id="insertSubject" parameterType="SubjectVo">
+		insert into subject values(#{sucode},#{tid},#{tname},#{suname},#{ssubname},default)
+	</insert>
 
 	<update id="updateSubjectKeepOn" parameterType="String">
 		update subject set skeep=#{skeep} where sucode = #{sucode}

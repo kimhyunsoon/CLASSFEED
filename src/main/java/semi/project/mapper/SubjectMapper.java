@@ -11,9 +11,11 @@ import semi.project.domain.TeacherVo;
 
 @Repository
 public interface SubjectMapper {
+	int countSubjectBySucode(String sucode);
 	List<SubjectVo> selectSubjectByTid(String tid);
 	SubjectVo selectSubjectBySucode(String sucode);
 
+	void insertSubject(SubjectVo subjectVo);
 	void updateSubjectKeepOn(@Param("skeep")String skeep, @Param("sucode")String sucode);
 	void updateSubjectKeepOff(@Param("skeep")String skeep, @Param("sucode")String sucode);
 

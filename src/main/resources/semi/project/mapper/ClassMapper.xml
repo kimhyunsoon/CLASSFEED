@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.ClassMapper">
 
+	<select id="countClassByStudent" resultType="int" parameterType="ClassVo">
+		select count(*) from class where sucode=#{sucode} and sid = #{sid}
+	</select>
+
+
 	<select id="selectClassBySid" resultType="ClassVo" parameterType="String">
 		select * from class where sid=#{sid}
 	</select>
@@ -11,6 +16,10 @@
 	<select id="selectSucodeBySid" resultType="String" parameterType="String">
 		select sucode from class where sid=#{sid}
 	</select>
+
+	<insert id="insertClass" parameterType="ClassVo">
+		insert into class values(#{sucode}, #{sid})
+	</insert>
 
 
 

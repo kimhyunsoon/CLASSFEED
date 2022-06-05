@@ -9,7 +9,8 @@ import semi.project.domain.TeacherVo;
 @Repository
 public interface TeacherMapper {
 
-	List<TeacherVo> selectTeacherByTid (String tid);
+	int countTeacherByTid (String tid);
+	TeacherVo selectTeacherByTid (String tid);
 
 
 
