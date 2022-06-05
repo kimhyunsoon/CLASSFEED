@@ -4,6 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.ThemeMapper">
 
+	<select id="selectThemeBySucode" resultType="ThemeVo" parameterType="String">
+		select * from theme where sucode=#{sucode} order by trdate desc
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<select id="selectByThcode" resultType="String" parameterType="String">
 		select thcode from theme where thcode = #{thcode} order by trdate desc
 	</select>

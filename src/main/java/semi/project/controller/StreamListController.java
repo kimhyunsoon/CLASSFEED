@@ -63,38 +63,22 @@ public class StreamListController {
 
     // 스트림 탭의 리스트(공지,과제,자료) 출력
     @GetMapping("/mystream.do")
-    public String myStream(String sucode,
-                           HttpSession session,
-                           Model model) throws Exception {
+    public String myStream(String sucode,HttpSession session,Model model) throws Exception {
         String tid = (String)session.getAttribute("loginOkTid");
         String sid = (String)session.getAttribute("loginOksid");
 
-        if(sucode.equals("")){
-            throw new Exception("sucode가 존재하지 않음");
-        }
+        if(sucode.equals("")) throw new Exception("sucode가 존재하지 않음");
         session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅
 
         if(tid!=null) { // tid가 null이 아니라는건 session에 tid 값이 존재(= 선생님이 로그인중)
-            /**
-             * header(사이드바 등)에 subject의 데이타를 보냅니다
-             */
-            //선생님일때
-            Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
-            model.addAttribute("tSubList",teacherInfo.get("tSubject"));
-            model.addAttribute("tList", teacherInfo.get("tList"));
-            model.addAttribute("tLogin",tid);
-
+            this.setTeacherDefaultInfo(tid, model);
         }else {
-            //학생일때
-            Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
-            model.addAttribute("sSubList",studentInfo.get("sSubList"));
-            model.addAttribute("sList", studentInfo.get("sList"));
-            model.addAttribute("sLogin",sid);
+            this.setStudentDefaultInfo(sid, model);
         }
 
-        List<SubjectVo> subList = subjectService.selectAllS(sucode); //수업코드로 subject 테이블 호출
-        List<BoardVo> boardList = boardService.selectBySucode(sucode); //수업코드로 board 테이블 호출(테마 테이블 거쳐서)
-        List<NoticeVo> noticeList = noticeService.selectBySucode(sucode); //수업코드로 공지테이블 호출
+        List<SubjectVo> subList = subjectService.selectSubjectBySucodeList(sucode); //수업코드로 subject 테이블 호출
+        List<BoardVo> boardList = boardService.selectBoardBySucode(sucode); //수업코드로 board 테이블 호출(테마 테이블 거쳐서)
+        List<NoticeVo> noticeList = noticeService.selectNoticeBySucode(sucode); //수업코드로 공지테이블 호출
         model.addAttribute("subList",subList);
         model.addAttribute("boardList", boardList);
         model.addAttribute("noticeList", noticeList);
@@ -110,28 +94,20 @@ public class StreamListController {
         String tid = (String)session.getAttribute("loginOkTid");
         String sid = (String)session.getAttribute("loginOksid");
 
-        if(sucode.equals("")){
-            throw new Exception("sucode가 존재하지 않음");
-        }
+        if(sucode.equals("")) throw new Exception("sucode가 존재하지 않음");
         session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅
 
         if(tid!=null) {
-            Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
-            model.addAttribute("tSubList",teacherInfo.get("tSubject"));
-            model.addAttribute("tList", teacherInfo.get("tList"));
-            model.addAttribute("tLogin",tid);
+            this.setTeacherDefaultInfo(tid, model);
         }else{
-            Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
-            model.addAttribute("sSubList",studentInfo.get("sSubList"));
-            model.addAttribute("sList", studentInfo.get("sList"));
-            model.addAttribute("sLogin",sid);
+            this.setStudentDefaultInfo(sid, model);
         }
 
-        List<SubjectVo> subList = subjectService.selectAllS(sucode); //수업코드로 subject 테이블 불러오기
-        List<BoardVo> blist = boardService.boardSelectClassS(sucode); //수업코드로 board 테이블 호출
-        List<ThemeVo> thlist = themeService.selectAllClassS(sucode); //수업코드로 theme 테이블 호출
+        List<SubjectVo> subList = subjectService.selectSubjectBySucodeList(sucode); //수업코드로 subject 테이블 호출
+        List<BoardVo> boardList = boardService.selectBoardBySucode(sucode); //수업코드로 board 테이블 호출(테마 테이블 거쳐서)
+        List<ThemeVo> thlist = themeService.selectThemeBySucode(sucode); //수업코드로 theme 테이블 호출
         model.addAttribute("subList",subList);
-        model.addAttribute("blist",blist);
+        model.addAttribute("blist",boardList);
         model.addAttribute("thlist",thlist);
 
         return "content/class";
@@ -140,26 +116,17 @@ public class StreamListController {
     // 공지입력기능
     @PostMapping("/notice.do")
     public String addNotice(HttpSession session, NoticeVo noticeVo){
-        Object teacher = session.getAttribute("loginOkTid");
-        String tid = (String) teacher;
-        Object student = session.getAttribute("loginOksid");
-        String sid = (String) student;
-        Object code = session.getAttribute("sucode");
-        String sucode = (String) code;
-        log.info("tid login"+tid+"sid"+sid+"sucode"+sucode);
+        String tid = (String)session.getAttribute("loginOkTid");
+        String sid = (String)session.getAttribute("loginOksid");
+        String sucode = (String) session.getAttribute("sucode");
 
-        String ncontent = noticeVo.getNcontent();
-
+        noticeVo.setSucode(sucode);
+        noticeVo.setNcontent(noticeVo.getNcontent());
         if(tid !=null){
             noticeVo.setTid(tid);
-            noticeVo.setNcontent(ncontent);
-            noticeVo.setSucode(sucode);
             noticeService.insertByTeacher(noticeVo);
         }else if(sid !=null){
-            //noticeVo = new NoticeVo(-1, null, ncontent, null, sid, sucode);
             noticeVo.setSid(sid);
-            noticeVo.setNcontent(ncontent);
-            noticeVo.setSucode(sucode);
             noticeService.insertByStu(noticeVo);
 
         }
@@ -253,20 +220,21 @@ public class StreamListController {
     }
 
 
-    private Map<String,Object> getTeacherDefaultInfo(String tid){
-        Map<String, Object> infoMap = new HashMap<>();
-        infoMap.put("tList",teacherService.selectTeacherByTid(tid));
-        infoMap.put("tSubject",subjectService.selectSubjectByTid(tid));
-        return infoMap;
+    private void setTeacherDefaultInfo(String tid, Model model){
+        List<TeacherVo> tList= teacherService.selectTeacherByTid(tid);
+        List<SubjectVo> tSubList = subjectService.selectSubjectByTid(tid);
+        model.addAttribute("tSubList",tSubList);
+        model.addAttribute("tList", tList);
+        model.addAttribute("tLogin",tid);
     }
 
-    private Map<String,Object> getStudentDefaultInfo(String sid){
-        Map<String, Object> infoMap = new HashMap<>();
+    private void setStudentDefaultInfo(String sid, Model model){
+        List<StudentVo> sList = studentService.selectStudentBySid(sid);
         List<String> sucodeList = classService.selectSucodeBySid(sid);
-
-        infoMap.put("sList",studentService.selectStudentBySid(sid));
-        infoMap.put("sSubList",subjectService.selectAttendedSubject(sucodeList));
-        return infoMap;
+        List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
+        model.addAttribute("sSubList",sSubList);
+        model.addAttribute("sList", sList);
+        model.addAttribute("sLogin",sid);
     }
 
 

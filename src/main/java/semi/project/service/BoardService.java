@@ -5,6 +5,8 @@ import semi.project.domain.BoardVo;
 import java.util.List;
 
 public interface BoardService {
+    List<BoardVo> selectBoardBySucode(String sucode);
+
     void insertBoardOkFileS(BoardVo boardVo);
     void insertBoardNotFileS(BoardVo boardVo);
     void insertNotFileS(BoardVo boardVo);

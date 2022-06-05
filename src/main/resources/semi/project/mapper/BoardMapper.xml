@@ -4,6 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.BoardMapper">
 
+    <select id="selectBoardBySucode" resultType="BoardVo" parameterType="String">
+        select * from board where thcode in(select thcode from THEME where sucode=#{sucode})
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

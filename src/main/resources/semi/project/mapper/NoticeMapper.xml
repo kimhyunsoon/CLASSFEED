@@ -4,6 +4,34 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="semi.project.mapper.NoticeMapper">
 
+    <select id="selectNoticeBySucode" resultType="NoticeVo" parameterType="String">
+        select * from notice where sucode = #{sucode} order by nseq desc
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <insert id="insertByStu" parameterType="NoticeVo">
         insert into notice values(SEQ_NOTICE.nextval,SYSDATE,#{ncontent}, NULL , #{sid}, #{sucode})
     </insert>

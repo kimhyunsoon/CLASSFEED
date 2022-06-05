@@ -33,7 +33,6 @@ public class MainController {
     private ClassService classService;
     private TeacherService teacherService;
 	private StudentService studentService;
-    private ThemeService themeService;
     private AlarmService alarmService;
 
     private static final String Y = "Y";
@@ -53,23 +52,6 @@ public class MainController {
     	this.alarmService = alarmService;
 	}
 
-	private Map<String,Object> getTeacherDefaultInfo(String tid){
-    	Map<String, Object> infoMap = new HashMap<>();
-		infoMap.put("tList",teacherService.selectTeacherByTid(tid));
-		infoMap.put("tSubject",subjectService.selectSubjectByTid(tid));
-    	return infoMap;
-	}
-
-	private Map<String,Object> getStudentDefaultInfo(String sid){
-		Map<String, Object> infoMap = new HashMap<>();
-		List<String> sucodeList = classService.selectSucodeBySid(sid);
-
-		infoMap.put("sList",studentService.selectStudentBySid(sid));
-		infoMap.put("sSubList",subjectService.selectAttendedSubject(sucodeList));
-		return infoMap;
-	}
-
-
 
     //메인리스트 출력
     @GetMapping("/list.do")
@@ -81,20 +63,29 @@ public class MainController {
 		if(tid == null && sid == null) return "redirect:/";
 
 		if(tid != null) {
-			//선생님일때
-			Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
-			model.addAttribute("tSubList",teacherInfo.get("tSubject"));
-			model.addAttribute("tList", teacherInfo.get("tList"));
-
+			this.setTeacherDefaultInfo(tid, model); 			//선생님일때
 		}else {
-			//학생일때
-			Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
-			model.addAttribute("sSubList",studentInfo.get("sSubList"));
-			model.addAttribute("sList", studentInfo.get("sList"));
+			this.setStudentDefaultInfo(sid, model); 			//학생일때
 		}
 		return "index";
 	}
 
+
+
+	@GetMapping("keepList.do") //수업보관함 리스트 불러오기
+	public String keepList(SubjectVo subjectVo, HttpSession session, Model model) {
+		String tid = (String)session.getAttribute("loginOkTid");
+		String sid = (String)session.getAttribute("loginOksid");
+
+		if(tid == null && sid == null) return "redirect:/";
+
+		if(tid != null) {
+			this.setTeacherDefaultInfo(tid, model);			//선생님일때
+		}else {
+			this.setStudentDefaultInfo(sid, model);			//학생일때
+		}
+		return "content/keep";
+	}
 
 	@GetMapping("keepOn.do") //수업 보관
 	public String keepOnSubject(String sucode) {
@@ -112,43 +103,33 @@ public class MainController {
 
 
 
-	@GetMapping("keepList.do") //수업보관함 리스트 불러오기
-	public String keepList(SubjectVo subjectVo, HttpSession session, Model model) {
-		String tid = (String)session.getAttribute("loginOkTid");
-		String sid = (String)session.getAttribute("loginOksid");
-
-		if(tid == null && sid == null) return "redirect:/";
-
-		if(tid != null) {
-			//선생님일때
-			Map<String, Object> teacherInfo= this.getTeacherDefaultInfo(tid);
-			model.addAttribute("tSubList",teacherInfo.get("tSubject"));
-			model.addAttribute("tList", teacherInfo.get("tList"));
-
-		}else {
-			//학생일때
-			Map<String, Object> studentInfo= this.getStudentDefaultInfo(sid);
-			model.addAttribute("sSubList",studentInfo.get("sSubList"));
-			model.addAttribute("sList", studentInfo.get("sList"));
-		}
-		return "content/keep";
-	}
-
-
-
 	@GetMapping("/alarm.do")
 	public ModelAndView mainAlarm(HttpSession session) {
 		Object id = session.getAttribute("sid");
 		String sid = (String)id;
 
 		List<AlarmVo> alarmList =  alarmService.aselectBysidS(sid);
-
-		System.out.println(alarmList);
-
 		ModelAndView mv = new ModelAndView("index","alarmList",alarmList);
 
 		return mv;
 	}
+
+
+	private void setTeacherDefaultInfo(String tid, Model model){
+		List<TeacherVo> tList= teacherService.selectTeacherByTid(tid);
+		List<SubjectVo> tSubList = subjectService.selectSubjectByTid(tid);
+		model.addAttribute("tSubList",tSubList);
+		model.addAttribute("tList", tList);
+	}
+
+	private void setStudentDefaultInfo(String sid, Model model){
+		List<StudentVo> sList = studentService.selectStudentBySid(sid);
+		List<String> sucodeList = classService.selectSucodeBySid(sid);
+		List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
+		model.addAttribute("sSubList",sSubList);
+		model.addAttribute("sList", sList);
+	}
+
 
 
 }

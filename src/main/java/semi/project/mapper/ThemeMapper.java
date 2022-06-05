@@ -10,6 +10,12 @@ import semi.project.domain.ThemeVo;
 @Repository
 public interface ThemeMapper {
 
+	List<ThemeVo> selectThemeBySucode(String sucode);
+
+
+
+
+
 	String selectByThcode(String thcode);
 	List<ThemeVo> selectAll(String thcode);
 	void thinsert(ThemeVo themeVo);

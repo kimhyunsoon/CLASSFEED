@@ -10,6 +10,28 @@ import java.util.List;
 
 @Repository
 public interface BoardMapper {
+    List<BoardVo> selectBoardBySucode(String sucode);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     void insertNotFile(BoardVo boardVo);
     void insertOkFile(BoardVo boardVo);
     void insertBoardOkFile(BoardVo boardVo);

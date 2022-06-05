@@ -12,10 +12,36 @@ import semi.project.mapper.ThemeMapper;
 
 @Service
 @Log4j
-@AllArgsConstructor
 public class ThemeServiceImpl implements ThemeService {
 
 	private ThemeMapper themeMapper;
+
+	public ThemeServiceImpl(ThemeMapper themeMapper){
+		this.themeMapper = themeMapper;
+	}
+
+
+	@Override
+	public List<ThemeVo> selectThemeBySucode(String sucode) {
+		// TODO Auto-generated method stub
+		return themeMapper.selectThemeBySucode(sucode);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	@Override
 	public String selectByThcodeS(String thcode) {

@@ -18,10 +18,48 @@ import java.util.List;
 
 @Log4j
 @Service
-@AllArgsConstructor
 public class BoardServiceImpl implements BoardService, FileUploadService {
 
 	private BoardMapper boardMapper;
+
+	public BoardServiceImpl(BoardMapper boardMapper){
+		this.boardMapper = boardMapper;
+	}
+
+	@Override
+	public List<BoardVo> selectBoardBySucode(String sucode) {
+		return boardMapper.selectBoardBySucode(sucode);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	@Override
 	public void insertBoardOkFileS(BoardVo boardVo) {

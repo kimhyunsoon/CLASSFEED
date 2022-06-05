@@ -6,8 +6,10 @@ import semi.project.domain.BoardVo;
 import semi.project.domain.NoticeVo;
 
 public interface NoticeService {
-	
-//	List<NoticeVo> selectAllS(long nseq);
+
+    List<NoticeVo> selectNoticeBySucode(String sucode);
+
+    //	List<NoticeVo> selectAllS(long nseq);
 //	List<NoticeVo> nolistS();
 //	void tnoinsertS(NoticeVo noticeVo);
 //	void snoinsertS(NoticeVo noticeVo);

@@ -12,8 +12,34 @@ import semi.project.mapper.NoticeMapper;
 @Log4j
 @Service
 public class NoticeServiceImpl implements NoticeService {
-	@Autowired
+
 	private NoticeMapper noticeMapper;
+
+	public NoticeServiceImpl(NoticeMapper noticeMapper){
+		this.noticeMapper = noticeMapper;
+	}
+
+
+	@Override
+	public List<NoticeVo> selectNoticeBySucode(String sucode) {
+		return noticeMapper.selectNoticeBySucode(sucode);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	@Override

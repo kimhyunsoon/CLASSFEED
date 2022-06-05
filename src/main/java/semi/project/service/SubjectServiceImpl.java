@@ -26,9 +26,11 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectMapper.selectSubjectByTid(tid);
 	}
 	@Override
-	public SubjectVo selectSubjectBySucode(String sucode) {
+	public List<SubjectVo> selectSubjectBySucodeList(String sucode) {
 		// TODO Auto-generated method stub
-		return subjectMapper.selectSubjectBySucode(sucode);
+		List<SubjectVo> subjectVoList = new ArrayList<>();
+		subjectVoList.add(subjectMapper.selectSubjectBySucode(sucode));
+		return subjectVoList;
 	}
 
 	@Override
@@ -41,6 +43,15 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectVoList;
 	}
 
+	@Override
+	public void updateSubjectKeepOn(String skeep, String sucode) {
+		subjectMapper.updateSubjectKeepOn(skeep, sucode);
+	}
+
+	@Override
+	public void updateSubjectKeepOff(String skeep, String sucode) {
+		subjectMapper.updateSubjectKeepOff(skeep, sucode);
+	}
 
 
 
@@ -69,8 +80,6 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public List<SubjectVo> selectAllS(String sucode) {
-		// TODO Auto-generated method stub
-		log.info("kkkkkkkkkkk");
 		return subjectMapper.selectAll(sucode);
 	}
 
@@ -121,15 +130,6 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectMapper.selectTid(sucode);
 	}
 
-	@Override
-	public void updateSubjectKeepOn(String skeep, String sucode) {
-		subjectMapper.updateSubjectKeepOn(skeep, sucode);
-	}
-
-	@Override
-	public void updateSubjectKeepOff(String skeep, String sucode) {
-		subjectMapper.updateSubjectKeepOff(skeep, sucode);
-	}
 
 
 }

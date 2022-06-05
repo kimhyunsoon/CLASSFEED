@@ -8,6 +8,15 @@ import java.util.List;
 
 @Repository
 public interface NoticeMapper {
+
+    List<NoticeVo> selectNoticeBySucode(String sucode);
+
+
+
+
+
+
+
     void insertByStu(NoticeVo noticeVo);
     void insertByTeacher(NoticeVo noticeVo);
     List<NoticeVo> selectBySucode(String sucode);
