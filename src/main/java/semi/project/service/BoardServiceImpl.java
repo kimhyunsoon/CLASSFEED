@@ -14,6 +14,7 @@ import semi.project.mapper.BoardMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j
@@ -31,7 +32,18 @@ public class BoardServiceImpl implements BoardService, FileUploadService {
 		return boardMapper.selectBoardBySucode(sucode);
 	}
 
+	@Override
+	public BoardVo selectBoardBySeq(long bseq) {
+		return boardMapper.selectBoardBySeq(bseq);
+	}
 
+	@Override
+	public List<BoardVo> selectBoardListBySeq(long bseq) {
+		List<BoardVo> boardVoList = new ArrayList<>();
+		BoardVo boardVo = boardMapper.selectBoardBySeq(bseq);
+		boardVoList.add(boardVo);
+		return boardVoList;
+	}
 
 
 

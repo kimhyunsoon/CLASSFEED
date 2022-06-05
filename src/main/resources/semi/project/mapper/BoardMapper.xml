@@ -8,6 +8,10 @@
         select * from board where thcode in(select thcode from THEME where sucode=#{sucode})
     </select>
 
+    <select id="selectBoardBySeq" resultType="BoardVo" parameterType="long">
+        select * from board where bseq = #{bseq}
+    </select>
+
 
 
 

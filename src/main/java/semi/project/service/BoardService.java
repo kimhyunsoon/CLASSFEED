@@ -7,6 +7,10 @@ import java.util.List;
 public interface BoardService {
     List<BoardVo> selectBoardBySucode(String sucode);
 
+    BoardVo selectBoardBySeq(long bseq);
+
+    List<BoardVo> selectBoardListBySeq(long bseq);
+
     void insertBoardOkFileS(BoardVo boardVo);
     void insertBoardNotFileS(BoardVo boardVo);
     void insertNotFileS(BoardVo boardVo);

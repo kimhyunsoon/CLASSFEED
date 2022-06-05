@@ -12,17 +12,9 @@ public interface TeacherService {
 	TeacherVo selectTeacherByTid(String tid);
 
 
+    TeacherVo selectTeacherBybSeq(long bseq);
 
-
-
-
-
-
-
-
-
-
-	String tloginS(String tid, String tpwd);
+    String tloginS(String tid, String tpwd);
 	String tidckS(String tid); // 선생 or 학생 구분
 	void tinsertS(TeacherVo teacherVo);
 	TeacherVo tlnfoS(String tid);

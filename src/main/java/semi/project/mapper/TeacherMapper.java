@@ -11,6 +11,7 @@ public interface TeacherMapper {
 
 	int countTeacherByTid (String tid);
 	TeacherVo selectTeacherByTid (String tid);
+	TeacherVo selectTeacherBybSeq (long bseq);
 
 
 

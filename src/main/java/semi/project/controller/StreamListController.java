@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,6 +94,10 @@ public class StreamListController {
 
         String tid = (String)session.getAttribute("loginOkTid");
         String sid = (String)session.getAttribute("loginOksid");
+
+        if(!ObjectUtils.isEmpty(session.getAttribute("sucode"))){
+            sucode = (String) session.getAttribute("sucode");
+        }
 
         if(sucode.equals("")) throw new Exception("sucode가 존재하지 않음");
         session.setAttribute("sucode", sucode); // key=sucode, value=sucode 세션에 셋팅

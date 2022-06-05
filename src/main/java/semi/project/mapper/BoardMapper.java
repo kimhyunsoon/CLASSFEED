@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface BoardMapper {
     List<BoardVo> selectBoardBySucode(String sucode);
+    BoardVo selectBoardBySeq(long bseq);
 
 
 

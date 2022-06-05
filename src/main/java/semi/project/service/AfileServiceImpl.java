@@ -11,10 +11,41 @@ import java.util.List;
 
 
 @Service
-@AllArgsConstructor
 @Log4j
 public class AfileServiceImpl implements AfileService {
 	private AfileMapper afileMapper;
+
+	public AfileServiceImpl(AfileMapper afileMapper){
+		this.afileMapper = afileMapper;
+	}
+
+
+	@Override
+	public List<AfileVo> selectAfileListBybSeq(long bseq) {
+		return afileMapper.selectAfileListBybSeq(bseq);
+	}
+
+	@Override
+	public List<AfileVo> selectMyfileList(AfileVo afileVo) {
+		return afileMapper.selectMyfileList(afileVo);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@Override
 	public void fileUploadS(AfileVo afileVo) {
 		// TODO Auto-generated method stub

@@ -3,6 +3,7 @@ package semi.project.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,89 +46,65 @@ public class BoardController {
     private FileUploadService fileUploadService;
     private AfileService afileService;
 
+    private void setTeacherDefaultInfo(String tid, Model model){
+        List<TeacherVo> tList= teacherService.selectTeacherListByTid(tid);
+        List<SubjectVo> tSubList = subjectService.selectSubjectByTid(tid);
+        TeacherVo teacherVo = teacherService.selectTeacherByTid(tid);
+        model.addAttribute("tSubList",tSubList);
+        model.addAttribute("tList", tList);
+        model.addAttribute("tLogin",tid);
+        model.addAttribute("tname",teacherVo.getTname());
+    }
 
+    private void setStudentDefaultInfo(String sid, Model model){
+        List<StudentVo> sList = studentService.selectStudentBySid(sid);
+        List<String> sucodeList = classService.selectSucodeBySid(sid);
+        List<SubjectVo> sSubList = subjectService.selectAttendedSubject(sucodeList);
+        model.addAttribute("sSubList",sSubList);
+        model.addAttribute("sList", sList);
+        model.addAttribute("sLogin",sid);
+    }
 
     // 수업 탭에서 과제or자료를 눌렀을때
     @GetMapping("/content.do")
-    public ModelAndView readBoard(String sucode, HttpSession session,long bseq, BoardVo boardVo, AfileVo afileVo) {
-        Object id1 = session.getAttribute("loginOksid"); // session 에서 sid 값 불러오기
-        Object id2 = session.getAttribute("loginOkTid"); // session 에서 tid 값 불러오기
-        Object code = session.getAttribute("sucode");
-        String sid = (String)id1;
-        String tid = (String)id2;
-        String gaincode = (String)code;
-        log.info("세션에서 받아온: "+gaincode);
-        log.info("#boadlist sid:"+sid+" seq: "+bseq);
-        log.info("#boadlist tid:"+tid+" seq: "+bseq);
-        List<SubjectVo> subList = subjectService.selectAllS(gaincode); //수업코드로 subject 테이블 불러오기
+    public String readBoard(Model model, HttpSession session, long bseq, AfileVo afileVo) {
+        String tid = (String)session.getAttribute("loginOkTid");
+        String sid = (String)session.getAttribute("loginOksid");
+        String sucode = (String) session.getAttribute("sucode");
 
+        List<SubjectVo> subjectVoList = subjectService.selectSubjectBySucodeList(sucode); //수업코드로 subject 테이블 불러오기
+        List<BoardVo> boardVoList =  boardService.selectBoardListBySeq(bseq);
+        model.addAttribute("subList",subjectVoList);
+        model.addAttribute("list",boardVoList);
 
         
         if(tid != null){
-            String tname = teacherService.tnameS(tid);
-            List<SubjectVo> list = subjectService.selectBytid(tid);
-            List<TeacherVo> tlist = teacherService.tNameCkS(tid);
-            List<BoardVo> blist =  boardService.boardSelectBySeqS(bseq);
-            List<AfileVo> submitList = afileService.afileSelectBySeqS(bseq); //제출한 학생 리스트
-            log.info("#submission list"+submitList);
-            log.info("bseq를 사용해서불러온 보드리스트"+blist);
-            log.info("선생님아이디"+tid);
-            log.info("수업코드로 받아온 서브젝트 정보"+subList);
-            log.info("센세 아이디로 받아온 서브젝트 정보"+list);
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/board");
-            mv.addObject("tLogin",tid);
-            mv.addObject("tname",tname);
-            mv.addObject("list", blist);
-            mv.addObject("submit", submitList);
-            mv.addObject("subList",subList); //header.jsp
-            mv.addObject("tSubList", list); //header.jsp
-            mv.addObject("tList", tlist); //header.jsp
-            return mv;
+            this.setTeacherDefaultInfo(tid, model);
+            List<AfileVo> submitList = afileService.selectAfileListBybSeq(bseq); //제출한 학생 리스트
+            model.addAttribute("submit",submitList);
 
-        }else if(sid !=null){
-            String writeTid = boardService.boardSelectTidS(bseq); // bseq를 이용해 선생님 아이디 불러옴
-            log.info("writeTid"+writeTid);
-            String tname = teacherService.tnameS(writeTid); // 불러온 tid를 이용해서 선생님 이름 불러옴
-            List<BoardVo> list =  boardService.boardSelectBySeqS(bseq);
-            log.info("bseq를 사용해서불러온"+list);
-            log.info("#sid: "+sid);
+        }else{
+            this.setStudentDefaultInfo(sid, model);
+
             afileVo.setSid(sid);
             afileVo.setBseq(bseq);
-            List<AfileVo> submitList = afileService.afileSelectBySids(afileVo);
-            log.info("submitList: "+submitList);
+            List<AfileVo> submitList = afileService.selectMyfileList(afileVo);
+            TeacherVo teacherVo= teacherService.selectTeacherBybSeq(bseq); //bseq로 선생님 정보 불러옴
 
-
-
-            List<StudentVo> slist = studentService.sNameCkS(sid);
-            log.info("slist: "+slist);
-            ArrayList<SubjectVo> t= sInfo2Header(sid);
-
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("content/board");
-            mv.addObject("list", list); //보드 테이블 정보 보냄
-            mv.addObject("tname",tname);
-            mv.addObject("submit",submitList);
-            mv.addObject("subList",subList); //class.jsp, header.jsp에서
-            mv.addObject("sSubList",t); //header.jsp에서
-            mv.addObject("sList", slist); //header.jsp에서
-
-            return mv;
-
+            model.addAttribute("tname",teacherVo.getTname());
+            model.addAttribute("submit",submitList);
         }
 
-        return null;
+        return "content/board";
     }
 
+
+
     @PostMapping("update.do")
-    public String boardUpdate(BoardVo boardVo, long bseq) {
-//        boardVo.setBseq(bseq);
-
-        log.info("#update.do bitile:"+boardVo.getBtitle());
-        log.info("#update.do bcontent:"+boardVo.getBcontent());
-        log.info("#update.do bseq:"+boardVo.getBseq());
-
+    public String boardUpdate(BoardVo boardVo, @RequestParam("themelist")String thcode) {
+        boardVo.setThcode(thcode);
         boardService.boardUpdateS(boardVo);
+        //테마 코드가 안들어옴
         return "redirect:../list/myclass.do";
     }
 

@@ -40,6 +40,11 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherMapper.selectTeacherByTid(tid);
 	}
 
+	@Override
+	public TeacherVo selectTeacherBybSeq(long bseq) {
+		return teacherMapper.selectTeacherBybSeq(bseq);
+	}
+
 
 
 
